@@ -2,6 +2,7 @@ package com.example.mapper;
 
 import com.example.model.entity.Wxuser;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Select;
 
 /**
 * @author L
@@ -10,6 +11,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 * @Entity com.example.model.entity.Wxuser
 */
 public interface WxuserMapper extends BaseMapper<Wxuser> {
+
 
 }
 

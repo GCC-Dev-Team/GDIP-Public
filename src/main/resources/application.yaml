@@ -10,3 +10,12 @@ spring:
     port: 6379
     password: 123456
     database: 5
+
+wx:
+  miniapp:
+    configs:
+      - appid: wx4854ec3bcdf16e3f
+        secret: e66b65f3f3b7174603ff5302ae7e1033
+        token: xiaoligongzuoshi
+        aesKey: xiaoligongzuoshi
+        msgDataFormat: JSON

@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import com.example.anno.NoNeedLogin;
 import com.example.common.Result;
 import com.example.model.dto.WxLoginRequest;
 import com.example.service.WxLoginService;
@@ -16,7 +17,8 @@ public class LoginController {
     @Resource
     WxLoginService wxLoginService;
 
-    @PostMapping("/")
+    @PostMapping("/wx")
+    @NoNeedLogin
     public Result wxLogin(@RequestBody WxLoginRequest wxLoginRequest) {
 
         return wxLoginService.wxLogin(wxLoginRequest);
