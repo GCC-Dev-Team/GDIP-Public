@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://8.130.43.168:3306/qing
+    username: root
+    password: abC123456!
+
+  redis:
+    host: 8.130.43.168
+    port: 6379
+    password: 123456
+    database: 5
