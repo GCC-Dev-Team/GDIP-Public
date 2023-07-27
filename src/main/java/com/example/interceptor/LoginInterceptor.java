@@ -1,25 +1,20 @@
 package com.example.interceptor;
 
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.example.anno.NoNeedLogin;
-import com.example.common.ResultCode;
+import com.example.mapper.WxuserMapper;
 import com.example.model.entity.Wxuser;
 import com.example.service.WxuserService;
 import com.example.utils.AccountHolder;
 import com.example.utils.RedisToken;
-import io.jsonwebtoken.Claims;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.sql.Wrapper;
 
 
 @Component
@@ -29,7 +24,8 @@ public class LoginInterceptor implements HandlerInterceptor {
     RedisToken redisToken;
     @Resource
     WxuserService wxuserService;
-
+    @Resource
+    WxuserMapper wxuserMapper;
 
 
     @Override
@@ -51,19 +47,21 @@ public class LoginInterceptor implements HandlerInterceptor {
         //需要登录验证
         String token = request.getHeader("token");
 
-        if(token== null){
+        if (token == null) {
             return false;
         }
 
-       String openid= redisToken.getOpenid(token);
+        String openid = redisToken.getOpenid(token);
 
-        LambdaQueryWrapper<Wxuser> queryWrapper = new LambdaQueryWrapper<Wxuser>().eq(Wxuser::getOpenid, openid);
-        Wxuser user = wxuserService.getOne(queryWrapper);
+
+        Wxuser user = wxuserMapper.getOneByOpenidWxuser(openid);
+
+
 
         AccountHolder.saveUser(user);
+
         return true;
     }
-
 
 
     //响应结束 threadLocal移除对象

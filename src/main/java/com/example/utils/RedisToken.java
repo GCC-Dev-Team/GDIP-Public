@@ -19,7 +19,7 @@ public class RedisToken {
 
     public  String getOpenid(String token){
         /**
-         * 获取加密的token
+         * 获取加密的token直
          */
 
         String relaxToken=stringRedisTemplate.opsForValue().get(token);

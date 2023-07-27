@@ -9,7 +9,7 @@ import com.example.common.ResultCode;
 import com.example.config.WxMaProperties;
 import com.example.model.dto.WxLoginRequest;
 import com.example.model.entity.Wxuser;
-import com.example.model.vo.WxLoginVo;
+import com.example.model.vo.WxLoginVO;
 import com.example.service.WxLoginService;
 import com.example.service.WxuserService;
 import com.example.utils.TokenUtils;
@@ -80,7 +80,7 @@ public class WxLoginServiceImpl implements WxLoginService {
             String token= TokenUtils.getToken(openid);
 
 
-            WxLoginVo wxLoginVo=new WxLoginVo();
+            WxLoginVO wxLoginVo=new WxLoginVO();
 
             String redisToken=UUID.randomUUID().toString();
 
@@ -110,7 +110,7 @@ public class WxLoginServiceImpl implements WxLoginService {
     }
 
     private Wxuser checkLoginByOpenid(String openid) {
-        // 查询数据库，根据openid判断用户是否已登录
+        // 查询数据库，根据openid判断用户是否已登录过
         LambdaQueryWrapper<Wxuser> queryWrapper = new LambdaQueryWrapper<Wxuser>().eq(Wxuser::getOpenid, openid);
         return wxuserService.getOne(queryWrapper);
     }

@@ -1,3 +1,6 @@
+server:
+  port: 8089
+
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -9,13 +12,15 @@ spring:
     host: 8.130.43.168
     port: 6379
     password: 123456
-    database: 5
+    database: 0
+
+
 
 wx:
   miniapp:
     configs:
-      - appid: wx4854ec3bcdf16e3f
-        secret: e66b65f3f3b7174603ff5302ae7e1033
+      - appid: wx4e7262cc3da38892
+        secret: 8fc162f01a1cf1745eeccfe8a8089858
         token: xiaoligongzuoshi
         aesKey: xiaoligongzuoshi
         msgDataFormat: JSON

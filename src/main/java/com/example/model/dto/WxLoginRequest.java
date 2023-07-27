@@ -8,6 +8,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class WxLoginRequest {
+    /**
+     * 微信登录的授权码
+     */
 
     private String code;
 

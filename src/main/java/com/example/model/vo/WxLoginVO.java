@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class WxLoginVo {
+public class WxLoginVO {
     private Integer role;
 
     /**

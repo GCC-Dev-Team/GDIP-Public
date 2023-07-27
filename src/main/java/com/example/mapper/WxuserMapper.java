@@ -3,6 +3,7 @@ package com.example.mapper;
 import com.example.model.entity.Wxuser;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Select;
+import org.springframework.data.repository.query.Param;
 
 /**
 * @author L
@@ -13,6 +14,8 @@ import org.apache.ibatis.annotations.Select;
 public interface WxuserMapper extends BaseMapper<Wxuser> {
 
 
+    @Select("select * from wxuser where openid=#{openid}")
+    Wxuser getOneByOpenidWxuser(@Param("openid")String openid);
 }
 
 
