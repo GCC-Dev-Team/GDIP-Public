@@ -1,8 +1,9 @@
 package com.example.controller;
 
 import com.example.common.Result;
-import com.example.model.dto.UserUpdateInfoRequest;
+import com.example.model.dto.UserUpdateNameRequest;
 import com.example.model.dto.UserUpdatePasswordRequest;
+import com.example.model.dto.UserUpdatePhoneRequest;
 import com.example.service.WxuserService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -25,14 +26,19 @@ public class UserController {
     }
 
     /**
-     * 修改普通个人信息的接口
-     * @param userUpdateInfoRequest
+     * 修改昵称的接口
+     * @param userUpdateNameRequest
      * @return
      */
-    @PutMapping("/info")
-    public Result updateUserInfo(@RequestBody UserUpdateInfoRequest userUpdateInfoRequest){
+    @PutMapping("/nameInfo")
+    public Result updateUserNameInfo(@RequestBody UserUpdateNameRequest userUpdateNameRequest){
 
-       return wxuserService.updateUserInfo(userUpdateInfoRequest);
+       return wxuserService.updateUserNameInfo(userUpdateNameRequest);
+    }
+    @PutMapping("/phoneInfo")
+    public Result updatePhoneInfo(@RequestBody UserUpdatePhoneRequest userUpdatePhoneRequest){
+
+        return wxuserService.updatePhoneInfo(userUpdatePhoneRequest);
     }
 
     /**

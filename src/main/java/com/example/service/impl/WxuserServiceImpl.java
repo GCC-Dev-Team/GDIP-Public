@@ -4,8 +4,9 @@ import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.common.Result;
 import com.example.common.ResultCode;
-import com.example.model.dto.UserUpdateInfoRequest;
+import com.example.model.dto.UserUpdateNameRequest;
 import com.example.model.dto.UserUpdatePasswordRequest;
+import com.example.model.dto.UserUpdatePhoneRequest;
 import com.example.model.entity.Wxuser;
 import com.example.model.vo.UserInfoVO;
 import com.example.service.WxuserService;
@@ -29,7 +30,7 @@ public class WxuserServiceImpl extends ServiceImpl<WxuserMapper, Wxuser>
 
         Wxuser wxuser = AccountHolder.getUser();
 
-        if (userInfoVO != null && wxuser != null) {
+        if (wxuser != null) {
             userInfoVO.setUserName(wxuser.getUserName());
 
             userInfoVO.setState(wxuser.getState());
@@ -50,42 +51,40 @@ public class WxuserServiceImpl extends ServiceImpl<WxuserMapper, Wxuser>
 
 
     @Override
-    public Result updateUserInfo(UserUpdateInfoRequest userUpdateInfoRequest) {
-        /**
-         * 设置改动数字的位置
-         */
-       int temple=0;
+    public Result updateUserNameInfo(UserUpdateNameRequest userUpdateNameRequest) {
+
 
        Wxuser wxuser=AccountHolder.getUser();
+       //检查用户名是否满足长度的条件
+       Boolean temple=CheckStringUtil.checkStringLength(userUpdateNameRequest.getUserName(),2,12);
 
-       if(userUpdateInfoRequest.getUserName()!=null){
+       if(Boolean.TRUE.equals(temple)){
 
-           wxuser.setUserName(userUpdateInfoRequest.getUserName());
+           wxuser.setUserName(userUpdateNameRequest.getUserName());
 
-           temple=temple+1;
+           return Result.success();
        }
 
-       if(userUpdateInfoRequest.getStudentId()!=null){
-
-           wxuser.setStudentNumber(userUpdateInfoRequest.getStudentId());
-
-           temple=temple+1;
-       }
-       if(StringUtils.isNotBlank(userUpdateInfoRequest.getPhoneNumber())&& Boolean.TRUE.equals(PhoneNumberRegularExpression.regularPhoneNumberPattern(userUpdateInfoRequest.getPhoneNumber()))){
-
-           wxuser.setPhoneNumber(userUpdateInfoRequest.getPhoneNumber());
-
-           temple=temple+1;
-       }
-
-       if(temple>0){
-           this.updateById(wxuser);
-       }
-
-       return Result.success();
-
+        return Result.failure(ResultCode.PARAM_IS_INVALID);
     }
 
+    @Override
+    public Result updatePhoneInfo(UserUpdatePhoneRequest userUpdatePhoneRequest) {
+
+        Wxuser wxuser=AccountHolder.getUser();
+
+        if(StringUtils.isNotBlank(userUpdatePhoneRequest.getPhoneNumber())&&
+                Boolean.TRUE.equals(PhoneNumberRegularExpression
+                        .regularPhoneNumberPattern(userUpdatePhoneRequest.getPhoneNumber()))){
+
+
+           wxuser.setPhoneNumber(userUpdatePhoneRequest.getPhoneNumber());
+
+         return Result.success();
+       }
+
+        return Result.failure(ResultCode.PARAM_IS_BLANK);
+    }
 
     @Override
     public Result updateUserPassword(UserUpdatePasswordRequest userUpdatePasswordRequest) {

@@ -1,11 +1,11 @@
 package com.example.service;
 
 import com.example.common.Result;
-import com.example.model.dto.UserUpdateInfoRequest;
+import com.example.model.dto.UserUpdateNameRequest;
 import com.example.model.dto.UserUpdatePasswordRequest;
+import com.example.model.dto.UserUpdatePhoneRequest;
 import com.example.model.entity.Wxuser;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.example.model.vo.UserInfoVO;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -18,10 +18,11 @@ public interface WxuserService extends IService<Wxuser> {
 
     Result getUserInfo();
 
-    Result updateUserInfo(@RequestBody UserUpdateInfoRequest userUpdateInfoRequest);
+    Result updateUserNameInfo(@RequestBody UserUpdateNameRequest userUpdateNameRequest);
 
     Result updateUserPassword(@RequestBody UserUpdatePasswordRequest userUpdatePasswordRequest);
 
+    Result updatePhoneInfo(@RequestBody UserUpdatePhoneRequest userUpdatePhoneRequest);
 
     Result updateAvatar(MultipartFile file);
 
