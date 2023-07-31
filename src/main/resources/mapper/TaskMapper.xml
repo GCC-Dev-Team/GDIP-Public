@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.TaskMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.model.entity.Task">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="activityTitle" column="activity_title" jdbcType="VARCHAR"/>
+            <result property="activityDescription" column="activity_description" jdbcType="VARCHAR"/>
+            <result property="imageUrl" column="image_url" jdbcType="VARCHAR"/>
+            <result property="numberOfParticipants" column="number_of_participants" jdbcType="INTEGER"/>
+            <result property="location" column="location" jdbcType="VARCHAR"/>
+            <result property="startTime" column="start_time" jdbcType="TIMESTAMP"/>
+            <result property="endTime" column="end_time" jdbcType="TIMESTAMP"/>
+            <result property="signOutCode" column="sign_out_code" jdbcType="VARCHAR"/>
+            <result property="isCompleted" column="is_completed" jdbcType="TINYINT"/>
+            <result property="initiator" column="initiator" jdbcType="VARCHAR"/>
+            <result property="createdTime" column="created_time" jdbcType="TIMESTAMP"/>
+            <result property="updatedTime" column="updated_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,activity_title,activity_description,
+        image_url,number_of_participants,location,
+        start_time,end_time,sign_out_code,
+        is_completed,initiator,created_time,
+        updated_time
+    </sql>
+</mapper>
