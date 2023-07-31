@@ -1,7 +1,10 @@
 package com.example.service;
 
+import com.example.common.Result;
+import com.example.model.dto.TaskCreateRequest;
 import com.example.model.entity.Task;
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.springframework.web.bind.annotation.RequestBody;
 
 /**
 * @author L
@@ -10,4 +13,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface TaskService extends IService<Task> {
 
+    Result createTask(@RequestBody TaskCreateRequest taskCreateRequest);
 }
