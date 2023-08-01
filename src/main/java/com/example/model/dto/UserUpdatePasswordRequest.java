@@ -17,28 +17,4 @@ public class UserUpdatePasswordRequest {
      */
 
     private String oldPassword;
-
-    /**
-     * 校园通平台1
-     */
-    private String passwordJw;
-
-    /**
-     * 就的校园通平台1
-     */
-
-    private String oldPasswordJw;
-
-    /**
-     *校园通3.0平台1
-     */
-
-
-    private String passwordNew;
-
-    /**
-     * 旧的校园通密码
-     */
-    private String oldPasswordNew;
-
 }

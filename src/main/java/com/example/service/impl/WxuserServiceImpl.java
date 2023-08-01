@@ -4,9 +4,7 @@ import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.common.Result;
 import com.example.common.ResultCode;
-import com.example.model.dto.UserUpdateNameRequest;
-import com.example.model.dto.UserUpdatePasswordRequest;
-import com.example.model.dto.UserUpdatePhoneRequest;
+import com.example.model.dto.*;
 import com.example.model.entity.Wxuser;
 import com.example.model.vo.UserInfoVO;
 import com.example.service.WxuserService;
@@ -84,6 +82,8 @@ public class WxuserServiceImpl extends ServiceImpl<WxuserMapper, Wxuser>
 
            wxuser.setPhoneNumber(userUpdatePhoneRequest.getPhoneNumber());
 
+           this.updateById(wxuser);
+
          return Result.success();
        }
 
@@ -91,47 +91,68 @@ public class WxuserServiceImpl extends ServiceImpl<WxuserMapper, Wxuser>
     }
 
     @Override
-    public Result updateUserPassword(UserUpdatePasswordRequest userUpdatePasswordRequest) {
-        int temple=0;
+    public Result updateUserPassword(@NotNull UserUpdatePasswordRequest userUpdatePasswordRequest) {
 
         String password = userUpdatePasswordRequest.getPassword();
 
-        String passwordNew = userUpdatePasswordRequest.getPasswordNew();
-
-        String passwordJw = userUpdatePasswordRequest.getPasswordJw();
-
         Wxuser user = AccountHolder.getUser();
-
-        if(user.getPasswordJw()==null||user.getPasswordJw().equals(userUpdatePasswordRequest.getOldPasswordJw())){
-
-            user.setPasswordJw(passwordJw);
-
-            temple=temple+1;
-
-        }
 
         if(user.getPassword()==null||user.getPassword().equals(userUpdatePasswordRequest.getOldPassword())){
 
             user.setPassword(password);
 
-            temple=temple+1;
-
-        }
-
-        if(user.getPasswordNew()==null||user.getPasswordNew().equals(userUpdatePasswordRequest.getOldPasswordNew())){
-
-            user.setPasswordNew(passwordNew);
-
-            temple=temple+1;
-
-        }
-
-        if(temple>0){
-
             this.updateById(user);
+
+            return Result.success("成功修改密码");
+
         }
 
-        return Result.success("成功修改"+temple+"处密码");
+        return Result.failure(ResultCode.PARAMETER_CONVERSION_ERROR,"账户或者密码出错！");
+
+    }
+
+    @Override
+    public Result updateSchoolPassword(@NotNull UpdateSchoolPasswordRequest updateSchoolPasswordRequest) {
+
+        String passwordJw = updateSchoolPasswordRequest.getPasswordJw();
+
+        String studentId=updateSchoolPasswordRequest.getStudentId();
+
+        Wxuser user = AccountHolder.getUser();
+
+        if(user.getPasswordJw()==null||user.getPasswordJw().equals(updateSchoolPasswordRequest.getOldPasswordJw()) && (user.getStudentNumber().equals(studentId))){
+
+                user.setPasswordJw(passwordJw);
+
+                this.updateById(user);
+
+                return Result.success("成功修改密码");
+
+
+        }
+        return Result.failure(ResultCode.PARAMETER_CONVERSION_ERROR,"学生账户或者密码出错！");
+    }
+
+    @Override
+    public Result updateSchoolNewPassword(@NotNull UpdateSchoolPassword3Request updateSchoolPassword3Request) {
+
+        String passwordNew = updateSchoolPassword3Request.getPasswordNew();
+
+        Wxuser user = AccountHolder.getUser();
+
+        if(user.getPasswordNew()==null||user.getPasswordNew().equals(updateSchoolPassword3Request.getOldPasswordNew()) && (user.getStudentNumber().equals(updateSchoolPassword3Request.getStudentId()))){
+
+                user.setPasswordNew(passwordNew);
+
+
+                this.updateById(user);
+
+                return Result.success("成功修改密码");
+
+
+        }
+
+        return Result.failure(ResultCode.PARAMETER_CONVERSION_ERROR,"学生账户或者密码出错！");
     }
 
     @Override

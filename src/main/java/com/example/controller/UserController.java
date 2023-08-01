@@ -1,10 +1,7 @@
 package com.example.controller;
 
 import com.example.common.Result;
-import com.example.model.dto.ParticipateTaskRequest;
-import com.example.model.dto.UserUpdateNameRequest;
-import com.example.model.dto.UserUpdatePasswordRequest;
-import com.example.model.dto.UserUpdatePhoneRequest;
+import com.example.model.dto.*;
 import com.example.service.WxuserService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -44,7 +41,7 @@ public class UserController {
     }
 
     /**
-     * 修改密码
+     * 修改我们自己平台的密码
      * @param userUpdatePasswordRequest
      * @return
      */
@@ -52,6 +49,30 @@ public class UserController {
     public Result updateUserPassword(@RequestBody UserUpdatePasswordRequest userUpdatePasswordRequest){
 
         return wxuserService.updateUserPassword(userUpdatePasswordRequest);
+    }
+
+    /**
+     * 修改学习平台的密码
+     * @param updateSchoolPasswordRequest
+     * @return
+     */
+
+    @PutMapping("/schoolPasswordInfo")
+    public Result updateSchoolPassword(@RequestBody UpdateSchoolPasswordRequest updateSchoolPasswordRequest){
+
+        return wxuserService.updateSchoolPassword(updateSchoolPasswordRequest);
+    }
+
+    /**
+     * 学生系统3。0的密码修改接口
+     * @param
+     * @return
+     */
+
+    @PutMapping("/schoolPasswordNewInfo")
+    public Result updateSchoolNewPassword(@RequestBody UpdateSchoolPassword3Request updateSchoolPassword3Request){
+
+        return wxuserService.updateSchoolNewPassword(updateSchoolPassword3Request);
     }
 
 
