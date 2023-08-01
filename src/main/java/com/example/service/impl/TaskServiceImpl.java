@@ -5,18 +5,23 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.common.Result;
 import com.example.common.ResultCode;
 import com.example.model.dto.GetTaskIdRequest;
+import com.example.model.dto.ParticipateTaskRequest;
 import com.example.model.dto.TaskCreateRequest;
 import com.example.model.entity.Task;
 import com.example.model.entity.Wxuser;
-import com.example.model.vo.TaskSmallVo;
+import com.example.model.vo.TaskSmallVO;
 import com.example.model.vo.TaskVO;
 import com.example.service.TaskService;
 import com.example.mapper.TaskMapper;
 import com.example.utils.AccountHolder;
 import com.example.utils.DateUtils;
+import com.example.utils.ShowPhotoUtil;
+import com.example.utils.UploadPhotoUtil;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import javax.validation.constraints.NotNull;
 import java.util.*;
 
 /**
@@ -111,16 +116,29 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
 
         taskQueryWrapper.eq("initiator",user.getId());
 
+        return getResult(taskQueryWrapper);
+    }
+
+    @Override
+    public Result getAllTask() {
+
+        QueryWrapper<Task> taskQueryWrapper = new QueryWrapper<>();
+
+        taskQueryWrapper.ge("start_time",new Date());
+
+        return getResult(taskQueryWrapper);
+    }
+
+    @NotNull
+    private Result getResult(QueryWrapper<Task> taskQueryWrapper) {
         List<Task> tasks = taskMapper.selectList(taskQueryWrapper);
 
-        List<TaskSmallVo> taskSmallVoList=new ArrayList<>();
+        List<TaskSmallVO> taskSmallVOList =new ArrayList<>();
+
         if(!tasks.isEmpty()){
 
-            for(int i=0;i<tasks.size();i++)
-            {
-                Task taskTemple = tasks.get(i);
-
-                TaskSmallVo taskSmallVo = new TaskSmallVo();
+            for (Task taskTemple : tasks) {
+                TaskSmallVO taskSmallVo = new TaskSmallVO();
 
                 taskSmallVo.setTitle(taskTemple.getActivityTitle());
                 taskSmallVo.setId(taskTemple.getId());
@@ -128,12 +146,46 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
                 taskSmallVo.setEndTime(taskTemple.getEndTime());
                 taskSmallVo.setUrl(taskTemple.getImageUrl());
 
-                taskSmallVoList.add(taskSmallVo);
+                taskSmallVOList.add(taskSmallVo);
             }
 
         }
 
-        return Result.success(taskSmallVoList);
+        return Result.success(taskSmallVOList);
+    }
+
+    @Override
+    public Result uploadTaskPhoto(MultipartFile file, String id) {
+
+        String name="Task:"+id;
+
+        UploadPhotoUtil.uploadFile(file,name);
+
+        String photoByName = ShowPhotoUtil.getPhotoByName(name);
+
+        Task task = this.getById(id);
+
+        if( task.getImageUrl()==null){
+
+            task.setImageUrl(photoByName);
+
+        }else {
+
+           String oldUrl=task.getImageUrl();
+
+           String newUrl=oldUrl+","+photoByName;
+
+           task.setImageUrl(newUrl);
+        }
+
+        this.updateById(task);
+
+        return Result.success();
+    }
+
+    @Override
+    public Result participateTask(ParticipateTaskRequest participateTaskRequest) {
+        return null;
     }
 
     public static String getCode() {

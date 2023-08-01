@@ -15,6 +15,8 @@ import com.example.utils.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * @author L
  * @description 针对表【wxuser】的数据库操作Service实现
@@ -131,7 +133,7 @@ public class WxuserServiceImpl extends ServiceImpl<WxuserMapper, Wxuser>
     }
 
     @Override
-    public Result updateAvatar(MultipartFile file) {
+    public Result updateAvatar(@NotNull MultipartFile file) {
 
         Wxuser user = AccountHolder.getUser();
 

@@ -3,11 +3,13 @@ package com.example.utils;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.constraints.NotNull;
+
 @Component
 
 public class UploadPhotoUtil {
 
-    public static String uploadFile(MultipartFile file,String name) {
+    public static String uploadFile(@NotNull MultipartFile file, @NotNull String name) {
         try {
 
             //String originalFileName = file.getOriginalFilename(); // 获取原始文件名

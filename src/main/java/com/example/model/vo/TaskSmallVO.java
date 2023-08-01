@@ -8,7 +8,7 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class TaskSmallVo {
+public class TaskSmallVO {
 
     private String id;
 

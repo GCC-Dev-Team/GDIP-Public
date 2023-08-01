@@ -7,9 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class GetTaskIdRequest {
-    /**
-     * id号
-     */
+public class ParticipateTaskRequest {
+
     private String id;
 }

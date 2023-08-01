@@ -1,6 +1,7 @@
 package com.example.controller;
 
 import com.example.common.Result;
+import com.example.model.dto.ParticipateTaskRequest;
 import com.example.model.dto.UserUpdateNameRequest;
 import com.example.model.dto.UserUpdatePasswordRequest;
 import com.example.model.dto.UserUpdatePhoneRequest;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import javax.validation.constraints.NotNull;
 
 @RestController
 @RequestMapping("/user")
@@ -58,8 +60,10 @@ public class UserController {
      * @param file 头像文件
      * @return
      */
-    @PutMapping("/avatar")
+    @PostMapping("/avatar")
     public Result updateAvatar(MultipartFile file){
         return wxuserService.updateAvatar(file);
     }
+
+
 }
