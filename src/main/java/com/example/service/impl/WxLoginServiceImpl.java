@@ -125,7 +125,7 @@ public class WxLoginServiceImpl implements WxLoginService {
         // 默认用户角色
         user.setRole(0);
         // 随机用户名
-        user.setUserName("wnd_" + UUID.randomUUID().toString());
+        user.setUserName("qing_" + UUID.randomUUID().toString().substring(0,9));
         // 正常状态
         user.setState(0);
 

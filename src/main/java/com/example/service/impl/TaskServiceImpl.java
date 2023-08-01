@@ -11,12 +11,10 @@ import com.example.model.entity.Task;
 import com.example.model.entity.Wxuser;
 import com.example.model.vo.TaskSmallVO;
 import com.example.model.vo.TaskVO;
+import com.example.service.LinkTaskService;
 import com.example.service.TaskService;
 import com.example.mapper.TaskMapper;
-import com.example.utils.AccountHolder;
-import com.example.utils.DateUtils;
-import com.example.utils.ShowPhotoUtil;
-import com.example.utils.UploadPhotoUtil;
+import com.example.utils.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -34,6 +32,10 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
     implements TaskService{
     @Resource
     TaskMapper taskMapper;
+
+    @Resource
+    LinkTaskService linkTaskService;
+
     @Override
     public Result createTask(TaskCreateRequest taskCreateRequest) {
 
@@ -185,7 +187,85 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
 
     @Override
     public Result participateTask(ParticipateTaskRequest participateTaskRequest) {
-        return null;
+
+        Wxuser user = AccountHolder.getUser();
+
+        String taskId=participateTaskRequest.getId();
+
+        List<String> myNoSingOutTasks=linkTaskService.getMyNoSingOutTask(user.getId());
+
+        Task task = taskMapper.selectById(taskId);
+
+        if(taskMapper.selectById(taskId).getNumberOfParticipants()<=myNoSingOutTasks.size()||task.getIsCompleted().equals(1)){
+
+            return Result.failure(ResultCode.SYSTEM_ERROR,"任务人数已满或者已经结束");
+        }
+        if(!myNoSingOutTasks.isEmpty()){
+
+            Date taskIdBeginTime=task.getStartTime();
+            Date taskIdEndTime=task.getEndTime();
+
+
+            //这里是有任务没有签退的，看时间是否冲突
+
+            for (int i=0;i<myNoSingOutTasks.size();i++){
+
+                String taskIdTemple=myNoSingOutTasks.get(i);
+
+                if(Objects.equals(taskIdTemple, taskId)) {
+
+                    return Result.failure(ResultCode.PARAM_IS_INVALID,"你已经报名了!,请勿再次报名");
+                }
+
+                Task taskTemple = taskMapper.selectById(taskIdTemple);
+
+                Date taskTempleBeginTime=taskTemple.getStartTime();
+                Date taskTempleEndTime=taskTemple.getEndTime();
+
+                //检测时间是否有重叠的部分
+                Boolean isOver= TimeOverlapExample.isTimeOverlap(DateTranslation.DateTranslationLocalDateTime(taskIdBeginTime),
+                        DateTranslation.DateTranslationLocalDateTime(taskIdEndTime),
+                        DateTranslation.DateTranslationLocalDateTime(taskTempleBeginTime),
+                        DateTranslation.DateTranslationLocalDateTime(taskTempleEndTime));
+
+                if(isOver.equals(Boolean.TRUE))
+                    return Result.failure(ResultCode.PARAM_IS_INVALID,"你已经在此时间段参加了另一个任务了！");
+
+            }
+
+
+
+        }
+        Boolean temple=linkTaskService.participateTask(user.getId(),taskId);
+
+        if(temple.equals(Boolean.TRUE)){
+
+            return Result.success("报名成功");
+        }else {
+
+            return Result.failure(ResultCode.INTERNAL_ERROR);
+        }
+
+    }
+
+    @Override
+    public Result deleteTask(String taskId) {
+
+        Task task = taskMapper.selectById(taskId);
+
+        Wxuser user = AccountHolder.getUser();
+
+        if(user.getId().equals(task.getInitiator())){
+
+            linkTaskService.deleteParticipate(taskId);
+
+            taskMapper.deleteById(taskId);
+
+            return Result.success("成功删除！");
+        }else {
+
+            return Result.failure(ResultCode.PARAMETER_CONVERSION_ERROR,"你无权删除该活动");
+        }
     }
 
     public static String getCode() {

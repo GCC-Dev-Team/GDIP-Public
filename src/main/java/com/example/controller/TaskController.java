@@ -72,9 +72,24 @@ public class TaskController {
     /**
      * 报名参加任务
      */
+    @PostMapping("/participateTask")
     public Result participateTask(@NotNull ParticipateTaskRequest participateTaskRequest){
 
         return taskService.participateTask(participateTaskRequest);
 
     }
+
+    /**
+     * 删除活动，根据taskid
+     * @param taskId
+     * @return
+     */
+    @DeleteMapping
+    public  Result deleteTask(@NotNull String taskId){
+
+        return taskService.deleteTask(taskId);
+
+    }
+
+
 }

@@ -53,4 +53,9 @@ public interface TaskService extends IService<Task> {
      * 参加活动
      */
     Result participateTask(@NotNull ParticipateTaskRequest participateTaskRequest);
+
+    /**
+     * 删除活动
+     */
+    Result deleteTask(String taskId);
 }

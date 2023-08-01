@@ -64,6 +64,8 @@ public class WxuserServiceImpl extends ServiceImpl<WxuserMapper, Wxuser>
 
            wxuser.setUserName(userUpdateNameRequest.getUserName());
 
+           updateById(wxuser);
+
            return Result.success();
        }
 

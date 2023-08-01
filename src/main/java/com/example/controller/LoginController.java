@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.validation.constraints.NotNull;
 
 @RestController
 @RequestMapping("/login")
@@ -19,7 +20,7 @@ public class LoginController {
 
     @PostMapping("/wx")
     @NoNeedLogin
-    public Result wxLogin(@RequestBody WxLoginRequest wxLoginRequest) {
+    public Result wxLogin(@NotNull @RequestBody WxLoginRequest wxLoginRequest) {
 
         return wxLoginService.wxLogin(wxLoginRequest);
     }
