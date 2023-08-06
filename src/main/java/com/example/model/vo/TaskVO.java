@@ -59,6 +59,8 @@ public class TaskVO {
      */
     private Integer isCompleted;
 
+    private Double price;
+
     /**
      *
      */

@@ -28,6 +28,11 @@ public class TaskCreateRequest {
     private String location;
 
     /**
+     * 报酬
+     */
+    private Double price;
+
+    /**
      *开始时间
      */
     private String startTime;

@@ -1,7 +1,9 @@
 package com.example;
 
 import com.example.mapper.LinkTaskMapper;
+import com.example.mapper.TaskMapper;
 import com.example.mapper.WxuserMapper;
+import com.example.model.entity.Task;
 import com.example.service.LinkTaskService;
 import com.example.service.WxuserService;
 import com.example.utils.QiniuUtil;
@@ -22,6 +24,8 @@ class QingApplicationTests {
 
     @Resource
     LinkTaskMapper linkTaskMapper;
+    @Resource
+    TaskMapper taskMapper;
 
     @Test
     void contextLoads() {
@@ -32,7 +36,10 @@ class QingApplicationTests {
 //        QiniuUtil.QiniuCloudDeleteImage(fileNameList);
 //        System.out.printf( UUID.randomUUID().toString().substring(0, 9));
 
-       System.out.printf(String.valueOf(linkTaskService.getMyNoSingOutTask("3").size()));
+      // System.out.printf(String.valueOf(linkTaskService.getMyNoSingOutTask("3").size()));
+//
+//        Task task = taskMapper.selectById("1");
+//        System.out.printf(task.getPrice().toString());
 
     }
 

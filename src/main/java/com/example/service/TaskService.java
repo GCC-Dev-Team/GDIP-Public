@@ -47,7 +47,7 @@ public interface TaskService extends IService<Task> {
     /**
      * 图片上传
      */
-    Result uploadTaskPhoto(@NotNull MultipartFile file, @NotNull String id);
+    Result uploadTaskPhoto(@NotNull MultipartFile[] file, @NotNull String id);
 
     /**
      * 参加活动

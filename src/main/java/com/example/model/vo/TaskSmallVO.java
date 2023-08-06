@@ -16,6 +16,8 @@ public class TaskSmallVO {
 
     private String url;
 
+    private Double price;
+
     private Date beginTime;
 
     private Date endTime;

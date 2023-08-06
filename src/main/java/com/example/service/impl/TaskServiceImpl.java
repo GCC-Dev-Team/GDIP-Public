@@ -62,10 +62,11 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
         task.setStartTime(dateStart);
         task.setEndTime(dateEnd);
         task.setSignOutCode(singOut);
+        task.setPrice(taskCreateRequest.getPrice());
 
         this.save(task);
 
-        return Result.success();
+        return Result.success(task);
     }
 
     @Override
@@ -93,6 +94,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
         taskVO.setActivityDescription(task.getActivityDescription());
         taskVO.setImageUrl(task.getImageUrl());
         taskVO.setNumberOfParticipants(task.getNumberOfParticipants());
+        taskVO.setPrice(task.getPrice());
 
 
 
@@ -147,6 +149,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
                 taskSmallVo.setBeginTime(taskTemple.getStartTime());
                 taskSmallVo.setEndTime(taskTemple.getEndTime());
                 taskSmallVo.setUrl(taskTemple.getImageUrl());
+                taskSmallVo.setPrice(taskTemple.getPrice());
 
                 taskSmallVOList.add(taskSmallVo);
             }
@@ -157,31 +160,42 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
     }
 
     @Override
-    public Result uploadTaskPhoto(MultipartFile file, String id) {
+    public Result uploadTaskPhoto(MultipartFile[] file, String id) {
 
-        String name="Task:"+id;
+        if(file.length>9){
 
-        UploadPhotoUtil.uploadFile(file,name);
+            return Result.failure(ResultCode.PARAMETER_CONVERSION_ERROR,"图片上传失败，超过9张了!");
+        }
+        
+        for (int i = 0; i<file.length; i++){
+            
+            String name="Task:"+id+ "photo:"+UUID.randomUUID().toString();
 
-        String photoByName = ShowPhotoUtil.getPhotoByName(name);
+            UploadPhotoUtil.uploadFile(file[i],name);
 
-        Task task = this.getById(id);
+            String photoByName = ShowPhotoUtil.getPhotoByName(name);
 
-        if( task.getImageUrl()==null){
+            Task task = this.getById(id);
 
-            task.setImageUrl(photoByName);
+            if( task.getImageUrl()==null){
 
-        }else {
+                task.setImageUrl(photoByName);
 
-           String oldUrl=task.getImageUrl();
+            }else {
 
-           String newUrl=oldUrl+","+photoByName;
+                String oldUrl=task.getImageUrl();
 
-           task.setImageUrl(newUrl);
+                String newUrl=oldUrl+","+photoByName;
+
+                task.setImageUrl(newUrl);
+            }
+
+            this.updateById(task);
+
+
         }
 
-        this.updateById(task);
-
+        
         return Result.success();
     }
 

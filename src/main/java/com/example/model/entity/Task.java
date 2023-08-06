@@ -75,6 +75,9 @@ public class Task implements Serializable {
     @TableField(value = "is_completed")
     private Integer isCompleted;
 
+    @TableField(value = "price")
+    private Double price;
+
     /**
      * 
      */

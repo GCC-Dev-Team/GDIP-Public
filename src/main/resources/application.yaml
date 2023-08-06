@@ -1,5 +1,10 @@
 server:
   port: 8089
+#  ssl:
+#    key-store: classpath:cuuemo.cn.pfx
+#    key-store-password: 8omav52gx17g72
+#    key-store-type: PKCS12
+
 
 spring:
   datasource:

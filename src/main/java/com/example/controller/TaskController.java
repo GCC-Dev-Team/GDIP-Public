@@ -64,7 +64,7 @@ public class TaskController {
      * @return
      */
     @PostMapping("/uploadTaskPhoto")
-    public Result uploadTaskPhoto(@NotNull MultipartFile file, @NotNull String id){
+    public Result uploadTaskPhoto(@NotNull MultipartFile[] file, @NotNull String id){
 
         return taskService.uploadTaskPhoto(file,id);
 
