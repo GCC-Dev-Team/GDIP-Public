@@ -1,7 +1,10 @@
 package com.example.service;
 
+import com.example.common.Result;
 import com.example.model.entity.Category;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import javax.validation.constraints.NotNull;
 
 /**
 * @author L
@@ -10,4 +13,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface CategoryService extends IService<Category> {
 
+    Result addCategory(@NotNull String categoryName);
+
+    Result showAllCategory();
 }

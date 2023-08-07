@@ -2,6 +2,7 @@ package com.example.service;
 
 import com.example.common.Result;
 import com.example.model.dto.GetTaskIdRequest;
+import com.example.model.dto.PageRequest;
 import com.example.model.dto.ParticipateTaskRequest;
 import com.example.model.dto.TaskCreateRequest;
 import com.example.model.entity.Task;
@@ -36,18 +37,18 @@ public interface TaskService extends IService<Task> {
      * 查看我发布的任务（小信息/图片）
      * @return
      */
-    Result getTaskSmall();
+    Result getTaskSmall(@NotNull @RequestBody PageRequest pageRequest);
 
     /**
      * 任务大厅展示的任务
      * @return
      */
-    Result getAllTask();
+    Result getAllTask(@NotNull @RequestBody PageRequest pageRequest);
 
     /**
      * 图片上传
      */
-    Result uploadTaskPhoto(@NotNull MultipartFile[] file, @NotNull String id);
+    Result uploadTaskPhoto(@NotNull MultipartFile file, @NotNull String id);
 
     /**
      * 参加活动

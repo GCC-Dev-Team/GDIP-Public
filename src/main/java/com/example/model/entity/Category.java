@@ -25,6 +25,9 @@ public class Category implements Serializable {
      */
     @TableField(value = "category_name")
     private String categoryName;
+    /**
+     * 创建者名称
+     */
 
     @TableField(value = "adder")
     private String adder;

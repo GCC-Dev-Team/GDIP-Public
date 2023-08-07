@@ -1,14 +1,17 @@
 package com.example.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.common.Result;
 import com.example.common.ResultCode;
 import com.example.model.dto.GetTaskIdRequest;
+import com.example.model.dto.PageRequest;
 import com.example.model.dto.ParticipateTaskRequest;
 import com.example.model.dto.TaskCreateRequest;
 import com.example.model.entity.Task;
 import com.example.model.entity.Wxuser;
+import com.example.model.vo.PageVO;
 import com.example.model.vo.TaskSmallVO;
 import com.example.model.vo.TaskVO;
 import com.example.service.LinkTaskService;
@@ -16,6 +19,7 @@ import com.example.service.TaskService;
 import com.example.mapper.TaskMapper;
 import com.example.utils.*;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
@@ -112,7 +116,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
      * @return
      */
     @Override
-    public Result getTaskSmall() {
+    public Result getTaskSmall(@NotNull @RequestBody PageRequest pageRequest) {
 
         Wxuser user = AccountHolder.getUser();
 
@@ -120,22 +124,28 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
 
         taskQueryWrapper.eq("initiator",user.getId());
 
-        return getResult(taskQueryWrapper);
+        Page<Task> taskPage = taskMapper.selectPage(new Page<Task>(pageRequest.getCurrentPage(), pageRequest.getPageSize()), taskQueryWrapper);
+
+        return getResult(taskPage);
     }
 
     @Override
-    public Result getAllTask() {
+    public Result getAllTask(PageRequest pageRequest) {
 
         QueryWrapper<Task> taskQueryWrapper = new QueryWrapper<>();
 
         taskQueryWrapper.ge("start_time",new Date());
 
-        return getResult(taskQueryWrapper);
+        Page<Task> taskPage = taskMapper.selectPage(new Page<Task>(pageRequest.getCurrentPage(), pageRequest.getPageSize()), taskQueryWrapper);
+
+//        PageVO pageVO = new PageVO(taskPage.getRecords(), taskPage.getTotal(), taskPage.getSize(), taskPage.getCurrent());
+
+        return getResult(taskPage);
     }
 
     @NotNull
-    private Result getResult(QueryWrapper<Task> taskQueryWrapper) {
-        List<Task> tasks = taskMapper.selectList(taskQueryWrapper);
+    private Result getResult(Page<Task> taskPage) {
+        List<Task> tasks = taskPage.getRecords();
 
         List<TaskSmallVO> taskSmallVOList =new ArrayList<>();
 
@@ -156,46 +166,36 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
 
         }
 
-        return Result.success(taskSmallVOList);
+        return Result.success(new PageVO(taskSmallVOList, taskPage.getTotal(), taskPage.getSize(), taskPage.getCurrent()));
     }
 
     @Override
-    public Result uploadTaskPhoto(MultipartFile[] file, String id) {
-
-        if(file.length>9){
-
-            return Result.failure(ResultCode.PARAMETER_CONVERSION_ERROR,"图片上传失败，超过9张了!");
-        }
-        
-        for (int i = 0; i<file.length; i++){
-            
-            String name="Task:"+id+ "photo:"+UUID.randomUUID().toString();
-
-            UploadPhotoUtil.uploadFile(file[i],name);
-
-            String photoByName = ShowPhotoUtil.getPhotoByName(name);
-
-            Task task = this.getById(id);
-
-            if( task.getImageUrl()==null){
-
-                task.setImageUrl(photoByName);
-
-            }else {
-
-                String oldUrl=task.getImageUrl();
-
-                String newUrl=oldUrl+","+photoByName;
-
-                task.setImageUrl(newUrl);
-            }
-
-            this.updateById(task);
+    public Result uploadTaskPhoto(MultipartFile file, String id) {
 
 
+        String name="Task:"+id+ "photo:"+UUID.randomUUID().toString();
+
+        UploadPhotoUtil.uploadFile(file,name);
+
+        String photoByName = ShowPhotoUtil.getPhotoByName(name);
+
+        Task task = this.getById(id);
+
+        if( task.getImageUrl()==null){
+
+            task.setImageUrl(photoByName);
+
+        }else {
+
+            String oldUrl=task.getImageUrl();
+
+            String newUrl=oldUrl+","+photoByName;
+
+            task.setImageUrl(newUrl);
         }
 
-        
+        this.updateById(task);
+
         return Result.success();
     }
 

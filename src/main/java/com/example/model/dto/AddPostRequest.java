@@ -1,0 +1,30 @@
+package com.example.model.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class AddPostRequest {
+
+    /**
+     * 标题
+     */
+    private String title;
+
+    /**
+     * 表层图片连接
+     */
+    private String imageUrl;
+
+    /**
+     * 文件链接
+     */
+    private String mdUrl;
+    /**
+     * 类型id
+     */
+    private String categoryId;
+}

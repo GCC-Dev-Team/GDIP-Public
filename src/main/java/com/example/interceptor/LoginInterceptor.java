@@ -1,6 +1,7 @@
 package com.example.interceptor;
 
 
+import com.example.anno.AdminLogin;
 import com.example.anno.NoNeedLogin;
 import com.example.mapper.WxuserMapper;
 import com.example.model.entity.Wxuser;
@@ -57,6 +58,24 @@ public class LoginInterceptor implements HandlerInterceptor {
         Wxuser user = wxuserMapper.getOneByOpenidWxuser(openid);
 
 
+
+
+
+        boolean isAdminLogin = ((HandlerMethod) handler).getMethodAnnotation(AdminLogin.class) != null;
+        if (isAdminLogin) {
+            log.info("当前方法:需管理员登录", ((HandlerMethod) handler).getMethod().getName());
+
+            if (user.getRole().equals(1)){
+
+                AccountHolder.saveUser(user);
+
+                return true;
+            }else {
+
+                return false;
+            }
+
+        }
 
         AccountHolder.saveUser(user);
 

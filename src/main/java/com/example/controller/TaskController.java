@@ -2,6 +2,7 @@ package com.example.controller;
 
 import com.example.common.Result;
 import com.example.model.dto.GetTaskIdRequest;
+import com.example.model.dto.PageRequest;
 import com.example.model.dto.ParticipateTaskRequest;
 import com.example.model.dto.TaskCreateRequest;
 import com.example.service.TaskService;
@@ -43,18 +44,18 @@ public class TaskController {
      * 查看我发布的任务（小图）
      */
     @GetMapping("/myTask")
-    public Result getTaskSmall(){
+    public Result getTaskSmall(@NotNull @RequestBody PageRequest pageRequest){
 
-        return taskService.getTaskSmall();
+        return taskService.getTaskSmall(pageRequest);
 
     }
     /**
      * 查看所有的活动
      */
     @GetMapping("/allTask")
-    public Result getAllTask(){
+    public Result getAllTask(@NotNull @RequestBody PageRequest pageRequest){
 
-        return taskService.getAllTask();
+        return taskService.getAllTask(pageRequest);
     }
 
     /**
@@ -64,7 +65,7 @@ public class TaskController {
      * @return
      */
     @PostMapping("/uploadTaskPhoto")
-    public Result uploadTaskPhoto(@NotNull MultipartFile[] file, @NotNull String id){
+    public Result uploadTaskPhoto(@NotNull MultipartFile file, @NotNull String id){
 
         return taskService.uploadTaskPhoto(file,id);
 
