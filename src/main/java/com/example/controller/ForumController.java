@@ -42,7 +42,7 @@ public class ForumController {
      * 所有类别
      */
     @NoNeedLogin
-    @GetMapping("/allCategory")
+    @PostMapping("/allCategory")
     public Result showAllCategory() {
         return categoryService.showAllCategory();
     }
@@ -102,7 +102,7 @@ public class ForumController {
     /**
      * 简单的帖子展示(实现分页操作)(所有的)
      */
-    @GetMapping("/allPost")
+    @PostMapping("/allPost")
     @NoNeedLogin
     public Result getAllPost(@NotNull @RequestBody PageRequest pageRequest){
 
@@ -112,7 +112,7 @@ public class ForumController {
     /**
      * 简单的公告展示(实现分页操作)
      */
-    @GetMapping("/allAnnounce")
+    @PostMapping("/allAnnounce")
     @NoNeedLogin
     public Result getAllAnnounce(@NotNull @RequestBody PageRequest pageRequest){
 

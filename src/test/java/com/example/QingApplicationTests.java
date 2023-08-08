@@ -1,21 +1,14 @@
 package com.example;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.mapper.LinkTaskMapper;
 import com.example.mapper.TaskMapper;
 import com.example.mapper.WxuserMapper;
-import com.example.model.entity.Task;
-import com.example.model.entity.Wxuser;
-import com.example.model.vo.PageVO;
 import com.example.service.LinkTaskService;
 import com.example.service.WxuserService;
-import com.example.utils.QiniuUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.annotation.Resource;
-import java.util.UUID;
 
 @SpringBootTest
 class QingApplicationTests {
@@ -46,11 +39,15 @@ class QingApplicationTests {
 //        System.out.printf(task.getPrice().toString());
 
        // System.out.printf(wxuserMapper.selectPage(new Page<Wxuser>(2, 2), new QueryWrapper<Wxuser>()).getRecords().toString());
-        Page<Wxuser> wxuserPage = wxuserMapper.selectPage(new Page<Wxuser>(2, 2), new QueryWrapper<Wxuser>());
+//        Page<Wxuser> wxuserPage = wxuserMapper.selectPage(new Page<Wxuser>(2, 2), new QueryWrapper<Wxuser>());
+//
+//        PageVO pageVO = new PageVO(wxuserPage.getRecords(),wxuserPage.getTotal(),wxuserPage.getSize(),wxuserPage.getCurrent());
+//
+//        System.out.println(pageVO);
 
-        PageVO pageVO = new PageVO(wxuserPage.getRecords(),wxuserPage.getTotal(),wxuserPage.getSize(),wxuserPage.getCurrent());
 
-        System.out.println(pageVO);
+        //System.out.println(qiniuProperties);
+
     }
 
 }

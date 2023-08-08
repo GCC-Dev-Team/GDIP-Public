@@ -43,7 +43,7 @@ public class TaskController {
     /**
      * 查看我发布的任务（小图）
      */
-    @GetMapping("/myTask")
+    @PostMapping("/myTask")
     public Result getTaskSmall(@NotNull @RequestBody PageRequest pageRequest){
 
         return taskService.getTaskSmall(pageRequest);
@@ -52,7 +52,7 @@ public class TaskController {
     /**
      * 查看所有的活动
      */
-    @GetMapping("/allTask")
+    @PostMapping("/allTask")
     public Result getAllTask(@NotNull @RequestBody PageRequest pageRequest){
 
         return taskService.getAllTask(pageRequest);

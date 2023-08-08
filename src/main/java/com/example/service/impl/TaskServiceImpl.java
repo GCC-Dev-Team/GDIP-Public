@@ -122,7 +122,8 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
 
         QueryWrapper<Task> taskQueryWrapper = new QueryWrapper<>();
 
-        taskQueryWrapper.eq("initiator",user.getId());
+        taskQueryWrapper.eq("initiator",user.getId())
+                .orderByDesc("updated_time");
 
         Page<Task> taskPage = taskMapper.selectPage(new Page<Task>(pageRequest.getCurrentPage(), pageRequest.getPageSize()), taskQueryWrapper);
 
@@ -134,7 +135,8 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
 
         QueryWrapper<Task> taskQueryWrapper = new QueryWrapper<>();
 
-        taskQueryWrapper.ge("start_time",new Date());
+        taskQueryWrapper.ge("start_time",new Date())
+                .orderByDesc("updated_time");
 
         Page<Task> taskPage = taskMapper.selectPage(new Page<Task>(pageRequest.getCurrentPage(), pageRequest.getPageSize()), taskQueryWrapper);
 

@@ -221,7 +221,8 @@ public class ForumServiceImpl extends ServiceImpl<ForumMapper, Forum>
     public Result getAllAnnounce(PageRequest pageRequest) {
         QueryWrapper<Forum> forumQueryWrapper = new QueryWrapper<>();
 
-        forumQueryWrapper.eq("category","admin1");
+        forumQueryWrapper.eq("category","admin1")
+                .orderByDesc("updated_at");
 
         Page<Forum> forumPage = forumMapper.selectPage(new Page<Forum>(pageRequest.getCurrentPage(), pageRequest.getPageSize()), forumQueryWrapper);
 
@@ -247,7 +248,8 @@ public class ForumServiceImpl extends ServiceImpl<ForumMapper, Forum>
         QueryWrapper<Forum> forumQueryWrapper = new QueryWrapper<>();
 
 
-        forumQueryWrapper.ne("category","admin1");
+        forumQueryWrapper.ne("category","admin1")
+                .orderByDesc("updated_at");
 
         Page<Forum> forumPage = forumMapper.selectPage(new Page<Forum>(pageRequest.getCurrentPage(), pageRequest.getPageSize()), forumQueryWrapper);
 

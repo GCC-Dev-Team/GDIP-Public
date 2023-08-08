@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.FavoritesMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.model.entity.Favorites">
+            <id property="favoriteId" column="favorite_id" jdbcType="VARCHAR"/>
+            <result property="favoriteProductId" column="favorite_product_id" jdbcType="VARCHAR"/>
+            <result property="favoriteUserId" column="favorite_user_id" jdbcType="VARCHAR"/>
+            <result property="createdTime" column="created_time" jdbcType="TIMESTAMP"/>
+            <result property="updatedTime" column="updated_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        favorite_id,favorite_product_id,favorite_user_id,
+        created_time,updated_time
+    </sql>
+</mapper>

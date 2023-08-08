@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.ProductMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.model.entity.Product">
+            <id property="productId" column="product_id" jdbcType="VARCHAR"/>
+            <result property="productTitle" column="product_title" jdbcType="VARCHAR"/>
+            <result property="productPrice" column="product_price" jdbcType="DOUBLE"/>
+            <result property="productUnit" column="product_unit" jdbcType="VARCHAR"/>
+            <result property="productDescription" column="product_description" jdbcType="VARCHAR"/>
+            <result property="productImage" column="product_image" jdbcType="VARCHAR"/>
+            <result property="frontImage" column="front_image" jdbcType="VARCHAR"/>
+            <result property="productStatus" column="product_status" jdbcType="INTEGER"/>
+            <result property="productAddress" column="product_address" jdbcType="VARCHAR"/>
+            <result property="publisherId" column="publisher_id" jdbcType="VARCHAR"/>
+            <result property="favoritesCount" column="favorites_count" jdbcType="INTEGER"/>
+            <result property="viewsCount" column="views_count" jdbcType="INTEGER"/>
+            <result property="createdTime" column="created_time" jdbcType="TIMESTAMP"/>
+            <result property="updatedTime" column="updated_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        product_id,product_title,product_price,
+        product_unit,product_description,product_image,
+        front_image,product_status,product_address,
+        publisher_id,favorites_count,views_count,
+        created_time,updated_time
+    </sql>
+</mapper>

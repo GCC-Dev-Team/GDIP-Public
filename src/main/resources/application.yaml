@@ -19,8 +19,6 @@ spring:
     password: 123456
     database: 0
 
-
-
 wx:
   miniapp:
     configs:
@@ -29,3 +27,5 @@ wx:
         token: xiaoligongzuoshi
         aesKey: xiaoligongzuoshi
         msgDataFormat: JSON
+
+
