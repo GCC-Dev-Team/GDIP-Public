@@ -226,7 +226,7 @@ public class ForumServiceImpl extends ServiceImpl<ForumMapper, Forum>
 
         Page<Forum> forumPage = forumMapper.selectPage(new Page<Forum>(pageRequest.getCurrentPage(), pageRequest.getPageSize()), forumQueryWrapper);
 
-        PageVO pageVO = new PageVO(forumPage.getRecords(), forumPage.getTotal(), forumPage.getSize(), forumPage.getCurrent());
+        PageVO<ForumSmallVO> pageVO = new PageVO<>(forumPage.getRecords(), forumPage.getTotal(), forumPage.getSize(), forumPage.getCurrent());
 
         return Result.success(pageVO);
     }
@@ -253,7 +253,7 @@ public class ForumServiceImpl extends ServiceImpl<ForumMapper, Forum>
 
         Page<Forum> forumPage = forumMapper.selectPage(new Page<Forum>(pageRequest.getCurrentPage(), pageRequest.getPageSize()), forumQueryWrapper);
 
-        PageVO pageVO = new PageVO(forumPage.getRecords(), forumPage.getTotal(), forumPage.getSize(), forumPage.getSize());
+        PageVO<ForumSmallVO> pageVO = new PageVO<>(forumPage.getRecords(), forumPage.getTotal(), forumPage.getSize(), forumPage.getSize());
 
         return Result.success(pageVO);
     }

@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.common.Result;
 import com.example.common.ResultCode;
+import com.example.mapper.WxuserMapper;
 import com.example.model.dto.GetTaskIdRequest;
 import com.example.model.dto.PageRequest;
 import com.example.model.dto.ParticipateTaskRequest;
@@ -12,6 +13,7 @@ import com.example.model.dto.TaskCreateRequest;
 import com.example.model.entity.Task;
 import com.example.model.entity.Wxuser;
 import com.example.model.vo.PageVO;
+import com.example.model.vo.TaskDescribeVO;
 import com.example.model.vo.TaskSmallVO;
 import com.example.model.vo.TaskVO;
 import com.example.service.LinkTaskService;
@@ -36,6 +38,9 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
     implements TaskService{
     @Resource
     TaskMapper taskMapper;
+
+    @Resource
+    WxuserMapper wxuserMapper;
 
     @Resource
     LinkTaskService linkTaskService;
@@ -86,11 +91,14 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
 
         Task task = getById(id);
 
-        TaskVO taskVO = new TaskVO();
+        TaskDescribeVO taskVO = new TaskDescribeVO();
 
+        Wxuser wxuser = wxuserMapper.selectById(task.getInitiator());
 
         taskVO.setId(task.getId());
-        taskVO.setInitiator(task.getInitiator());
+        taskVO.setUserId(wxuser.getId());
+        taskVO.setUserImage(wxuser.getAvatar());
+        taskVO.setUserName(wxuser.getUserName());
         taskVO.setLocation(task.getLocation());
         taskVO.setEndTime(task.getEndTime());
         taskVO.setStartTime(task.getStartTime());
@@ -99,8 +107,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
         taskVO.setImageUrl(task.getImageUrl());
         taskVO.setNumberOfParticipants(task.getNumberOfParticipants());
         taskVO.setPrice(task.getPrice());
-
-
+        taskVO.setUpdateTime(task.getUpdatedTime());//最后更新时间
 
         if(task.getInitiator().equals(user.getId())){
             //这个是自己发布查看的任务详情
@@ -168,7 +175,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
 
         }
 
-        return Result.success(new PageVO(taskSmallVOList, taskPage.getTotal(), taskPage.getSize(), taskPage.getCurrent()));
+        return Result.success(new PageVO<>(taskSmallVOList, taskPage.getTotal(), taskPage.getSize(), taskPage.getCurrent()));
     }
 
     @Override

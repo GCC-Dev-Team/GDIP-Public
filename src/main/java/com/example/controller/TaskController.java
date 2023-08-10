@@ -35,7 +35,7 @@ public class TaskController {
      * @param getTaskIdRequest
      * @return
      */
-    @GetMapping
+    @PostMapping("/describe")
     public Result getTaskById(@RequestBody GetTaskIdRequest getTaskIdRequest){
 
        return taskService.getTaskById(getTaskIdRequest);

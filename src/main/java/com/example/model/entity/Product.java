@@ -3,6 +3,8 @@ package com.example.model.entity;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Date;
 import lombok.Data;
@@ -98,6 +100,7 @@ public class Product implements Serializable {
     @TableField(value = "updated_time")
     private Date updatedTime;
 
+    @Serial
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 
