@@ -57,4 +57,6 @@ public interface ForumService extends IService<Forum> {
 
     Result updateAnnounce(@NotNull @RequestBody UpdateAnnounceRequest updateAnnounceRequest) throws Exception;
 
+    Result deletePhotos(String [] fileNames);
+
 }

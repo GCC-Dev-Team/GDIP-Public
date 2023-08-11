@@ -148,4 +148,10 @@ public class ForumController {
         return forumService.getMyAnnounce();
     }
 
+    @DeleteMapping("/photo")
+    public Result deletePhotos(String [] fileNames){
+
+        return forumService.deletePhotos(fileNames);
+    }
+
 }

@@ -26,4 +26,6 @@ public class TaskDescribeVO {
     private Date updateTime;
 
     private String userName;
+
+    private int people;
 }

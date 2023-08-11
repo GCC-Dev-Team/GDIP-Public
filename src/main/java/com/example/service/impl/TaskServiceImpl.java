@@ -71,6 +71,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
         task.setStartTime(dateStart);
         task.setEndTime(dateEnd);
         task.setSignOutCode(singOut);
+        task.setPeople(0);
         task.setPrice(taskCreateRequest.getPrice());
 
         this.save(task);
@@ -108,6 +109,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
         taskVO.setNumberOfParticipants(task.getNumberOfParticipants());
         taskVO.setPrice(task.getPrice());
         taskVO.setUpdateTime(task.getUpdatedTime());//最后更新时间
+        taskVO.setPeople(task.getPeople());
 
         if(task.getInitiator().equals(user.getId())){
             //这个是自己发布查看的任务详情
@@ -169,6 +171,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
                 taskSmallVo.setEndTime(taskTemple.getEndTime());
                 taskSmallVo.setUrl(taskTemple.getImageUrl());
                 taskSmallVo.setPrice(taskTemple.getPrice());
+                taskSmallVo.setPeople(taskTemple.getPeople());
 
                 taskSmallVOList.add(taskSmallVo);
             }
@@ -219,7 +222,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
 
         Task task = taskMapper.selectById(taskId);
 
-        if(taskMapper.selectById(taskId).getNumberOfParticipants()<=myNoSingOutTasks.size()||task.getIsCompleted().equals(1)){
+        if(taskMapper.selectById(taskId).getNumberOfParticipants()<=task.getPeople()||task.getIsCompleted().equals(1)){
 
             return Result.failure(ResultCode.SYSTEM_ERROR,"任务人数已满或者已经结束");
         }
@@ -262,6 +265,14 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
         Boolean temple=linkTaskService.participateTask(user.getId(),taskId);
 
         if(temple.equals(Boolean.TRUE)){
+
+            int people = task.getPeople();
+
+            people=people+1;
+
+            task.setPeople(people);
+
+            save(task);
 
             return Result.success("报名成功");
         }else {

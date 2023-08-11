@@ -10,4 +10,11 @@ public class DeletePhotoUtil {
         return true;//删除成功返回ture
     }
 
+    public static Boolean deletePhotos(String[] fileNameList){
+
+        QiniuUtil.QiniuCloudDeleteImage(fileNameList);
+
+        return true;
+    }
+
 }

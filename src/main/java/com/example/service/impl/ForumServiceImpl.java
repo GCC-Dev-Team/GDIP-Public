@@ -12,10 +12,7 @@ import com.example.model.vo.ForumSmallVO;
 import com.example.model.vo.PageVO;
 import com.example.service.ForumService;
 import com.example.mapper.ForumMapper;
-import com.example.utils.AccountHolder;
-import com.example.utils.QiniuUtil;
-import com.example.utils.ShowPhotoUtil;
-import com.example.utils.UploadPhotoUtil;
+import com.example.utils.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -267,6 +264,11 @@ public class ForumServiceImpl extends ServiceImpl<ForumMapper, Forum>
         forum.setTitle(addAnnouncementRequest.getTitle());
         forum.setCategory("admin1");
         return getResult(user, forum, addAnnouncementRequest.getMdUrl(), addAnnouncementRequest.getImageUrl());
+    }
+
+    @Override
+    public Result deletePhotos(String[] fileNames) {
+        return Result.success(DeletePhotoUtil.deletePhotos(fileNames));
     }
 }
 

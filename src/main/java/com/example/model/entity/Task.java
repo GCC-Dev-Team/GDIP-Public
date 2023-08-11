@@ -96,6 +96,9 @@ public class Task implements Serializable {
     @TableField(value = "updated_time")
     private Date updatedTime;
 
+    @TableField(value = "people")
+    private int people;
+
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 

@@ -39,7 +39,8 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product>
 
         QueryWrapper<Product> productQueryWrapper = new QueryWrapper<>();
 
-        productQueryWrapper.orderByDesc("updated_time");
+        productQueryWrapper.orderByDesc("updated_time")
+                .eq("product_status",0);
 
 
         return   Result.success(getSmallProductVos(pageRequest,productQueryWrapper));

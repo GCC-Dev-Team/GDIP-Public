@@ -1,14 +1,19 @@
 package com.example;
 
-import com.example.mapper.LinkTaskMapper;
-import com.example.mapper.TaskMapper;
-import com.example.mapper.WxuserMapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.example.mapper.*;
+import com.example.model.entity.Product;
+import com.example.model.entity.Task;
+import com.example.model.entity.Wxuser;
+import com.example.model.vo.ProvinceVo;
 import com.example.service.LinkTaskService;
 import com.example.service.WxuserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @SpringBootTest
 class QingApplicationTests {
@@ -24,6 +29,17 @@ class QingApplicationTests {
     @Resource
     TaskMapper taskMapper;
 
+    @Resource
+    FavoritesMapper favoritesMapper;
+
+    @Resource
+    FollowersMapper followersMapper;
+    @Resource
+    AddressMapper addressMapper;
+
+    @Resource
+    ProvinceMapper provinceMapper;
+
     @Test
     void contextLoads() {
 //        //System.out.println(wxuserService.getById("qqq"));
@@ -36,7 +52,8 @@ class QingApplicationTests {
       // System.out.printf(String.valueOf(linkTaskService.getMyNoSingOutTask("3").size()));
 //
 //        Task task = taskMapper.selectById("1");
-//        System.out.printf(task.getPrice().toString());
+//        System.out.println(task.getPeople());
+
 
        // System.out.printf(wxuserMapper.selectPage(new Page<Wxuser>(2, 2), new QueryWrapper<Wxuser>()).getRecords().toString());
 //        Page<Wxuser> wxuserPage = wxuserMapper.selectPage(new Page<Wxuser>(2, 2), new QueryWrapper<Wxuser>());
@@ -47,6 +64,21 @@ class QingApplicationTests {
 
 
         //System.out.println(qiniuProperties);
+//
+//        IPage<Product> myFavoritesByUserId = favoritesMapper.getMyFavoritesByUserId("2002",new Page<>(1,2));
+//        System.out.println(myFavoritesByUserId.getRecords());//分页查询//分页底层源码就是这个page
+
+//        IPage myAllFollowers = followersMapper.getMyAllFollowers("6b8e2699-75d2-4022-b82c-4217178011ba", new Page<>(1, 1));
+//
+//        System.out.println(myAllFollowers.getRecords());
+//        IPage<ProvinceVo> allProvinces = addressMapper.getAllProvinces(new Page<ProvinceVo>(1, 20));
+//
+//        List<ProvinceVo> records = allProvinces.getRecords();
+//
+//        System.out.println(records);
+      //  System.out.println(provinceMapper.getAllProvinces(new Page<>(, 20)).getRecords());
+
+        System.out.println(provinceMapper.getAddressCode("44","18","03","102000"));
 
     }
 

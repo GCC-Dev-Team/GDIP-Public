@@ -1,5 +1,6 @@
 package com.example.mapper;
 
+
 import com.example.model.entity.Address;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
@@ -10,6 +11,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 * @Entity com.example.model.entity.Address
 */
 public interface AddressMapper extends BaseMapper<Address> {
+
+
 
 }
 

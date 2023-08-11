@@ -21,4 +21,6 @@ public class TaskSmallVO {
     private Date beginTime;
 
     private Date endTime;
+
+    private int people;
 }
