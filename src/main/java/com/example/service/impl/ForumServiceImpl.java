@@ -50,9 +50,9 @@ public class ForumServiceImpl extends ServiceImpl<ForumMapper, Forum>
 
         String name="md:"+user.getId()+UUID.randomUUID();
 
-        QiniuUtil.uploadImage(file.getBytes(), name+".md");
+        QiniuUtil.uploadImage(file.getBytes(), name+".txt");
 
-        return QiniuUtil.getImageUrl(name+".md");
+        return QiniuUtil.getImageUrl(name+".txt");
     }
 
     @Override
@@ -63,6 +63,7 @@ public class ForumServiceImpl extends ServiceImpl<ForumMapper, Forum>
         forum.setId("Post:"+UUID.randomUUID());
         forum.setTitle(addPostRequest.getTitle());
         forum.setCategory(addPostRequest.getCategoryId());
+        forum.setSurfaceDescription(addPostRequest.getSurfaceDescription());
         return getResult(user, forum, addPostRequest.getMdUrl(), addPostRequest.getImageUrl());
     }
 
@@ -127,6 +128,12 @@ public class ForumServiceImpl extends ServiceImpl<ForumMapper, Forum>
 
             temple=temple+1;
         }
+        if(updatePostRequest.getSurfaceDescription()!=null){
+
+            one.setSurfaceDescription(updatePostRequest.getSurfaceDescription());
+
+            temple=temple+1;
+        }
 
         if(temple>0){
 
@@ -171,6 +178,13 @@ public class ForumServiceImpl extends ServiceImpl<ForumMapper, Forum>
         if(updateAnnounceRequest.getImageUrl()!=null){
 
             one.setSurfaceImage(updateAnnounceRequest.getImageUrl());
+
+            temple=temple+1;
+        }
+
+        if(updateAnnounceRequest.getSurfaceDescription()!=null){
+
+            one.setSurfaceDescription(updateAnnounceRequest.getSurfaceDescription());
 
             temple=temple+1;
         }
@@ -263,6 +277,7 @@ public class ForumServiceImpl extends ServiceImpl<ForumMapper, Forum>
         forum.setId("Announcement:"+UUID.randomUUID());
         forum.setTitle(addAnnouncementRequest.getTitle());
         forum.setCategory("admin1");
+        forum.setSurfaceDescription(addAnnouncementRequest.getSurfaceDescription());
         return getResult(user, forum, addAnnouncementRequest.getMdUrl(), addAnnouncementRequest.getImageUrl());
     }
 

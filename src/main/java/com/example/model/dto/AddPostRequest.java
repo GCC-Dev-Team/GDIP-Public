@@ -27,4 +27,9 @@ public class AddPostRequest {
      * 类型id
      */
     private String categoryId;
+
+    /**
+     * 表层描述
+     */
+    private String surfaceDescription;
 }

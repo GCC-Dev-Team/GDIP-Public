@@ -41,6 +41,12 @@ public class Forum implements Serializable {
     private String publisher;
 
     /**
+     * 表层描述
+     */
+    @TableField(value = "surface_description")
+    private String surfaceDescription;
+
+    /**
      * 帖子的文件url
      */
     @TableField(value = "md_file_url")

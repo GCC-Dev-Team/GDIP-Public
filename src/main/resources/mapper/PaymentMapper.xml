@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.PaymentMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.model.entity.Payment">
+            <id property="id" column="id" jdbcType="VARCHAR"/>
+            <result property="productId" column="product_id" jdbcType="VARCHAR"/>
+            <result property="statusCode" column="status_code" jdbcType="VARCHAR"/>
+            <result property="statusNumber" column="status_number" jdbcType="INTEGER"/>
+            <result property="seller" column="seller" jdbcType="VARCHAR"/>
+            <result property="buyer" column="buyer" jdbcType="VARCHAR"/>
+            <result property="prepayId" column="prepay_id" jdbcType="VARCHAR"/>
+            <result property="paySign" column="pay_sign" jdbcType="VARCHAR"/>
+            <result property="timeStamp" column="time_stamp" jdbcType="VARCHAR"/>
+            <result property="nonceStr" column="nonce_str" jdbcType="VARCHAR"/>
+            <result property="signType" column="sign_type" jdbcType="VARCHAR"/>
+            <result property="createdAt" column="created_at" jdbcType="TIMESTAMP"/>
+            <result property="updatedAt" column="updated_at" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,product_code,status_code,
+        status_number,seller,buyer,
+        prepay_id,pay_sign,time_stamp,
+        nonce_str,sign_type,created_at,
+        updated_at
+    </sql>
+</mapper>

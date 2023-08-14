@@ -22,4 +22,9 @@ public class AddAnnouncementRequest {
      * 文件链接
      */
     private String mdUrl;
+
+    /**
+     * 表层描述
+     */
+    private String surfaceDescription;
 }

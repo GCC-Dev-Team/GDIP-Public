@@ -29,6 +29,17 @@ public class ForumSmallVO {
     private String publisher;
 
     /**
+     * 表层描述
+     */
+
+    private String surfaceDescription;
+
+    /**
+     * 浏览量
+     */
+    private String view;
+
+    /**
      * 帖子的分类
      */
     private String category;

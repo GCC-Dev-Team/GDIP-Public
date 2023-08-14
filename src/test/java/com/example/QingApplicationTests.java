@@ -1,19 +1,25 @@
 package com.example;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.mapper.*;
-import com.example.model.entity.Product;
-import com.example.model.entity.Task;
-import com.example.model.entity.Wxuser;
-import com.example.model.vo.ProvinceVo;
 import com.example.service.LinkTaskService;
 import com.example.service.WxuserService;
+import com.example.utils.DateUtils;
+import com.github.binarywang.wxpay.bean.order.WxPayMpOrderResult;
+import com.github.binarywang.wxpay.bean.request.BaseWxPayRequest;
+import com.github.binarywang.wxpay.bean.request.WxPayUnifiedOrderRequest;
+import com.github.binarywang.wxpay.exception.WxPayException;
+import com.github.binarywang.wxpay.service.WxPayService;
+import com.qiniu.util.Json;
+import com.qiniu.util.StringMap;
+
+
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.annotation.Resource;
-import java.util.List;
+import java.util.Date;
 
 @SpringBootTest
 class QingApplicationTests {
@@ -39,9 +45,12 @@ class QingApplicationTests {
 
     @Resource
     ProvinceMapper provinceMapper;
+    @Resource
+    WxPayService wxService;
+
 
     @Test
-    void contextLoads() {
+    void contextLoads() throws WxPayException, JSONException {
 //        //System.out.println(wxuserService.getById("qqq"));
 //       // System.out.println(wxuserMapper.getOneByOpenidWxuser("oc58G4yuVeMwfUiIXp__a4D3YJb4"));
 //        String fileNameToDelete = "小璇.png";
@@ -49,13 +58,13 @@ class QingApplicationTests {
 //        QiniuUtil.QiniuCloudDeleteImage(fileNameList);
 //        System.out.printf( UUID.randomUUID().toString().substring(0, 9));
 
-      // System.out.printf(String.valueOf(linkTaskService.getMyNoSingOutTask("3").size()));
+        // System.out.printf(String.valueOf(linkTaskService.getMyNoSingOutTask("3").size()));
 //
 //        Task task = taskMapper.selectById("1");
 //        System.out.println(task.getPeople());
 
 
-       // System.out.printf(wxuserMapper.selectPage(new Page<Wxuser>(2, 2), new QueryWrapper<Wxuser>()).getRecords().toString());
+        // System.out.printf(wxuserMapper.selectPage(new Page<Wxuser>(2, 2), new QueryWrapper<Wxuser>()).getRecords().toString());
 //        Page<Wxuser> wxuserPage = wxuserMapper.selectPage(new Page<Wxuser>(2, 2), new QueryWrapper<Wxuser>());
 //
 //        PageVO pageVO = new PageVO(wxuserPage.getRecords(),wxuserPage.getTotal(),wxuserPage.getSize(),wxuserPage.getCurrent());
@@ -76,10 +85,55 @@ class QingApplicationTests {
 //        List<ProvinceVo> records = allProvinces.getRecords();
 //
 //        System.out.println(records);
-      //  System.out.println(provinceMapper.getAllProvinces(new Page<>(, 20)).getRecords());
+        //  System.out.println(provinceMapper.getAllProvinces(new Page<>(, 20)).getRecords());
+//
+//        System.out.println(provinceMapper.getAddressCode("44","18","03","102000"));
 
-        System.out.println(provinceMapper.getAddressCode("44","18","03","102000"));
 
+        WxPayUnifiedOrderRequest orderRequest = new WxPayUnifiedOrderRequest();
+        orderRequest.setBody("测试");
+        orderRequest.setTotalFee(BaseWxPayRequest.yuanToFen(String.valueOf(0.01)));//元转成分
+        orderRequest.setOpenid("oc58G4yyADYi48awvlVL_VXMNLGY");
+        orderRequest.setTimeStart("20230814215000");
+        orderRequest.setTimeExpire("20230814230000");
+        orderRequest.setOutTradeNo("12345600aa0");
+        orderRequest.setNotifyUrl("8.130.43.168");
+        orderRequest.setProductId("200304078888877aaa6");
+        orderRequest.setTradeType("JSAPI");//这个是商户的参数
+        orderRequest.setSpbillCreateIp("8.130.43.168");
+
+       // String order = wxService.createOrder(orderRequest).toString();
+
+//        WxPayMpOrderResult wxPayMpOrderResult = wxService.createOrder(orderRequest);
+//
+//        System.out.println("我是响应的数据");
+//        System.out.println(wxPayMpOrderResult);
+
+//        JSONObject jsonObj = new JSONObject(order); // 将JSON字符串转换为JSONObject
+//        System.out.println(jsonObj);
+
+
+
+
+
+//        return null;
+//        } catch (Exception e) {
+////            log.error("微信支付失败！订单号：{},原因:{}", orderNo, e.getMessage());
+//            System.out.println(e.getMessage());
+//            e.printStackTrace();
+//        }
+//
+//        return null;
+//    }
+
+
+//        System.out.println(wxService.createScanPayQrcodeMode1("1233211234567"));
+
+//        wxService.parseRefundNotifyResult()
+//        wxService.queryOrder(null, "1233211234567");
+
+        Date date = new Date();
+
+        System.out.println(DateUtils.dateAddTime(date,23));
     }
-
 }

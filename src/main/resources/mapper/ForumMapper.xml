@@ -8,6 +8,7 @@
             <id property="id" column="id" jdbcType="VARCHAR"/>
             <result property="title" column="title" jdbcType="VARCHAR"/>
             <result property="surfaceImage" column="surface_image" jdbcType="VARCHAR"/>
+            <result property="surfaceDescription" column="surface_description" jdbcType="VARCHAR"/>
             <result property="publisher" column="publisher" jdbcType="VARCHAR"/>
             <result property="mdFileUrl" column="md_file_url" jdbcType="VARCHAR"/>
             <result property="views" column="views" jdbcType="INTEGER"/>

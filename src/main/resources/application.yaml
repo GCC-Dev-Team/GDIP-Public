@@ -28,4 +28,8 @@ wx:
         aesKey: xiaoligongzuoshi
         msgDataFormat: JSON
 
-
+  pay:
+    appId: wx4e7262cc3da38892
+    mchId: 1633635850
+    mchKey: 80fd6711682fa5a3ffa9abd53981c368
+    keyPath: classpath:apiclient_cert.p12

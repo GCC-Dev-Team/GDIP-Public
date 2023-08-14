@@ -44,6 +44,8 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category>
 
         BeanUtils.copyProperties(category, categoryVO);
 
+        save(category);
+
         return Result.success(categoryVO);
     }
 
