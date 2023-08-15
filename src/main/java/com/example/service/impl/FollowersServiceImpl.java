@@ -45,11 +45,11 @@ public class FollowersServiceImpl extends ServiceImpl<FollowersMapper, Followers
 
             save(followers);
 
-            return Result.success("关注成功!");
+            return Result.success(ResultCode.FOLLOWER_ADD_ERROR);
         }
 
         //说明已经关注了
-        return Result.failure(ResultCode.PARAM_IS_INVALID,"已经关注了，请勿重复关注");
+        return Result.failure(ResultCode.FOLLOWER_REPEAT);
 
     }
 
@@ -61,7 +61,7 @@ public class FollowersServiceImpl extends ServiceImpl<FollowersMapper, Followers
 
         if(one==null){
 
-            return Result.failure(ResultCode.PARAM_IS_INVALID,"没有关注该用户");
+            return Result.failure(ResultCode.FOLLOWER_NULL_USER);
         }
 
         followersMapper.deleteById(one);

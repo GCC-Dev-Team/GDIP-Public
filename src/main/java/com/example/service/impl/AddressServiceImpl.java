@@ -42,7 +42,7 @@ public class AddressServiceImpl extends ServiceImpl<AddressMapper, Address>
         Address one = getOne(eq);
 
         if (one != null) {
-            return Result.failure(ResultCode.SYSTEM_ERROR, "你已经添加此地址");
+            return Result.failure(ResultCode.ADDRESS_REPEAT);
         }
 
         Address address = new Address();
@@ -124,7 +124,7 @@ public class AddressServiceImpl extends ServiceImpl<AddressMapper, Address>
 
             return Result.success();
         }
-        return Result.failure(ResultCode.PARAM_IS_INVALID,"此地址删除失败，非本账号的");
+        return Result.failure(ResultCode.ADDRESS_DELETE_ERROR);
     }
 }
 

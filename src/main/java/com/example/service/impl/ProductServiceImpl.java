@@ -136,62 +136,66 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product>
     public Result updateProduct(UpdateProductRequest updateProductRequest) {
         int temple=0;
 
-        Product byId = getById(updateProductRequest.getProductId());
+        //如果已经拍下未支付或者成功支付的不能修改
+        QueryWrapper<Product> productQueryWrapper = new QueryWrapper<>();
+        productQueryWrapper.eq("product_status",0).eq("product_id",updateProductRequest.getProductId());
+
+        Product one = getOne(productQueryWrapper);
 
         Wxuser user = AccountHolder.getUser();
-         if(!user.getId().equals(byId.getPublisherId())){
+         if(!user.getId().equals(one.getPublisherId())){
 
-             return Result.failure(ResultCode.PARAM_IS_INVALID,"该活动并非你发布的!");
+             return Result.failure(ResultCode.PRODUCT_AMEND_ERROR);
          }
 
          if(updateProductRequest.getProductDescription()!=null){
 
-             byId.setProductDescription(updateProductRequest.getProductDescription());
+             one.setProductDescription(updateProductRequest.getProductDescription());
              temple=temple+1;
          }
 
         if (updateProductRequest.getProductTitle() != null) {
-            byId.setProductTitle(updateProductRequest.getProductTitle());
+            one.setProductTitle(updateProductRequest.getProductTitle());
 
             temple=temple+1;
         }
 
         if (updateProductRequest.getProductPrice() != null) {
-            byId.setProductPrice(updateProductRequest.getProductPrice());
+            one.setProductPrice(updateProductRequest.getProductPrice());
 
             temple=temple+1;
         }
 
         if (updateProductRequest.getProductUnit() != null) {
-            byId.setProductUnit(updateProductRequest.getProductUnit());
+            one.setProductUnit(updateProductRequest.getProductUnit());
 
             temple=temple+1;
         }
 
         if (updateProductRequest.getProductImage() != null) {
-            byId.setProductImage(updateProductRequest.getProductImage());
+            one.setProductImage(updateProductRequest.getProductImage());
 
             temple=temple+1;
         }
 
         if (updateProductRequest.getFrontImage() != null) {
-            byId.setFrontImage(updateProductRequest.getFrontImage());
+            one.setFrontImage(updateProductRequest.getFrontImage());
             temple=temple+1;
         }
 
         if (updateProductRequest.getProductAddress() != null) {
-            byId.setProductAddress(updateProductRequest.getProductAddress());
+            one.setProductAddress(updateProductRequest.getProductAddress());
             temple=temple+1;
         }
 
         if(temple>0){
 
-            save(byId);
+            save(one);
         }
 
         ProductDescribeVO productDescribeVO = new ProductDescribeVO();
 
-        BeanUtils.copyProperties(byId,productDescribeVO);
+        BeanUtils.copyProperties(one,productDescribeVO);
 
         return Result.success(productDescribeVO);
     }
@@ -208,7 +212,7 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product>
 
         if(one==null){
 
-            throw new RuntimeException("查不到活动是该账号的!");
+            throw new RuntimeException(ResultCode.PRODUCT_NULL_ERROR.getMessage());
         }
 
         productMapper.deleteById(one);

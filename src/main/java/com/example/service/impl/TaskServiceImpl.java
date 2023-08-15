@@ -15,7 +15,6 @@ import com.example.model.entity.Wxuser;
 import com.example.model.vo.PageVO;
 import com.example.model.vo.TaskDescribeVO;
 import com.example.model.vo.TaskSmallVO;
-import com.example.model.vo.TaskVO;
 import com.example.service.LinkTaskService;
 import com.example.service.TaskService;
 import com.example.mapper.TaskMapper;
@@ -85,7 +84,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
         String id=getTaskIdRequest.getId();
 
         if(id.isEmpty()){
-            return Result.failure(ResultCode.PARAM_IS_BLANK);
+            return Result.failure(ResultCode.TASK_NULL_ID);
         }
 
         Wxuser user = AccountHolder.getUser();
@@ -224,7 +223,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
 
         if(taskMapper.selectById(taskId).getNumberOfParticipants()<=task.getPeople()||task.getIsCompleted().equals(1)){
 
-            return Result.failure(ResultCode.SYSTEM_ERROR,"任务人数已满或者已经结束");
+            return Result.failure(ResultCode.TASK_ERROR_NUMBER_PEOPLE);
         }
         if(!myNoSingOutTasks.isEmpty()){
 
@@ -240,7 +239,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
 
                 if(Objects.equals(taskIdTemple, taskId)) {
 
-                    return Result.failure(ResultCode.PARAM_IS_INVALID,"你已经报名了!,请勿再次报名");
+                    return Result.failure(ResultCode.TASK_ERROR_REPEAT);
                 }
 
                 Task taskTemple = taskMapper.selectById(taskIdTemple);
@@ -255,7 +254,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
                         DateTranslation.DateTranslationLocalDateTime(taskTempleEndTime));
 
                 if(isOver.equals(Boolean.TRUE))
-                    return Result.failure(ResultCode.PARAM_IS_INVALID,"你已经在此时间段参加了另一个任务了！");
+                    return Result.failure(ResultCode.TASK_ERROR_REPEAT_TIME);
 
             }
 
@@ -274,7 +273,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
 
             save(task);
 
-            return Result.success("报名成功");
+            return Result.success(ResultCode.TASK_SUCCESS_TAKE_PART_IN);
         }else {
 
             return Result.failure(ResultCode.INTERNAL_ERROR);
@@ -295,10 +294,10 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
 
             taskMapper.deleteById(taskId);
 
-            return Result.success("成功删除！");
+            return Result.success(ResultCode.TASK_SUCCESS_DELETE);
         }else {
 
-            return Result.failure(ResultCode.PARAMETER_CONVERSION_ERROR,"你无权删除该活动");
+            return Result.failure(ResultCode.TASK_ERROR_DELETE);
         }
     }
 

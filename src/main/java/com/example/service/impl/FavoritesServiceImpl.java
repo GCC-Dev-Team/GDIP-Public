@@ -54,7 +54,7 @@ public class FavoritesServiceImpl extends ServiceImpl<FavoritesMapper, Favorites
 
         if (one!=null){
 
-            return Result.failure(ResultCode.PARAMETER_CONVERSION_ERROR,"你已经收藏该商品了！");
+            return Result.failure(ResultCode.FAVORITE_ADD_ERROR);
 
         }
 
@@ -77,7 +77,7 @@ public class FavoritesServiceImpl extends ServiceImpl<FavoritesMapper, Favorites
         Favorites one = getFavoriteByProductIdAndUserId(productId,user.getId());
 
         if (one==null){
-            return Result.failure(ResultCode.SYSTEM_ERROR,"请先收藏该商品");
+            return Result.failure(ResultCode.FAVORITE_DELETE_ERROR);
         }
 
         favoritesMapper.deleteById(one);

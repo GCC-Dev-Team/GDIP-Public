@@ -45,7 +45,7 @@ public class WxuserServiceImpl extends ServiceImpl<WxuserMapper, Wxuser>
 
         } else {
 
-            return Result.failure(ResultCode.INTERNAL_ERROR, "没有找到用户");
+            return Result.failure(ResultCode.USER_ERROR_NULL);
         }
     }
 
@@ -103,11 +103,11 @@ public class WxuserServiceImpl extends ServiceImpl<WxuserMapper, Wxuser>
 
             this.updateById(user);
 
-            return Result.success("成功修改密码");
+            return Result.success(ResultCode.USER_SUCCESS_UPDATE_PASSWORD);
 
         }
 
-        return Result.failure(ResultCode.PARAMETER_CONVERSION_ERROR,"账户或者密码出错！");
+        return Result.failure(ResultCode.USER_ERROR_UPDATE_PASSWORD);
 
     }
 
@@ -126,11 +126,11 @@ public class WxuserServiceImpl extends ServiceImpl<WxuserMapper, Wxuser>
 
                 this.updateById(user);
 
-                return Result.success("成功修改密码");
+                return Result.success(ResultCode.USER_SUCCESS_UPDATE_PASSWORD);
 
 
         }
-        return Result.failure(ResultCode.PARAMETER_CONVERSION_ERROR,"学生账户或者密码出错！");
+        return Result.failure(ResultCode.USER_ERROR_UPDATE_SCHOOL_PASSWORD);
     }
 
     @Override
@@ -147,12 +147,12 @@ public class WxuserServiceImpl extends ServiceImpl<WxuserMapper, Wxuser>
 
                 this.updateById(user);
 
-                return Result.success("成功修改密码");
+                return Result.success(ResultCode.USER_SUCCESS_UPDATE_PASSWORD);
 
 
         }
 
-        return Result.failure(ResultCode.PARAMETER_CONVERSION_ERROR,"学生账户或者密码出错！");
+        return Result.failure(ResultCode.USER_ERROR_UPDATE_SCHOOL_PASSWORD);
     }
 
     @Override

@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.common.Result;
+import com.example.common.ResultCode;
 import com.example.model.dto.*;
 import com.example.model.entity.Forum;
 import com.example.model.entity.Wxuser;
@@ -95,7 +96,7 @@ public class ForumServiceImpl extends ServiceImpl<ForumMapper, Forum>
 
         Forum one = getOne(forumQueryWrapper);
         if(one==null){
-            throw new Exception("修改失败，请检查账号是否正确");
+            throw new Exception(ResultCode.PARAM_ERROR.getMessage());
         }
 
         int temple=0;
@@ -155,7 +156,7 @@ public class ForumServiceImpl extends ServiceImpl<ForumMapper, Forum>
 
         Forum one = getOne(forumQueryWrapper);
         if(one==null){
-            throw new Exception("修改失败，请检查账号是否正确");
+            throw new Exception(ResultCode.PARAM_ERROR.getMessage());
         }
 
         int temple=0;

@@ -3,6 +3,8 @@ package com.example.model.entity;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -97,6 +99,7 @@ public class Payment implements Serializable {
     @TableField(value = "updated_at")
     private Date updatedAt;
 
+    @Serial
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 

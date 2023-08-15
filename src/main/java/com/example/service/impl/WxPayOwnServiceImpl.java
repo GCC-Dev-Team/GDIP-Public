@@ -12,16 +12,18 @@ import com.example.utils.DateUtils;
 import com.github.binarywang.wxpay.bean.order.WxPayMpOrderResult;
 import com.github.binarywang.wxpay.bean.request.BaseWxPayRequest;
 import com.github.binarywang.wxpay.bean.request.WxPayUnifiedOrderRequest;
+import com.github.binarywang.wxpay.bean.result.WxPayOrderQueryResult;
 import com.github.binarywang.wxpay.exception.WxPayException;
 import com.github.binarywang.wxpay.service.WxPayService;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.Random;
-
+@Service
 public class WxPayOwnServiceImpl implements WxPayOwnService {
 
-    private static final String NOTIFY_URL ="xiaoligongzuoshi.top";
+    private static final String NOTIFY_URL ="https://xiaoligongzuoshi.top/wxpay/notify";//回调地址
     @Resource
     ProductMapper productMapper;
 
@@ -90,15 +92,39 @@ public class WxPayOwnServiceImpl implements WxPayOwnService {
 
         paymentMapper.insert(payment);
 
+        product.setProductStatus(2);//更换商品的状态码
+
+        productMapper.updateById(product);
+
         return wxPayMpOrderResult;
     }
 
     @Override
     public String queryOrder(String productId) {
-        return null;
+
+        QueryWrapper<Payment> paymentQueryWrapper = new QueryWrapper<>();
+
+        paymentQueryWrapper.eq("product_id",productId);
+
+        Payment payment = paymentMapper.selectOne(paymentQueryWrapper);
+
+        try {
+            WxPayOrderQueryResult wxPayOrderQueryResult = wxPayService.queryOrder(null, payment.getId());
+
+            boolean equals = wxPayOrderQueryResult.getTradeStateDesc().equals(payment.getStatusCode());
+
+            if (!equals){
+                payment.setStatusCode(wxPayOrderQueryResult.getTradeStateDesc());
+
+                paymentMapper.updateById(payment);
+            }
+            return payment.getStatusCode();
+        } catch (WxPayException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    private static String generateRandomNumber() {
+    public static String generateRandomNumber() {
         Random random = new Random();
         StringBuilder stringBuilder = new StringBuilder(16);
 
