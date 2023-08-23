@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -43,4 +45,12 @@ public class ForumSmallVO {
      * 帖子的分类
      */
     private String category;
+
+    private String categoryName;
+
+    private String avatar;
+
+    private String niceName;
+
+    private Date updateDate;
 }

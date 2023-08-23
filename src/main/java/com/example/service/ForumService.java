@@ -59,4 +59,7 @@ public interface ForumService extends IService<Forum> {
 
     Result deletePhotos(String [] fileNames);
 
+
+    Result deletePost(String postId);
+
 }

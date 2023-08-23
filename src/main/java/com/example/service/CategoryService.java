@@ -16,4 +16,6 @@ public interface CategoryService extends IService<Category> {
     Result addCategory(@NotNull String categoryName);
 
     Result showAllCategory();
+
+    String getNameOfCategory(String categoryId);
 }

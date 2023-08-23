@@ -5,14 +5,17 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.common.Result;
 import com.example.common.ResultCode;
+import com.example.mapper.WxuserMapper;
 import com.example.model.dto.*;
 import com.example.model.entity.Forum;
 import com.example.model.entity.Wxuser;
 import com.example.model.vo.ForumDescribeVO;
 import com.example.model.vo.ForumSmallVO;
 import com.example.model.vo.PageVO;
+import com.example.service.CategoryService;
 import com.example.service.ForumService;
 import com.example.mapper.ForumMapper;
+import com.example.service.WxPayOwnService;
 import com.example.utils.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -35,6 +38,11 @@ public class ForumServiceImpl extends ServiceImpl<ForumMapper, Forum>
 
     @Resource
     ForumMapper forumMapper;
+    @Resource
+    WxuserMapper wxuserMapper;
+
+    @Resource
+    CategoryService categoryService;
     @Override
     public String uploadMdPhoto(@NotNull MultipartFile file) {
 
@@ -79,6 +87,11 @@ public class ForumServiceImpl extends ServiceImpl<ForumMapper, Forum>
         BeanUtils.copyProperties(forum,forumDescribeVO);
 
         save(forum);
+
+        forumDescribeVO.setAvatar(user.getAvatar());
+
+        forumDescribeVO.setNickName(user.getUserName());
+
 
         return Result.success(forumDescribeVO);
     }
@@ -205,10 +218,18 @@ public class ForumServiceImpl extends ServiceImpl<ForumMapper, Forum>
 
         QueryWrapper<Forum> forumQueryWrapper = new QueryWrapper<>();
 
-        forumQueryWrapper.eq("publisher",user.getId());
+        forumQueryWrapper.eq("publisher",user.getId()).orderByDesc("updated_at");
 
         List<Forum> forums = forumMapper.selectList(forumQueryWrapper);
 
+        List<ForumSmallVO> forumSmallVOS = forumsToSmallVOs(forums);
+
+
+        return Result.success(forumSmallVOS);
+
+    }
+
+    private List<ForumSmallVO> forumsToSmallVOs(List<Forum> forums) {
         List<ForumSmallVO> forumSmallVOS = new ArrayList<>();
 
         for (Forum forum : forums) {
@@ -217,12 +238,23 @@ public class ForumServiceImpl extends ServiceImpl<ForumMapper, Forum>
 
             BeanUtils.copyProperties(forum, forumSmallVO);
 
+            String categoryId = forum.getCategory();
+
+            forumSmallVO.setCategoryName(categoryService.getNameOfCategory(categoryId));
+
+            Wxuser wxuser = wxuserMapper.selectById(forum.getPublisher());
+
+
+            forumSmallVO.setAvatar(wxuser.getAvatar());
+
+            forumSmallVO.setNiceName(wxuser.getUserName());
+
+            forumSmallVO.setUpdateDate(forum.getUpdatedAt());
+
             forumSmallVOS.add(forumSmallVO);
 
         }
-
-        return Result.success(forumSmallVOS);
-
+        return forumSmallVOS;
     }
 
     /**
@@ -238,7 +270,7 @@ public class ForumServiceImpl extends ServiceImpl<ForumMapper, Forum>
 
         Page<Forum> forumPage = forumMapper.selectPage(new Page<Forum>(pageRequest.getCurrentPage(), pageRequest.getPageSize()), forumQueryWrapper);
 
-        PageVO<ForumSmallVO> pageVO = new PageVO<>(forumPage.getRecords(), forumPage.getTotal(), forumPage.getSize(), forumPage.getCurrent());
+        PageVO<ForumSmallVO> pageVO = new PageVO<>(forumsToSmallVOs(forumPage.getRecords()), forumPage.getTotal(), forumPage.getSize(), forumPage.getCurrent());
 
         return Result.success(pageVO);
     }
@@ -252,7 +284,16 @@ public class ForumServiceImpl extends ServiceImpl<ForumMapper, Forum>
 
         Forum one = getOne(forumQueryWrapper);
 
-        return Result.success(one);
+        ForumDescribeVO forumDescribeVO = new ForumDescribeVO();
+        BeanUtils.copyProperties(one,forumDescribeVO);
+
+        Wxuser oneByOpenidWxuser = wxuserMapper.selectById(one.getPublisher());
+
+        forumDescribeVO.setNickName(oneByOpenidWxuser.getUserName());
+
+        forumDescribeVO.setAvatar(oneByOpenidWxuser.getAvatar());
+
+        return Result.success(forumDescribeVO);
     }
 
     @Override
@@ -265,7 +306,7 @@ public class ForumServiceImpl extends ServiceImpl<ForumMapper, Forum>
 
         Page<Forum> forumPage = forumMapper.selectPage(new Page<Forum>(pageRequest.getCurrentPage(), pageRequest.getPageSize()), forumQueryWrapper);
 
-        PageVO<ForumSmallVO> pageVO = new PageVO<>(forumPage.getRecords(), forumPage.getTotal(), forumPage.getSize(), forumPage.getSize());
+        PageVO<ForumSmallVO> pageVO = new PageVO<>(forumsToSmallVOs(forumPage.getRecords()), forumPage.getTotal(), forumPage.getSize(), forumPage.getSize());
 
         return Result.success(pageVO);
     }
@@ -285,6 +326,26 @@ public class ForumServiceImpl extends ServiceImpl<ForumMapper, Forum>
     @Override
     public Result deletePhotos(String[] fileNames) {
         return Result.success(DeletePhotoUtil.deletePhotos(fileNames));
+    }
+
+
+    @Override
+    public Result deletePost(String postId) {
+        Wxuser user = AccountHolder.getUser();
+
+        QueryWrapper<Forum> forumQueryWrapper = new QueryWrapper<>();
+
+        forumQueryWrapper.eq("publisher",user.getId()).eq("id",postId);
+
+        Forum one = getOne(forumQueryWrapper);
+
+        if(one==null){
+            return Result.failure(ResultCode.SYSTEM_ERROR,"该帖子并非本账号发布");
+        }
+
+        forumMapper.deleteById(postId);
+
+        return Result.success("删除成功!");
     }
 }
 

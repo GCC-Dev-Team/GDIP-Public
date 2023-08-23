@@ -69,6 +69,13 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category>
 
         return Result.success(categoryVOS);
     }
+
+    @Override
+    public String getNameOfCategory(String categoryId) {
+        Category byId = getById(categoryId);
+
+        return byId.getCategoryName();
+    }
 }
 
 

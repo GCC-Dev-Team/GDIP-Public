@@ -48,6 +48,17 @@ public class ForumController {
     }
 
     /**
+     * 根据id查询到名字
+     * @param categoryId
+     * @return
+     */
+    @GetMapping("/categoryName")
+    public String getCategoryName(String categoryId){
+
+        return categoryService.getNameOfCategory(categoryId);
+    }
+
+    /**
      * 发布公告
      */
     @PostMapping("/addAnnouncement")
@@ -148,10 +159,24 @@ public class ForumController {
         return forumService.getMyAnnounce();
     }
 
+    /**
+     * 批量删除图片
+     * @param fileNames
+     * @return
+     */
     @DeleteMapping("/photo")
     public Result deletePhotos(String [] fileNames){
 
         return forumService.deletePhotos(fileNames);
+    }
+
+    /**
+     * 删除帖子
+     */
+    @DeleteMapping("/myAnnounce")
+    public Result deletePost(String postId){
+
+        return forumService.deletePost(postId);
     }
 
 }

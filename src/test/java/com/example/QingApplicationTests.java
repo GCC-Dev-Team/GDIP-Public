@@ -1,6 +1,9 @@
 package com.example;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.mapper.*;
+import com.example.model.entity.Address;
+import com.example.model.vo.AddressVO;
 import com.example.service.LinkTaskService;
 import com.example.service.WxPayOwnService;
 import com.example.service.WxuserService;
@@ -18,10 +21,13 @@ import com.qiniu.util.StringMap;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.BeanUtils;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import static com.example.service.impl.WxPayOwnServiceImpl.generateRandomNumber;
 
@@ -53,6 +59,8 @@ class QingApplicationTests {
     WxPayService wxService;
     @Resource
     WxPayOwnService wxPayOwnService;
+
+
 
 
     @Test
@@ -177,6 +185,25 @@ class QingApplicationTests {
 //        WxPayMpOrderResult wxPayMpOrderResult=wxService.createOrder(orderRequest);
 //
 //        System.out.println(wxPayMpOrderResult);
+
+//        wxuserMapper.getOneByOpenidWxuser("")
+        QueryWrapper<Address> addressQueryWrapper = new QueryWrapper<>();
+
+        addressQueryWrapper.eq("creator", "6b8e2699-75d2-4022-b82c-4217178011ba");
+
+        List<Address> addresses = addressMapper.selectList(addressQueryWrapper);
+
+        List<AddressVO> addressVOS = new ArrayList<>();
+
+        for (Address address : addresses) {
+            AddressVO addressVO = new AddressVO();
+            BeanUtils.copyProperties(address, addressVO);
+            addressVOS.add(addressVO);
+        }
+
+        System.out.println(addressVOS);
+
+        System.out.println(addresses);
 
     }
 }

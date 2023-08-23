@@ -27,8 +27,10 @@ public class PayController {
 
     @Resource
     WxPayService wxPayService;
+
     /**
      * 回调使用
+     *
      * @param request
      * @param response
      * @return
@@ -47,11 +49,25 @@ public class PayController {
             String orderId = result.getOutTradeNo();
             String tradeNo = result.getTransactionId();
             String totalFee = BaseWxPayResult.fenToYuan(result.getTotalFee());
+            String resultCode = result.getResultCode();
 
-            //自己的业务
-//            result.getTrade
-            return WxPayNotifyResponse.success("处理成功!");
+            if (resultCode.equals("SUCCESS")) {
+                //支付成功后的业务层
+
+                Boolean b = wxPayOwnService.successNotify(orderId);
+
+                if (b == Boolean.TRUE) {
+
+                    log.info("回调成功，数据处理成功处理成功!");
+                    return WxPayNotifyResponse.success("回调成功，数据处理成功处理成功!");
+                }
+
+            }
+            log.info("回调成功，数据处理失败!");
+            return WxPayNotifyResponse.success("回调成功，数据处理失败!");
+
         } catch (Exception e) {
+
             log.error("微信回调结果异常,异常原因{}", e.getMessage());
             return WxPayNotifyResponse.fail(e.getMessage());
         }
@@ -59,6 +75,7 @@ public class PayController {
 
     /**
      * Get请求回调
+     *
      * @param request
      * @param response
      * @return
@@ -76,18 +93,33 @@ public class PayController {
             String orderId = result.getOutTradeNo();
             String tradeNo = result.getTransactionId();
             String totalFee = BaseWxPayResult.fenToYuan(result.getTotalFee());
+            String resultCode = result.getResultCode();
 
-            //自己的业务
-//            result.getTrade
-            return WxPayNotifyResponse.success("处理成功!");
+            if (resultCode.equals("SUCCESS")) {
+                //支付成功后的业务层
+
+                Boolean b = wxPayOwnService.successNotify(orderId);
+
+                if (b == Boolean.TRUE) {
+
+                    log.info("回调成功，数据处理成功处理成功!");
+                    return WxPayNotifyResponse.success("回调成功，数据处理成功处理成功!");
+                }
+
+            }
+            log.info("回调成功，数据处理失败!");
+            return WxPayNotifyResponse.success("回调成功，数据处理失败!");
+
         } catch (Exception e) {
+
             log.error("微信回调结果异常,异常原因{}", e.getMessage());
             return WxPayNotifyResponse.fail(e.getMessage());
         }
     }
 
     /**
-     * 根据产品id号下单
+     * 根据产品id号下单（下单购买）
+     *
      * @param productId
      * @return
      * @throws WxPayException
@@ -102,21 +134,23 @@ public class PayController {
     }
 
     /**
-     * 根据产品号查询订单情况
+     * 根据产品号查询订单情况（查询是否付款）
+     *
      * @param produnctId
      * @return
      */
     @GetMapping("/trade")
-    public Result queryTrade(@NotNull String produnctId){
+    public Result queryTrade(@NotNull String produnctId) {
 
         String s = wxPayOwnService.queryOrder(produnctId);
 
         return Result.success(s);
     }
 
-
-
-
+    //退款
+    //同意退款
+    //确认收货
+    //删除商品
 
 
 }

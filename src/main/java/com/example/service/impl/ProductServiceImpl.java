@@ -16,10 +16,15 @@ import com.example.model.vo.ProductSmallVo;
 import com.example.service.ProductService;
 import com.example.mapper.ProductMapper;
 import com.example.utils.AccountHolder;
+import com.example.utils.DeletePhotoUtil;
+import com.example.utils.ShowPhotoUtil;
+import com.example.utils.UploadPhotoUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -218,6 +223,20 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product>
         productMapper.deleteById(one);
 
         return Result.success();
+    }
+
+    @Override
+    public String updatePhoto(@NotNull MultipartFile file) {
+        String nameFile="productPhoto:"+ UUID.randomUUID();
+
+        UploadPhotoUtil.uploadFile(file,nameFile);
+
+        return ShowPhotoUtil.getPhotoByName(nameFile);
+    }
+
+    public Boolean deletePhoto(String [] photoName) {
+
+      return DeletePhotoUtil.deletePhotos(photoName);
     }
 }
 

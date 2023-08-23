@@ -4,6 +4,7 @@ import com.example.common.Result;
 import com.example.model.dto.*;
 import com.example.service.*;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.validation.constraints.NotNull;
@@ -261,6 +262,26 @@ public class ProductController {
         return addressService.deleteAddress(addressId);
     }
 
+
+    /**
+     * 增加上传图片
+     * @param file
+     * @return
+     */
+    @PostMapping("/photo")
+    public String  updatePhoto(@NotNull MultipartFile file){
+        return productService.updatePhoto(file);
+    }
+
+    /**
+     * 删除图片，可以批量删除
+     * @param photoName
+     * @return
+     */
+    @DeleteMapping("/photo")
+    public Boolean deletePhoto(@NotNull String [] photoName){
+        return productService.deletePhoto(photoName);
+    }
 
 
 

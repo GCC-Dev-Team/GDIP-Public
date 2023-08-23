@@ -1,6 +1,7 @@
 package com.example.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.example.common.Result;
 import com.example.mapper.PaymentMapper;
 import com.example.mapper.ProductMapper;
 import com.example.model.entity.Payment;
@@ -20,10 +21,11 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.Random;
+
 @Service
 public class WxPayOwnServiceImpl implements WxPayOwnService {
 
-    private static final String NOTIFY_URL ="https://xiaoligongzuoshi.top/wxpay/notify";//回调地址
+    private static final String NOTIFY_URL = "https://xiaoligongzuoshi.top/wxpay/notify";//回调地址
     @Resource
     ProductMapper productMapper;
 
@@ -32,17 +34,18 @@ public class WxPayOwnServiceImpl implements WxPayOwnService {
 
     @Resource
     WxPayService wxPayService;
+
     @Override
     public WxPayMpOrderResult createOrder(String productId) throws WxPayException {
 
         QueryWrapper<Product> productQueryWrapper = new QueryWrapper<>();
-        productQueryWrapper.eq("product_status",0).eq("product_id",productId);
+        productQueryWrapper.eq("product_status", 0).eq("product_id", productId);
 
         Product product = productMapper.selectOne(productQueryWrapper);
 
         Wxuser user = AccountHolder.getUser();
 
-        if(product==null){
+        if (product == null) {
 
             throw new RuntimeException("商品不存在或者商品已经出售!");
         }
@@ -60,12 +63,12 @@ public class WxPayOwnServiceImpl implements WxPayOwnService {
         Date date = new Date();
 
         String startTime = DateUtils.dateToString(date);
-        String endTime=DateUtils.dateToString(DateUtils.dateAddTime(date,24));
+        String endTime = DateUtils.dateToString(DateUtils.dateAddTime(date, 24));
         orderRequest.setTimeStart(startTime);
         orderRequest.setTimeExpire(endTime);
 
-        String outTradeNo= generateRandomNumber();
-        orderRequest.setOutTradeNo(outTradeNo);
+        String outTradeNo = generateRandomNumber();
+        orderRequest.setOutTradeNo(outTradeNo);//自动生成的
 
         orderRequest.setNotifyUrl(NOTIFY_URL);
 
@@ -73,7 +76,7 @@ public class WxPayOwnServiceImpl implements WxPayOwnService {
 
         orderRequest.setTradeType("JSAPI");//这个是商户的参数
 
-        WxPayMpOrderResult wxPayMpOrderResult=wxPayService.createOrder(orderRequest);
+        WxPayMpOrderResult wxPayMpOrderResult = wxPayService.createOrder(orderRequest);
 
         Payment payment = new Payment();
 
@@ -104,7 +107,7 @@ public class WxPayOwnServiceImpl implements WxPayOwnService {
 
         QueryWrapper<Payment> paymentQueryWrapper = new QueryWrapper<>();
 
-        paymentQueryWrapper.eq("product_id",productId);
+        paymentQueryWrapper.eq("product_id", productId);
 
         Payment payment = paymentMapper.selectOne(paymentQueryWrapper);
 
@@ -113,7 +116,7 @@ public class WxPayOwnServiceImpl implements WxPayOwnService {
 
             boolean equals = wxPayOrderQueryResult.getTradeStateDesc().equals(payment.getStatusCode());
 
-            if (!equals){
+            if (!equals) {
                 payment.setStatusCode(wxPayOrderQueryResult.getTradeStateDesc());
 
                 paymentMapper.updateById(payment);
@@ -134,5 +137,40 @@ public class WxPayOwnServiceImpl implements WxPayOwnService {
         }
 
         return stringBuilder.toString();
+    }
+
+    /**
+     * 成功回调后（成功支付后的业务层）
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public Boolean successNotify(String id) {
+
+        QueryWrapper<Payment> paymentQueryWrapper = new QueryWrapper<>();
+
+        paymentQueryWrapper.eq("id", id).eq("status_number", 0);
+
+
+        Payment payment = paymentMapper.selectOne(paymentQueryWrapper);
+
+        if (payment == null) {
+
+            throw new RuntimeException("状态错误，或者已经执行，请勿重复支付或提交！");
+        }
+
+        //更新操作（更新支付表数据）
+        payment.setStatusNumber(1);
+        payment.setStatusCode("SUCCESS");
+        paymentMapper.updateById(payment);
+
+        //更新product的信息
+        Product product = productMapper.selectById(payment.getProductId());
+        product.setProductStatus(3);
+        productMapper.updateById(product);
+
+        return Boolean.TRUE;
+
     }
 }

@@ -7,6 +7,7 @@ import com.example.model.dto.UpdateProductRequest;
 import com.example.model.entity.Product;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotNull;
 
@@ -27,5 +28,9 @@ public interface ProductService extends IService<Product> {
     Result updateProduct(@RequestBody @NotNull UpdateProductRequest updateProductRequest);
 
     Result deleteProduct(@NotNull String productId);
+
+   String updatePhoto(@NotNull MultipartFile file);
+
+    Boolean deletePhoto(@NotNull String[] photoName);
 
 }

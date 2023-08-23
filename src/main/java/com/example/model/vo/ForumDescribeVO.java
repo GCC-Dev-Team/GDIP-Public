@@ -40,4 +40,8 @@ public class ForumDescribeVO {
      * 帖子的分类
      */
     private String category;
+
+    private String avatar;
+
+    private String nickName;
 }
