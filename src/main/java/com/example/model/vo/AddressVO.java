@@ -13,9 +13,13 @@ public class AddressVO {
      */
     private String id;
     /**
-     * 地址的省市区镇代码（从拿代码接口拿）
+     * 地址的省市区镇代码（从拿代码接口拿）（地址区域id）
      */
     private String regionId;
+    /**
+     * 前面的地址
+     */
+    private String region;
 
     /**
      * 详细地址描述

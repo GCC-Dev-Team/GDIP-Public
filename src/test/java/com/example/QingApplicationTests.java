@@ -7,6 +7,7 @@ import com.example.model.vo.AddressVO;
 import com.example.service.LinkTaskService;
 import com.example.service.WxPayOwnService;
 import com.example.service.WxuserService;
+import com.example.utils.AddressUtil;
 import com.example.utils.DateUtils;
 import com.github.binarywang.wxpay.bean.order.WxPayMpOrderResult;
 import com.github.binarywang.wxpay.bean.request.BaseWxPayRequest;
@@ -59,6 +60,10 @@ class QingApplicationTests {
     WxPayService wxService;
     @Resource
     WxPayOwnService wxPayOwnService;
+    @Resource
+    ProductMapper productMapper;
+    @Resource
+    AddressUtil addressUtil;
 
 
 
@@ -187,23 +192,26 @@ class QingApplicationTests {
 //        System.out.println(wxPayMpOrderResult);
 
 //        wxuserMapper.getOneByOpenidWxuser("")
-        QueryWrapper<Address> addressQueryWrapper = new QueryWrapper<>();
+//        QueryWrapper<Address> addressQueryWrapper = new QueryWrapper<>();
+//
+//        addressQueryWrapper.eq("creator", "6b8e2699-75d2-4022-b82c-4217178011ba");
+//
+//        List<Address> addresses = addressMapper.selectList(addressQueryWrapper);
+//
+//        List<AddressVO> addressVOS = new ArrayList<>();
+//
+//        for (Address address : addresses) {
+//            AddressVO addressVO = new AddressVO();
+//            BeanUtils.copyProperties(address, addressVO);
+//            addressVOS.add(addressVO);
+//        }
+//
+//        System.out.println(addressVOS);
+//
+//        System.out.println(addresses);
 
-        addressQueryWrapper.eq("creator", "6b8e2699-75d2-4022-b82c-4217178011ba");
 
-        List<Address> addresses = addressMapper.selectList(addressQueryWrapper);
-
-        List<AddressVO> addressVOS = new ArrayList<>();
-
-        for (Address address : addresses) {
-            AddressVO addressVO = new AddressVO();
-            BeanUtils.copyProperties(address, addressVO);
-            addressVOS.add(addressVO);
-        }
-
-        System.out.println(addressVOS);
-
-        System.out.println(addresses);
-
+//        System.out.println(productMapper.getBuysByUserId("916e3f82-f9c0-4976-8adf-f4bef9f3ad7b"));
+//        System.out.println(addressUtil.getRegionName("441803"));
     }
 }

@@ -66,6 +66,44 @@ public interface ProvinceMapper extends BaseMapper<Province> {
     @Select("SELECT id FROM `province` WHERE province=#{provinceId} AND city=#{cityId}  AND area =#{areaId} AND town=#{townId}")
     int getAddressCode(@Param("provinceId") String provinceId,@Param("cityId")String cityId,@Param("areaId")String areaId,@Param("townId")String townId);
 
+    /**
+     * 获取省名
+     * @param provinceId
+     * @return
+     */
+    @Select("SELECT province.`name` FROM `province` WHERE city=0 AND area=0 AND town=0 AND province=#{provinceId}")
+    String getProvinceNameById(@Param("provinceId")String provinceId);
+
+    /**
+     * 获取市名字
+     * @param provinceId
+     * @param cityId
+     * @return
+     */
+    @Select("SELECT province.`name`FROM `province` WHERE province=#{provinceId} AND area=0 AND town=0 AND city=#{cityId}")
+    String getCityNameById(@Param("provinceId")String provinceId,@Param("cityId")String cityId);
+
+    /**
+     * 获取区
+     * @param provinceId
+     * @param cityId
+     * @param areaId
+     * @return
+     */
+    @Select("SELECT province.`name`FROM `province` WHERE province=#{provinceId} AND area=#{areaId} AND town=0 AND city=#{cityId}")
+    String getAreaNameById(@Param("provinceId")String provinceId,@Param("cityId")String cityId,@Param("areaId")String areaId);
+
+    /**
+     * 获取街道
+     * @param provinceId
+     * @param cityId
+     * @param areaId
+     * @param townId
+     * @return
+     */
+    @Select("SELECT province.`name`FROM province WHERE province=#{provinceId} AND area=#{areaId} AND town=#{townId} AND city=#{cityId}")
+    String getTownNameById(@Param("provinceId")String provinceId,@Param("cityId")String cityId,@Param("areaId")String areaId,@Param("townId")String townId);
+
 }
 
 

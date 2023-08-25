@@ -12,6 +12,7 @@ import com.example.model.vo.AddressVO;
 import com.example.service.AddressService;
 import com.example.mapper.AddressMapper;
 import com.example.utils.AccountHolder;
+import com.example.utils.AddressUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +31,8 @@ public class AddressServiceImpl extends ServiceImpl<AddressMapper, Address>
         implements AddressService {
     @Resource
     AddressMapper addressMapper;
+    @Resource
+    AddressUtil addressUtil;
 
     @Override
     public Result addAddress(AddAddressRequest addAddressRequest) {
@@ -73,6 +76,11 @@ public class AddressServiceImpl extends ServiceImpl<AddressMapper, Address>
         for (Address address : addresses) {
             AddressVO addressVO = new AddressVO();
             BeanUtils.copyProperties(address, addressVO);
+            //加上省市区
+
+            String regionName = addressUtil.getRegionName(addressVO.getRegionId());
+            addressVO.setRegion(regionName);
+
             addressVOS.add(addressVO);
         }
 

@@ -284,5 +284,43 @@ public class ProductController {
     }
 
 
+    /**
+     * 查看我购买的订单（状态数字可以知道该订单是什么状态）
+     * @return
+     */
+    @GetMapping("/myBuys")
+    public Result getMyBuy(){
+        return productService.getMyBuy();
+    }
+
+    //确认收货
+    //产品的id号，需要token
+    //确认收货后，钱会去到买家那（类似于闲鱼的模式）
+
+    /**
+     * 支付成功后，买家确认收货
+     * @param productId
+     * @return
+     */
+    @PostMapping("/Receive")
+    public Result Receive(@NotNull String productId){
+        return productService.Receive(productId);
+    }
+
+    //支付成功后，申请退款（还没确认收货）//需要卖家同意？？？
+
+    @PutMapping("/refund")
+    public Result refund(@NotNull String productId){
+
+        return productService.refund(productId);
+    }
+
+
+    //卖家同意退款
+    @PutMapping("/agreeRefund")
+    public Result agreeRefund(@NotNull String productId){
+
+        return productService.agreeRefund(productId);
+    }
 
 }

@@ -33,4 +33,32 @@ public interface ProductService extends IService<Product> {
 
     Boolean deletePhoto(@NotNull String[] photoName);
 
+
+    /**
+     * 查看我的购买
+     * @return
+     */
+    Result getMyBuy();
+
+    /**
+     * 确认收货
+     * @param productId
+     * @return
+     */
+    Result Receive(@NotNull String productId);
+
+    /**
+     * 买家申请退款
+     * @param productId
+     * @return
+     */
+    Result refund(@NotNull String productId);
+
+    /**
+     * 卖家同意退款
+     * @param productId
+     * @return
+     */
+    Result agreeRefund(@NotNull String productId);
+
 }

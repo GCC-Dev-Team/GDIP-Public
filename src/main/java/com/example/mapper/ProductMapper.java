@@ -2,6 +2,10 @@ package com.example.mapper;
 
 import com.example.model.entity.Product;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 /**
 * @author L
@@ -10,6 +14,9 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 * @Entity com.example.model.entity.Product
 */
 public interface ProductMapper extends BaseMapper<Product> {
+
+    @Select("SELECT product.* FROM `payment` LEFT JOIN product ON payment.product_id=product.product_id WHERE buyer=#{buyerId}")
+    List<Product> getBuysByUserId(@Param("buyerId")String buyerId);
 
 }
 

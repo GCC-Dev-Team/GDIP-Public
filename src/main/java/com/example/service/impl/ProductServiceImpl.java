@@ -5,11 +5,14 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.common.Result;
 import com.example.common.ResultCode;
+import com.example.mapper.PaymentMapper;
 import com.example.model.dto.CreateProductRequest;
 import com.example.model.dto.PageRequest;
 import com.example.model.dto.UpdateProductRequest;
+import com.example.model.entity.Payment;
 import com.example.model.entity.Product;
 import com.example.model.entity.Wxuser;
+import com.example.model.vo.BuySmallVO;
 import com.example.model.vo.PageVO;
 import com.example.model.vo.ProductDescribeVO;
 import com.example.model.vo.ProductSmallVo;
@@ -30,25 +33,28 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 /**
-* @author L
-* @description 针对表【product】的数据库操作Service实现
-* @createDate 2023-08-09 00:55:29
-*/
+ * @author L
+ * @description 针对表【product】的数据库操作Service实现
+ * @createDate 2023-08-09 00:55:29
+ */
 @Service
 public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product>
-    implements ProductService{
+        implements ProductService {
     @Resource
     ProductMapper productMapper;
+    @Resource
+    PaymentMapper paymentMapper;
+
     @Override
     public Result getProductSmallAll(PageRequest pageRequest) {
 
         QueryWrapper<Product> productQueryWrapper = new QueryWrapper<>();
 
         productQueryWrapper.orderByDesc("updated_time")
-                .eq("product_status",0);
+                .eq("product_status", 0);
 
 
-        return   Result.success(getSmallProductVos(pageRequest,productQueryWrapper));
+        return Result.success(getSmallProductVos(pageRequest, productQueryWrapper));
     }
 
     public PageVO<ProductSmallVo> getSmallProductVos(PageRequest pageRequest, QueryWrapper<Product> productQueryWrapper) {
@@ -79,7 +85,7 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product>
 
         ProductDescribeVO productDescribeVO = new ProductDescribeVO();
 
-        BeanUtils.copyProperties(byId,productDescribeVO);
+        BeanUtils.copyProperties(byId, productDescribeVO);
 
         return Result.success(productDescribeVO);
     }
@@ -90,7 +96,7 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product>
 
         Product product = new Product();
 
-        product.setProductId("product:"+UUID.randomUUID());
+        product.setProductId("product:" + UUID.randomUUID());
         // Set productTitle
         product.setProductTitle(createProductRequest.getProductTitle());
 
@@ -121,7 +127,7 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product>
 
         ProductDescribeVO productDescribeVO = new ProductDescribeVO();
 
-        BeanUtils.copyProperties(product,productDescribeVO);
+        BeanUtils.copyProperties(product, productDescribeVO);
 
         return Result.success(productDescribeVO);
     }
@@ -132,75 +138,75 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product>
         Wxuser user = AccountHolder.getUser();
 
         QueryWrapper<Product> productQueryWrapper = new QueryWrapper<>();
-        productQueryWrapper.eq("publisher_id",user.getId());
+        productQueryWrapper.eq("publisher_id", user.getId());
 
-        return Result.success(getSmallProductVos(pageRequest,productQueryWrapper));
+        return Result.success(getSmallProductVos(pageRequest, productQueryWrapper));
     }
 
     @Override
     public Result updateProduct(UpdateProductRequest updateProductRequest) {
-        int temple=0;
+        int temple = 0;
 
         //如果已经拍下未支付或者成功支付的不能修改
         QueryWrapper<Product> productQueryWrapper = new QueryWrapper<>();
-        productQueryWrapper.eq("product_status",0).eq("product_id",updateProductRequest.getProductId());
+        productQueryWrapper.eq("product_status", 0).eq("product_id", updateProductRequest.getProductId());
 
         Product one = getOne(productQueryWrapper);
 
         Wxuser user = AccountHolder.getUser();
-         if(!user.getId().equals(one.getPublisherId())){
+        if (!user.getId().equals(one.getPublisherId())) {
 
-             return Result.failure(ResultCode.PRODUCT_AMEND_ERROR);
-         }
+            return Result.failure(ResultCode.PRODUCT_AMEND_ERROR);
+        }
 
-         if(updateProductRequest.getProductDescription()!=null){
+        if (updateProductRequest.getProductDescription() != null) {
 
-             one.setProductDescription(updateProductRequest.getProductDescription());
-             temple=temple+1;
-         }
+            one.setProductDescription(updateProductRequest.getProductDescription());
+            temple = temple + 1;
+        }
 
         if (updateProductRequest.getProductTitle() != null) {
             one.setProductTitle(updateProductRequest.getProductTitle());
 
-            temple=temple+1;
+            temple = temple + 1;
         }
 
         if (updateProductRequest.getProductPrice() != null) {
             one.setProductPrice(updateProductRequest.getProductPrice());
 
-            temple=temple+1;
+            temple = temple + 1;
         }
 
         if (updateProductRequest.getProductUnit() != null) {
             one.setProductUnit(updateProductRequest.getProductUnit());
 
-            temple=temple+1;
+            temple = temple + 1;
         }
 
         if (updateProductRequest.getProductImage() != null) {
             one.setProductImage(updateProductRequest.getProductImage());
 
-            temple=temple+1;
+            temple = temple + 1;
         }
 
         if (updateProductRequest.getFrontImage() != null) {
             one.setFrontImage(updateProductRequest.getFrontImage());
-            temple=temple+1;
+            temple = temple + 1;
         }
 
         if (updateProductRequest.getProductAddress() != null) {
             one.setProductAddress(updateProductRequest.getProductAddress());
-            temple=temple+1;
+            temple = temple + 1;
         }
 
-        if(temple>0){
+        if (temple > 0) {
 
             save(one);
         }
 
         ProductDescribeVO productDescribeVO = new ProductDescribeVO();
 
-        BeanUtils.copyProperties(one,productDescribeVO);
+        BeanUtils.copyProperties(one, productDescribeVO);
 
         return Result.success(productDescribeVO);
     }
@@ -211,11 +217,11 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product>
         Wxuser user = AccountHolder.getUser();
 
         QueryWrapper<Product> productQueryWrapper = new QueryWrapper<>();
-        productQueryWrapper.eq("product_id",productId).eq("publisher_id",user.getId());
+        productQueryWrapper.eq("product_id", productId).eq("publisher_id", user.getId());
 
         Product one = getOne(productQueryWrapper);
 
-        if(one==null){
+        if (one == null) {
 
             throw new RuntimeException(ResultCode.PRODUCT_NULL_ERROR.getMessage());
         }
@@ -227,16 +233,90 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product>
 
     @Override
     public String updatePhoto(@NotNull MultipartFile file) {
-        String nameFile="productPhoto:"+ UUID.randomUUID();
+        String nameFile = "productPhoto:" + UUID.randomUUID();
 
-        UploadPhotoUtil.uploadFile(file,nameFile);
+        UploadPhotoUtil.uploadFile(file, nameFile);
 
         return ShowPhotoUtil.getPhotoByName(nameFile);
     }
 
-    public Boolean deletePhoto(String [] photoName) {
+    public Boolean deletePhoto(String[] photoName) {
 
-      return DeletePhotoUtil.deletePhotos(photoName);
+        return DeletePhotoUtil.deletePhotos(photoName);
+    }
+
+    @Override
+    public Result getMyBuy() {
+        Wxuser user = AccountHolder.getUser();
+        String userId = user.getId();
+
+        List<Product> buysByUserId = productMapper.getBuysByUserId(userId);
+
+        //有参考的价值，好好理解这个过滤器stream
+        List<BuySmallVO> productSmallVos = buysByUserId.stream()
+                .map(product -> new BuySmallVO(
+                        product.getProductId(),
+                        product.getProductTitle(),
+                        product.getProductPrice(),
+                        product.getProductUnit(),
+                        product.getFrontImage(),
+                        product.getProductStatus()
+                ))
+                .collect(Collectors.toList());
+        return Result.success(productSmallVos);
+    }
+
+    @Override
+    public Result Receive(String productId) {
+        //TODO 需要企业付款才可以实现转账给对方
+
+        return null;
+    }
+
+    /**
+     * 申请退款(买家)（payment表）
+     * @param productId
+     * @return
+     */
+    @Override
+    public Result refund(String productId) {
+
+        Wxuser user = AccountHolder.getUser();
+
+        QueryWrapper<Payment> paymentQueryWrapper = new QueryWrapper<>();
+        paymentQueryWrapper.eq("product_id",productId).eq("buyer",user.getId()).eq("status_number",1);
+        Payment payment = paymentMapper.selectOne(paymentQueryWrapper);
+        if (payment==null){
+            log.error("支付查询错误，请联系管理员!");
+            throw new RuntimeException("支付查询错误，请联系管理员!");
+        }
+
+        QueryWrapper<Product> productQueryWrapper = new QueryWrapper<>();
+        productQueryWrapper.eq("product_id",productId).eq("product_status",3);
+        Product product = productMapper.selectOne(productQueryWrapper);
+
+        if (product==null){
+            log.error("申请退款接口商品出现错误");
+            throw new RuntimeException("申请退款商品查询出错!");
+        }
+
+        //改变商品的状态
+        product.setProductStatus(4);
+        save(product);
+
+        return Result.success("请联系卖家同意退款!");
+    }
+
+    /**
+     * 同意退款
+     * @param productId
+     * @return
+     */
+
+    @Override
+    public Result agreeRefund(String productId) {
+        //TODO 需要打回款给买家
+        return null;
     }
 }
 
