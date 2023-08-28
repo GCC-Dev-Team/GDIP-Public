@@ -101,7 +101,8 @@ public class FavoritesServiceImpl extends ServiceImpl<FavoritesMapper, Favorites
                         product.getProductTitle(),
                         product.getProductPrice(),
                         product.getProductUnit(),
-                        product.getFrontImage()
+                        product.getFrontImage(),
+                        product.getProductDescription()
                 ))
                 .collect(Collectors.toList());
 

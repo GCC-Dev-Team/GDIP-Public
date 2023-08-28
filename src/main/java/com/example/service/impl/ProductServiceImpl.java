@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.common.Result;
 import com.example.common.ResultCode;
 import com.example.mapper.PaymentMapper;
+import com.example.mapper.WxuserMapper;
 import com.example.model.dto.CreateProductRequest;
 import com.example.model.dto.PageRequest;
 import com.example.model.dto.UpdateProductRequest;
@@ -45,6 +46,9 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product>
     @Resource
     PaymentMapper paymentMapper;
 
+    @Resource
+    WxuserMapper wxuserMapper;
+
     @Override
     public Result getProductSmallAll(PageRequest pageRequest) {
 
@@ -71,7 +75,8 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product>
                         product.getProductTitle(),
                         product.getProductPrice(),
                         product.getProductUnit(),
-                        product.getFrontImage()
+                        product.getFrontImage(),
+                        product.getProductDescription()
                 ))
                 .collect(Collectors.toList());
 
@@ -86,6 +91,11 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product>
         ProductDescribeVO productDescribeVO = new ProductDescribeVO();
 
         BeanUtils.copyProperties(byId, productDescribeVO);
+
+        productDescribeVO.setPublisherAvatar(wxuserMapper.selectById(productDescribeVO.getPublisherId()).getAvatar());
+        productDescribeVO.setPublisherName(wxuserMapper.selectById(productDescribeVO.getPublisherId()).getUserName());
+
+
 
         return Result.success(productDescribeVO);
     }
@@ -128,6 +138,9 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product>
         ProductDescribeVO productDescribeVO = new ProductDescribeVO();
 
         BeanUtils.copyProperties(product, productDescribeVO);
+
+        productDescribeVO.setPublisherAvatar(wxuserMapper.selectById(productDescribeVO.getPublisherId()).getAvatar());
+        productDescribeVO.setPublisherName(wxuserMapper.selectById(productDescribeVO.getPublisherId()).getUserName());
 
         return Result.success(productDescribeVO);
     }
@@ -207,6 +220,8 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product>
         ProductDescribeVO productDescribeVO = new ProductDescribeVO();
 
         BeanUtils.copyProperties(one, productDescribeVO);
+        productDescribeVO.setPublisherAvatar(wxuserMapper.selectById(productDescribeVO.getPublisherId()).getAvatar());
+        productDescribeVO.setPublisherName(wxuserMapper.selectById(productDescribeVO.getPublisherId()).getUserName());
 
         return Result.success(productDescribeVO);
     }

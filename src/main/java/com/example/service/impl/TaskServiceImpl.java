@@ -184,7 +184,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
     public Result uploadTaskPhoto(MultipartFile file, String id) {
 
 
-        String name="Task:"+id+ "photo:"+UUID.randomUUID().toString();
+        String name="Task:"+id+ "photo:"+UUID.randomUUID();
 
         UploadPhotoUtil.uploadFile(file,name);
 

@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -57,6 +59,16 @@ public class ProductDescribeVO{
     private String publisherId;
 
     /**
+     * 卖家名称
+     */
+    private String publisherName;
+
+    /**
+     * 头像
+     */
+    private String publisherAvatar;
+
+    /**
      *商品的收藏量
      */
 
@@ -66,5 +78,10 @@ public class ProductDescribeVO{
      *商品的浏览量
      */
     private Integer viewsCount;
+
+    /**
+     * 更新时间
+     */
+    private Date updatedTime;
 
 }

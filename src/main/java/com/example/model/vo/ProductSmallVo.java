@@ -41,4 +41,9 @@ public class ProductSmallVo {
 
     private String frontImage;
 
+    /**
+     * 描述
+     */
+    private String productDescription;
+
 }

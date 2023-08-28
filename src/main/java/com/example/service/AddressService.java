@@ -23,4 +23,8 @@ public interface AddressService extends IService<Address> {
     Result updateMyAddress(@NotNull @RequestBody UpdateAddressRequest updateAddressId);
 
     Result deleteAddress(@NotNull String addressId);
+
+    Result getmyAddressDescribe(@NotNull String addressId);
+
+    String getAllAddressDescribeById(@NotNull String addressId);
 }

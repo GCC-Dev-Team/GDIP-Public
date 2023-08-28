@@ -114,10 +114,10 @@ public class WxPayOwnServiceImpl implements WxPayOwnService {
         try {
             WxPayOrderQueryResult wxPayOrderQueryResult = wxPayService.queryOrder(null, payment.getId());
 
-            boolean equals = wxPayOrderQueryResult.getTradeStateDesc().equals(payment.getStatusCode());
+            boolean equals = wxPayOrderQueryResult.getTradeState().equals(payment.getStatusCode());
 
             if (!equals) {
-                payment.setStatusCode(wxPayOrderQueryResult.getTradeStateDesc());
+                payment.setStatusCode(wxPayOrderQueryResult.getTradeState());
 
                 paymentMapper.updateById(payment);
             }

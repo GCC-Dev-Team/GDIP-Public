@@ -134,6 +134,40 @@ public class AddressServiceImpl extends ServiceImpl<AddressMapper, Address>
         }
         return Result.failure(ResultCode.ADDRESS_DELETE_ERROR);
     }
+
+    @Override
+    public Result getmyAddressDescribe(String addressId) {
+        Wxuser user = AccountHolder.getUser();
+
+        QueryWrapper<Address> addressQueryWrapper = new QueryWrapper<>();
+
+        addressQueryWrapper.eq("creator", user.getId()).eq("id",addressId);
+
+        Address address = addressMapper.selectOne(addressQueryWrapper);
+        if(address==null){
+            log.error("查询地址失败!");
+            throw new RuntimeException("请核实地址id是否正确，是否已经登录!");
+        }
+        //这里可以优化
+
+        AddressVO addressVO = new AddressVO();
+        addressVO.setId(address.getId());
+        addressVO.setRegionId(address.getRegionId());
+        addressVO.setRegion(addressUtil.getRegionName(address.getRegionId()));
+        addressVO.setDetailedAddress(address.getDetailedAddress());
+
+        return Result.success(addressVO);
+
+    }
+
+    @Override
+    public String getAllAddressDescribeById(String addressId) {
+
+        Address address = addressMapper.selectById(addressId);
+
+       return addressUtil.getRegionName(address.getRegionId())+address.getDetailedAddress();
+
+    }
 }
 
 

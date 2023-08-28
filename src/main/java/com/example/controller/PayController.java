@@ -38,9 +38,6 @@ public class PayController {
     @ResponseBody
     @PostMapping("/notify")
     public String payNotify(HttpServletRequest request, HttpServletResponse response) {
-
-        System.out.println(request);
-        System.out.printf("这里是Post请求拿到的信息");
         try {
             String xmlResult = IOUtils.toString(request.getInputStream(), request.getCharacterEncoding());
             WxPayOrderNotifyResult result = wxPayService.parseOrderNotifyResult(xmlResult);
@@ -73,49 +70,7 @@ public class PayController {
         }
     }
 
-    /**
-     * Get请求回调
-     *
-     * @param request
-     * @param response
-     * @return
-     */
-    @RequestMapping("/notify")
-    public String payNotify2(HttpServletRequest request, HttpServletResponse response) {
 
-        System.out.println(request);
-        System.out.printf("这里是GET请求拿到的信息");
-        try {
-            String xmlResult = IOUtils.toString(request.getInputStream(), request.getCharacterEncoding());
-            WxPayOrderNotifyResult result = wxPayService.parseOrderNotifyResult(xmlResult);
-
-            // 加入自己处理订单的业务逻辑，需要判断订单是否已经支付过，否则可能会重复调用
-            String orderId = result.getOutTradeNo();
-            String tradeNo = result.getTransactionId();
-            String totalFee = BaseWxPayResult.fenToYuan(result.getTotalFee());
-            String resultCode = result.getResultCode();
-
-            if (resultCode.equals("SUCCESS")) {
-                //支付成功后的业务层
-
-                Boolean b = wxPayOwnService.successNotify(orderId);
-
-                if (b == Boolean.TRUE) {
-
-                    log.info("回调成功，数据处理成功处理成功!");
-                    return WxPayNotifyResponse.success("回调成功，数据处理成功处理成功!");
-                }
-
-            }
-            log.info("回调成功，数据处理失败!");
-            return WxPayNotifyResponse.success("回调成功，数据处理失败!");
-
-        } catch (Exception e) {
-
-            log.error("微信回调结果异常,异常原因{}", e.getMessage());
-            return WxPayNotifyResponse.fail(e.getMessage());
-        }
-    }
 
     /**
      * 根据产品id号下单（下单购买）

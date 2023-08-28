@@ -253,6 +253,28 @@ public class ProductController {
     }
 
     /**
+     * 根据地址id获取所有的地址详细的
+     * @param addressId
+     * @return
+     */
+    @GetMapping("/addressDescribeById")
+    public String addressDescribeById(@NotNull String addressId){
+
+        return addressService.getAllAddressDescribeById(addressId);
+    }
+
+    /**
+     * 获取某个地址的详细信息
+     * @param addressId
+     * @return
+     */
+    @GetMapping("/myAddressDescribe")
+    public Result getmyAddressDescribe(@NotNull String addressId){
+
+        return addressService.getmyAddressDescribe(addressId);
+    }
+
+    /**
      * 删除地址
      * @param addressId
      * @return
