@@ -4,6 +4,7 @@ import com.example.common.Result;
 import com.example.service.WxPayOwnService;
 import com.github.binarywang.wxpay.bean.notify.WxPayNotifyResponse;
 import com.github.binarywang.wxpay.bean.notify.WxPayOrderNotifyResult;
+import com.github.binarywang.wxpay.bean.notify.WxPayRefundNotifyResult;
 import com.github.binarywang.wxpay.bean.order.WxPayMpOrderResult;
 import com.github.binarywang.wxpay.bean.result.BaseWxPayResult;
 import com.github.binarywang.wxpay.exception.WxPayException;
@@ -29,7 +30,7 @@ public class PayController {
     WxPayService wxPayService;
 
     /**
-     * 回调使用
+     * 回调使用（微信支付后回调）
      *
      * @param request
      * @param response
@@ -102,14 +103,33 @@ public class PayController {
         return Result.success(s);
     }
 
-    //退款
+    /**
+     * 退款回调接口
+     * @param xmlData
+     * @return
+     * @throws WxPayException
+     */
 
-    //同意退款
+    @PostMapping("/refundNotify")
+    public String parseRefundNotifyResult(@RequestBody String xmlData) throws WxPayException {
+        final WxPayRefundNotifyResult result = wxPayService.parseRefundNotifyResult(xmlData);
 
-    //确认收货
+        String outRefundNo = result.getReqInfo().getOutRefundNo();
 
-    //删除商品
+        String statusCode=result.getReqInfo().getRefundStatus();
 
+        Boolean b = wxPayOwnService.refundNotify(outRefundNo);
 
+        if(statusCode.equals("SUCCESS")&&b==Boolean.TRUE){
+
+            log.info("回调成功，数据处理成功处理成功!");
+
+            return WxPayNotifyResponse.success("回调成功，数据处理成功处理成功!");
+        }
+
+        log.info("回调成功，数据处理失败!");
+
+        return WxPayNotifyResponse.success("回调成功，数据处理失败!");
+    }
 
 }

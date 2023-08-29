@@ -331,12 +331,22 @@ public class ProductController {
 
     //支付成功后，申请退款（还没确认收货）//需要卖家同意？？？
 
+    /**
+     * 买家申请退款
+     * @param productId
+     * @return
+     */
     @PutMapping("/refund")
     public Result refund(@NotNull String productId){
 
         return productService.refund(productId);
     }
 
+    /**
+     * 卖家同意退款
+     * @param productId
+     * @return
+     */
 
     //卖家同意退款
     @PutMapping("/agreeRefund")

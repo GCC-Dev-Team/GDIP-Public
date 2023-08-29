@@ -141,7 +141,7 @@ public class AddressServiceImpl extends ServiceImpl<AddressMapper, Address>
 
         QueryWrapper<Address> addressQueryWrapper = new QueryWrapper<>();
 
-        addressQueryWrapper.eq("creator", user.getId()).eq("id",addressId);
+        addressQueryWrapper.eq("id",addressId);
 
         Address address = addressMapper.selectOne(addressQueryWrapper);
         if(address==null){

@@ -22,6 +22,7 @@ public class GlobalInterceptorConfig implements WebMvcConfigurer {
                 .excludePathPatterns(               //添加不拦截路径
                         "/swagger-ui/**",
                         "/wxpay/notify",//支付回调接口
+                        "/wxpay/refundNotify",
                         "/swagger-resources/**",
                         "/v3/api-docs",
                         "/webjars/**",

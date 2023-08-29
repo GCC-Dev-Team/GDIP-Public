@@ -1,19 +1,23 @@
 package com.example.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.example.common.Result;
 import com.example.mapper.PaymentMapper;
 import com.example.mapper.ProductMapper;
+import com.example.mapper.RefundMapper;
 import com.example.model.entity.Payment;
 import com.example.model.entity.Product;
+import com.example.model.entity.Refund;
 import com.example.model.entity.Wxuser;
 import com.example.service.WxPayOwnService;
 import com.example.utils.AccountHolder;
 import com.example.utils.DateUtils;
+import com.example.utils.TimerUtils;
 import com.github.binarywang.wxpay.bean.order.WxPayMpOrderResult;
 import com.github.binarywang.wxpay.bean.request.BaseWxPayRequest;
+import com.github.binarywang.wxpay.bean.request.WxPayRefundRequest;
 import com.github.binarywang.wxpay.bean.request.WxPayUnifiedOrderRequest;
 import com.github.binarywang.wxpay.bean.result.WxPayOrderQueryResult;
+import com.github.binarywang.wxpay.bean.result.WxPayRefundResult;
 import com.github.binarywang.wxpay.exception.WxPayException;
 import com.github.binarywang.wxpay.service.WxPayService;
 import org.springframework.stereotype.Service;
@@ -26,11 +30,16 @@ import java.util.Random;
 public class WxPayOwnServiceImpl implements WxPayOwnService {
 
     private static final String NOTIFY_URL = "https://xiaoligongzuoshi.top/wxpay/notify";//回调地址
+
+    private static final String REFUND_NOTIFY_URL = "https://xiaoligongzuoshi.top/wxpay/refundNotify";//回调地址
     @Resource
     ProductMapper productMapper;
 
     @Resource
     PaymentMapper paymentMapper;
+
+    @Resource
+    RefundMapper refundMapper;
 
     @Resource
     WxPayService wxPayService;
@@ -99,6 +108,29 @@ public class WxPayOwnServiceImpl implements WxPayOwnService {
 
         productMapper.updateById(product);
 
+        TimerUtils.scheduleTask(()->{
+
+            String s = queryOrder(productId);
+
+            if(!s.equals("SUCCESS")){
+
+                //如果未支付的操作
+                try {
+                    wxPayService.closeOrder(outTradeNo);
+
+                    product.setProductStatus(0);
+
+                    productMapper.updateById(product);
+
+                    paymentMapper.deleteById(payment);
+
+                } catch (WxPayException e) {
+
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+
         return wxPayMpOrderResult;
     }
 
@@ -142,15 +174,15 @@ public class WxPayOwnServiceImpl implements WxPayOwnService {
     /**
      * 成功回调后（成功支付后的业务层）
      *
-     * @param id
+     * @param outTradeNo
      * @return
      */
     @Override
-    public Boolean successNotify(String id) {
+    public Boolean successNotify(String outTradeNo) {
 
         QueryWrapper<Payment> paymentQueryWrapper = new QueryWrapper<>();
 
-        paymentQueryWrapper.eq("id", id).eq("status_number", 0);
+        paymentQueryWrapper.eq("id", outTradeNo).eq("status_number", 0);
 
 
         Payment payment = paymentMapper.selectOne(paymentQueryWrapper);
@@ -172,5 +204,69 @@ public class WxPayOwnServiceImpl implements WxPayOwnService {
 
         return Boolean.TRUE;
 
+    }
+
+    @Override
+    public Boolean refund(String productId) {
+
+        Wxuser user = AccountHolder.getUser();
+
+        QueryWrapper<Payment> paymentQueryWrapper = new QueryWrapper<>();
+        paymentQueryWrapper.eq("product_id",productId).eq("status_code","SUCCESS").eq("seller",user.getId());
+        Payment payment = paymentMapper.selectOne(paymentQueryWrapper);
+
+        if(payment==null){
+            throw new RuntimeException("该订单找不到或者该订单未支付!");
+        }
+
+        QueryWrapper<Product> productQueryWrapper = new QueryWrapper<>();
+        productQueryWrapper.eq("product_id",productId).eq("product_status",4);//后续加入
+        Product product = productMapper.selectOne(productQueryWrapper);
+
+        WxPayRefundRequest wxPayRefundRequest = new WxPayRefundRequest();
+        String outRefundNo=generateRandomNumber();
+        wxPayRefundRequest.setOutRefundNo(outRefundNo);//这个是退款单号
+        wxPayRefundRequest.setNotifyUrl(REFUND_NOTIFY_URL);//后续再修改，看拿到什么内容 通知地址
+        wxPayRefundRequest.setOutTradeNo(payment.getId());//原支付订单号
+        wxPayRefundRequest.setTotalFee(BaseWxPayRequest.yuanToFen(String.valueOf(product.getProductPrice())));
+        wxPayRefundRequest.setRefundFee(BaseWxPayRequest.yuanToFen(String.valueOf(product.getProductPrice())));
+
+
+        try {
+            WxPayRefundResult refund = wxPayService.refund(wxPayRefundRequest);
+
+            queryOrder(productId);
+
+            Refund refundSql = new Refund();
+            refundSql.setOutRefundNo(refund.getOutRefundNo());
+            refundSql.setOutTradeNo(refund.getOutTradeNo());
+            refundSql.setTotalFee(refund.getTotalFee());
+            refundSql.setRefundFee(refund.getRefundFee());
+            refundSql.setStatusCode(refund.getResultCode());
+            refundSql.setStatusNumber(0);//0是申请退款了（不一定成功），1是成功了
+
+            product.setProductStatus(0);
+
+            refundMapper.insert(refundSql);
+            productMapper.updateById(product);
+
+            return Boolean.TRUE;
+
+        } catch (WxPayException e) {
+
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    @Override
+    public Boolean refundNotify(String outRefundNo) {
+
+        Refund refund = refundMapper.selectById(outRefundNo);
+        refund.setStatusNumber(1);//1说明回调成功了
+
+        refundMapper.updateById(refund);
+
+        return Boolean.TRUE;
     }
 }

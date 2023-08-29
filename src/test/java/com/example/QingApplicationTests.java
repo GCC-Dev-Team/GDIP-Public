@@ -213,5 +213,9 @@ class QingApplicationTests {
 
 //        System.out.println(productMapper.getBuysByUserId("916e3f82-f9c0-4976-8adf-f4bef9f3ad7b"));
 //        System.out.println(addressUtil.getRegionName("441803"));
+
+        String productid="product:181a0754-8c77-4c12-8ae3-8a9853562697";
+        System.out.println(wxPayOwnService.refund(productid));
+        //System.out.println(wxPayOwnService.queryOrder(productid));
     }
 }

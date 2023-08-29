@@ -46,4 +46,9 @@ public class ProductSmallVo {
      */
     private String productDescription;
 
+    /**
+     * 商品的状态
+     */
+    private Integer productStatus;
+
 }

@@ -19,6 +19,7 @@ import com.example.model.vo.ProductDescribeVO;
 import com.example.model.vo.ProductSmallVo;
 import com.example.service.ProductService;
 import com.example.mapper.ProductMapper;
+import com.example.service.WxPayOwnService;
 import com.example.utils.AccountHolder;
 import com.example.utils.DeletePhotoUtil;
 import com.example.utils.ShowPhotoUtil;
@@ -49,6 +50,9 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product>
     @Resource
     WxuserMapper wxuserMapper;
 
+    @Resource
+    WxPayOwnService wxPayOwnService;
+
     @Override
     public Result getProductSmallAll(PageRequest pageRequest) {
 
@@ -76,7 +80,8 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product>
                         product.getProductPrice(),
                         product.getProductUnit(),
                         product.getFrontImage(),
-                        product.getProductDescription()
+                        product.getProductDescription(),
+                        product.getProductStatus()
                 ))
                 .collect(Collectors.toList());
 
@@ -281,6 +286,11 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product>
         return Result.success(productSmallVos);
     }
 
+    /**
+     * 确认收货
+     * @param productId
+     * @return
+     */
     @Override
     public Result Receive(String productId) {
         //TODO 需要企业付款才可以实现转账给对方
@@ -330,8 +340,10 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product>
 
     @Override
     public Result agreeRefund(String productId) {
-        //TODO 需要打回款给买家
-        return null;
+
+        Boolean refund = wxPayOwnService.refund(productId);
+
+        return Result.success(refund);//返回TURE
     }
 }
 

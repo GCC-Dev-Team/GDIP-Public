@@ -1,6 +1,5 @@
 package com.example.service;
 
-import com.example.common.Result;
 import com.github.binarywang.wxpay.bean.order.WxPayMpOrderResult;
 import com.github.binarywang.wxpay.exception.WxPayException;
 
@@ -18,6 +17,10 @@ public interface WxPayOwnService {
 
     String queryOrder(String productId);
 
-    Boolean successNotify(@NotNull String id);
+    Boolean successNotify(@NotNull String outTradeNo);
+
+    Boolean refund(@NotNull String productId);
+
+    Boolean refundNotify(@NotNull String outRefundNo);
 
 }
