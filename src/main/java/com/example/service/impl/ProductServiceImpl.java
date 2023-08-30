@@ -17,6 +17,8 @@ import com.example.model.vo.BuySmallVO;
 import com.example.model.vo.PageVO;
 import com.example.model.vo.ProductDescribeVO;
 import com.example.model.vo.ProductSmallVo;
+import com.example.service.FavoritesService;
+import com.example.service.FollowersService;
 import com.example.service.ProductService;
 import com.example.mapper.ProductMapper;
 import com.example.service.WxPayOwnService;
@@ -52,6 +54,10 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product>
 
     @Resource
     WxPayOwnService wxPayOwnService;
+    @Resource
+    FavoritesService favoritesService;
+    @Resource
+    FollowersService followersService;
 
     @Override
     public Result getProductSmallAll(PageRequest pageRequest) {
@@ -91,17 +97,27 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product>
     @Override
     public Result getProductDescribe(String productId) {
 
+        Wxuser user = AccountHolder.getUser();
+
         Product byId = this.getById(productId);
 
         ProductDescribeVO productDescribeVO = new ProductDescribeVO();
 
         BeanUtils.copyProperties(byId, productDescribeVO);
 
+        //获取发布者的名字和头像
         productDescribeVO.setPublisherAvatar(wxuserMapper.selectById(productDescribeVO.getPublisherId()).getAvatar());
         productDescribeVO.setPublisherName(wxuserMapper.selectById(productDescribeVO.getPublisherId()).getUserName());
 
+        //获取我是否收藏了
+        productDescribeVO.setCollectionRecord(favoritesService.judgeFavorite(productId, user.getId()));
 
+        //获取我是否关注了
+        productDescribeVO.setFollowerRecord(followersService.judgeFollower(user.getId(),productDescribeVO.getPublisherId()));
 
+        byId.setViewsCount(byId.getViewsCount()+1);
+
+        updateById(byId);
         return Result.success(productDescribeVO);
     }
 
@@ -144,8 +160,15 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product>
 
         BeanUtils.copyProperties(product, productDescribeVO);
 
+        //获取发布者的头像和名字
         productDescribeVO.setPublisherAvatar(wxuserMapper.selectById(productDescribeVO.getPublisherId()).getAvatar());
         productDescribeVO.setPublisherName(wxuserMapper.selectById(productDescribeVO.getPublisherId()).getUserName());
+
+        //获取我是否收藏了
+        productDescribeVO.setCollectionRecord(favoritesService.judgeFavorite(product.getProductId(), user.getId()));
+
+        //获取我是否关注了
+        productDescribeVO.setFollowerRecord(followersService.judgeFollower(user.getId(),productDescribeVO.getPublisherId()));
 
         return Result.success(productDescribeVO);
     }
@@ -156,7 +179,7 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product>
         Wxuser user = AccountHolder.getUser();
 
         QueryWrapper<Product> productQueryWrapper = new QueryWrapper<>();
-        productQueryWrapper.eq("publisher_id", user.getId());
+        productQueryWrapper.eq("publisher_id", user.getId()).orderByDesc("updated_time");
 
         return Result.success(getSmallProductVos(pageRequest, productQueryWrapper));
     }
@@ -219,14 +242,21 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product>
 
         if (temple > 0) {
 
-            save(one);
+            updateById(one);
         }
 
         ProductDescribeVO productDescribeVO = new ProductDescribeVO();
 
         BeanUtils.copyProperties(one, productDescribeVO);
+        //获取用户的头像和名字
         productDescribeVO.setPublisherAvatar(wxuserMapper.selectById(productDescribeVO.getPublisherId()).getAvatar());
         productDescribeVO.setPublisherName(wxuserMapper.selectById(productDescribeVO.getPublisherId()).getUserName());
+
+        //获取我是否收藏了
+        productDescribeVO.setCollectionRecord(favoritesService.judgeFavorite(one.getProductId(), user.getId()));
+
+        //获取我是否关注了
+        productDescribeVO.setFollowerRecord(followersService.judgeFollower(user.getId(),productDescribeVO.getPublisherId()));
 
         return Result.success(productDescribeVO);
     }

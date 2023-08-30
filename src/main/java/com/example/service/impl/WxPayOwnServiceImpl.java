@@ -235,7 +235,8 @@ public class WxPayOwnServiceImpl implements WxPayOwnService {
         try {
             WxPayRefundResult refund = wxPayService.refund(wxPayRefundRequest);
 
-            queryOrder(productId);
+            queryOrder(productId);//为了更新payment表中的状态
+            payment.setStatusNumber(2);//payment中的状态数字2表示退款成功
 
             Refund refundSql = new Refund();
             refundSql.setOutRefundNo(refund.getOutRefundNo());
@@ -249,6 +250,7 @@ public class WxPayOwnServiceImpl implements WxPayOwnService {
 
             refundMapper.insert(refundSql);
             productMapper.updateById(product);
+            paymentMapper.updateById(payment);
 
             return Boolean.TRUE;
 

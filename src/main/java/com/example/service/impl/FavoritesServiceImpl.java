@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.common.Result;
 import com.example.common.ResultCode;
+import com.example.mapper.ProductMapper;
 import com.example.model.dto.PageRequest;
 import com.example.model.entity.Favorites;
 import com.example.model.entity.Product;
@@ -33,6 +34,8 @@ public class FavoritesServiceImpl extends ServiceImpl<FavoritesMapper, Favorites
 
     @Resource
     FavoritesMapper favoritesMapper;
+    @Resource
+    ProductMapper productMapper;
 
     public Favorites getFavoriteByProductIdAndUserId(String productId, String userId) {
         QueryWrapper<Favorites> favoritesQueryWrapper = new QueryWrapper<>();
@@ -65,6 +68,10 @@ public class FavoritesServiceImpl extends ServiceImpl<FavoritesMapper, Favorites
 
         save(favorites);
 
+        //更新收藏量
+        Product product = productMapper.selectById(productId);
+        product.setFavoritesCount(product.getFavoritesCount()+1);
+        productMapper.updateById(product);
 
         return Result.success();
     }
@@ -81,6 +88,10 @@ public class FavoritesServiceImpl extends ServiceImpl<FavoritesMapper, Favorites
         }
 
         favoritesMapper.deleteById(one);
+        //更新收藏量
+        Product product = productMapper.selectById(productId);
+        product.setFavoritesCount(product.getFavoritesCount()-1);
+        productMapper.updateById(product);
 
         return Result.success();
     }
@@ -111,6 +122,24 @@ public class FavoritesServiceImpl extends ServiceImpl<FavoritesMapper, Favorites
 
 
         return Result.success(objectPageVO) ;
+    }
+
+    /**
+     * 判断是否收藏
+     * @param productId
+     * @param userId
+     * @return
+     */
+    @Override
+    public Integer judgeFavorite(String productId, String userId) {
+
+        Favorites favoriteByProductIdAndUserId = getFavoriteByProductIdAndUserId(productId, userId);
+
+        if (favoriteByProductIdAndUserId==null){
+            return 0;
+        }
+
+        return 1;
     }
 }
 

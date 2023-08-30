@@ -84,4 +84,14 @@ public class ProductDescribeVO{
      */
     private Date updatedTime;
 
+    /**
+     * 收藏记录（0是收藏了，1是没有收藏）
+     */
+    private Integer collectionRecord;
+
+    /**
+     * 关注记录(0代表没有关注，1代表关注了)
+     */
+    private Integer followerRecord;
+
 }

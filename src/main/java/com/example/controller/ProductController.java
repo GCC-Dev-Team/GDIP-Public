@@ -85,6 +85,8 @@ public class ProductController {
 
         return productService.deleteProduct(productId);
         //还没有完工，因为关联的表
+
+        //TODO 需要全部完成才能开发
     }
 
     /**
@@ -327,6 +329,7 @@ public class ProductController {
     @PostMapping("/Receive")
     public Result Receive(@NotNull String productId){
         return productService.Receive(productId);
+        //TODO 需要企业对公账号
     }
 
     //支付成功后，申请退款（还没确认收货）//需要卖家同意？？？

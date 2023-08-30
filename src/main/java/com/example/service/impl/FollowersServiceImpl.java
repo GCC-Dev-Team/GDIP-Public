@@ -29,6 +29,7 @@ public class FollowersServiceImpl extends ServiceImpl<FollowersMapper, Followers
     implements FollowersService{
     @Resource
     FollowersMapper followersMapper;
+
     @Override
     public Result follower(String beFollowerId) {
         Wxuser user = AccountHolder.getUser();
@@ -86,6 +87,23 @@ public class FollowersServiceImpl extends ServiceImpl<FollowersMapper, Followers
         PageVO<FollowerUserVO> followerUserVOPageVO = new PageVO<>(myAllFollowers.getRecords(),myAllFollowers.getTotal(),myAllFollowers.getSize(),myAllFollowers.getCurrent());
 
         return Result.success(followerUserVOPageVO);
+    }
+
+    /**
+     * 0代表没有关注用户，1代表关注了
+     * @param userId
+     * @param followedUserId
+     * @return
+     */
+    @Override
+    public Integer judgeFollower(String userId, String followedUserId) {
+        Followers followersByUserAndFollowedId = getFollowersByUserAndFollowedId(userId, followedUserId);
+
+        if (followersByUserAndFollowedId==null){
+            return 0;
+        }
+
+        return 1;
     }
 }
 

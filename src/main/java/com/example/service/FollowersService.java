@@ -21,4 +21,6 @@ public interface FollowersService extends IService<Followers> {
 
     Result getMyALlFollower(@NotNull@RequestBody PageRequest pageRequest);
 
+    Integer judgeFollower(@NotNull String userId,@NotNull String followedUserId);
+
 }
