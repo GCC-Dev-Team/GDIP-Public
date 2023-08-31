@@ -3,7 +3,7 @@ package com.example.mapper;
 
 import com.example.model.entity.Address;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import org.apache.ibatis.annotations.Select;
+
 
 /**
 * @author L
@@ -12,8 +12,6 @@ import org.apache.ibatis.annotations.Select;
 * @Entity com.example.model.entity.Address
 */
 public interface AddressMapper extends BaseMapper<Address> {
-
-
 
 
 

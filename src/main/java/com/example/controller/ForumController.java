@@ -5,11 +5,9 @@ import com.example.anno.NoNeedLogin;
 import com.example.common.Result;
 import com.example.model.dto.*;
 
-import com.example.service.CategoryService;
 import com.example.service.ForumService;
-
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
+
 
 import javax.annotation.Resource;
 import javax.validation.constraints.NotNull;
@@ -20,43 +18,8 @@ import javax.validation.constraints.NotNull;
 public class ForumController {
 
     @Resource
-    CategoryService categoryService;
-
-    @Resource
     ForumService forumService;
 
-    /**
-     * 增加类别
-     *
-     * @param categoryName 类别名称
-     * @return
-     */
-    @AdminLogin
-    @PostMapping("/addCategory")
-    public Result addCategory(@NotNull String categoryName) {
-
-        return categoryService.addCategory(categoryName);
-    }
-
-    /**
-     * 所有类别
-     */
-    @NoNeedLogin
-    @PostMapping("/allCategory")
-    public Result showAllCategory() {
-        return categoryService.showAllCategory();
-    }
-
-    /**
-     * 根据id查询到名字
-     * @param categoryId
-     * @return
-     */
-    @GetMapping("/categoryName")
-    public String getCategoryName(String categoryId){
-
-        return categoryService.getNameOfCategory(categoryId);
-    }
 
     /**
      * 发布公告
@@ -130,26 +93,6 @@ public class ForumController {
         return  forumService.getAllAnnounce(pageRequest);
     }
 
-    /**
-     * 上传图片
-     */
-    @PostMapping("/uploadPhoto")
-    public String uploadMdPhoto(@NotNull MultipartFile file) {
-
-        return forumService.uploadMdPhoto(file);
-    }
-
-    /**
-     * 上传md文件
-     *
-     * @param file
-     * @return
-     */
-    @PostMapping("/uploadMd")
-    public String uploadMd(@NotNull MultipartFile file) throws Exception {
-
-        return forumService.uploadMd(file);
-    }
 
     /**
      * 查看我发布的公告或者文章
@@ -157,17 +100,6 @@ public class ForumController {
     @GetMapping("/myAnnounce")
     public Result getMyAnnounce(){
         return forumService.getMyAnnounce();
-    }
-
-    /**
-     * 批量删除图片
-     * @param fileNames
-     * @return
-     */
-    @DeleteMapping("/photo")
-    public Result deletePhotos(String [] fileNames){
-
-        return forumService.deletePhotos(fileNames);
     }
 
     /**

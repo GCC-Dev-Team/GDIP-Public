@@ -42,4 +42,9 @@ public class TaskCreateRequest {
      */
     private String endTime;
 
+    /**
+     * 图片url
+     */
+    private String imageUrl;
+
 }

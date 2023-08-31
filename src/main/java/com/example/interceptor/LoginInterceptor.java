@@ -52,7 +52,7 @@ public class LoginInterceptor implements HandlerInterceptor {
             return false;
         }
 
-        String openid = redisToken.getOpenid(token);
+        String openid = redisToken.getOpenId(token);
 
 
         Wxuser user = wxuserMapper.getOneByOpenidWxuser(openid);

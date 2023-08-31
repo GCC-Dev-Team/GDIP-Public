@@ -21,17 +21,12 @@ import com.example.service.FavoritesService;
 import com.example.service.FollowersService;
 import com.example.service.ProductService;
 import com.example.mapper.ProductMapper;
-import com.example.service.WxPayOwnService;
+import com.example.service.ProductPayOwnService;
 import com.example.utils.AccountHolder;
-import com.example.utils.DeletePhotoUtil;
-import com.example.utils.ShowPhotoUtil;
-import com.example.utils.UploadPhotoUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
-import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -53,7 +48,7 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product>
     WxuserMapper wxuserMapper;
 
     @Resource
-    WxPayOwnService wxPayOwnService;
+    ProductPayOwnService productPayOwnService;
     @Resource
     FavoritesService favoritesService;
     @Resource
@@ -66,7 +61,6 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product>
 
         productQueryWrapper.orderByDesc("updated_time")
                 .eq("product_status", 0);
-
 
         return Result.success(getSmallProductVos(pageRequest, productQueryWrapper));
     }
@@ -97,7 +91,7 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product>
     @Override
     public Result getProductDescribe(String productId) {
 
-        Wxuser user = AccountHolder.getUser();
+
 
         Product byId = this.getById(productId);
 
@@ -105,20 +99,24 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product>
 
         BeanUtils.copyProperties(byId, productDescribeVO);
 
-        //获取发布者的名字和头像
-        productDescribeVO.setPublisherAvatar(wxuserMapper.selectById(productDescribeVO.getPublisherId()).getAvatar());
-        productDescribeVO.setPublisherName(wxuserMapper.selectById(productDescribeVO.getPublisherId()).getUserName());
-
-        //获取我是否收藏了
-        productDescribeVO.setCollectionRecord(favoritesService.judgeFavorite(productId, user.getId()));
-
-        //获取我是否关注了
-        productDescribeVO.setFollowerRecord(followersService.judgeFollower(user.getId(),productDescribeVO.getPublisherId()));
+        addAttributeInfo(productDescribeVO);
 
         byId.setViewsCount(byId.getViewsCount()+1);
 
         updateById(byId);
         return Result.success(productDescribeVO);
+    }
+
+    public void addAttributeInfo(ProductDescribeVO productDescribeVO){
+        //获取当前线程的用户
+        Wxuser user = AccountHolder.getUser();
+        //获取发布者的名字和头像
+        productDescribeVO.setPublisherAvatar(wxuserMapper.selectById(productDescribeVO.getPublisherId()).getAvatar());
+        productDescribeVO.setPublisherName(wxuserMapper.selectById(productDescribeVO.getPublisherId()).getUserName());
+        //获取我是否收藏了
+        productDescribeVO.setCollectionRecord(favoritesService.judgeFavorite(productDescribeVO.getProductId(), user.getId()));
+        //获取我是否关注了
+        productDescribeVO.setFollowerRecord(followersService.judgeFollower(user.getId(),productDescribeVO.getPublisherId()));
     }
 
     @Override
@@ -128,26 +126,8 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product>
         Product product = new Product();
 
         product.setProductId("product:" + UUID.randomUUID());
-        // Set productTitle
-        product.setProductTitle(createProductRequest.getProductTitle());
 
-// Set productPrice
-        product.setProductPrice(createProductRequest.getProductPrice());
-
-// Set productUnit
-        product.setProductUnit(createProductRequest.getProductUnit());
-
-// Set productDescription
-        product.setProductDescription(createProductRequest.getProductDescription());
-
-// Set frontImage
-        product.setFrontImage(createProductRequest.getFrontImage());
-
-// Set productImage
-        product.setProductImage(createProductRequest.getProductImage());
-
-// Set productAddress
-        product.setProductAddress(createProductRequest.getProductAddress());
+        BeanUtils.copyProperties(createProductRequest,product);
 
         product.setProductStatus(0);
         product.setFavoritesCount(0);
@@ -160,15 +140,7 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product>
 
         BeanUtils.copyProperties(product, productDescribeVO);
 
-        //获取发布者的头像和名字
-        productDescribeVO.setPublisherAvatar(wxuserMapper.selectById(productDescribeVO.getPublisherId()).getAvatar());
-        productDescribeVO.setPublisherName(wxuserMapper.selectById(productDescribeVO.getPublisherId()).getUserName());
-
-        //获取我是否收藏了
-        productDescribeVO.setCollectionRecord(favoritesService.judgeFavorite(product.getProductId(), user.getId()));
-
-        //获取我是否关注了
-        productDescribeVO.setFollowerRecord(followersService.judgeFollower(user.getId(),productDescribeVO.getPublisherId()));
+        addAttributeInfo(productDescribeVO);
 
         return Result.success(productDescribeVO);
     }
@@ -248,15 +220,8 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product>
         ProductDescribeVO productDescribeVO = new ProductDescribeVO();
 
         BeanUtils.copyProperties(one, productDescribeVO);
-        //获取用户的头像和名字
-        productDescribeVO.setPublisherAvatar(wxuserMapper.selectById(productDescribeVO.getPublisherId()).getAvatar());
-        productDescribeVO.setPublisherName(wxuserMapper.selectById(productDescribeVO.getPublisherId()).getUserName());
 
-        //获取我是否收藏了
-        productDescribeVO.setCollectionRecord(favoritesService.judgeFavorite(one.getProductId(), user.getId()));
-
-        //获取我是否关注了
-        productDescribeVO.setFollowerRecord(followersService.judgeFollower(user.getId(),productDescribeVO.getPublisherId()));
+        addAttributeInfo(productDescribeVO);
 
         return Result.success(productDescribeVO);
     }
@@ -281,19 +246,7 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product>
         return Result.success();
     }
 
-    @Override
-    public String updatePhoto(@NotNull MultipartFile file) {
-        String nameFile = "productPhoto:" + UUID.randomUUID();
 
-        UploadPhotoUtil.uploadFile(file, nameFile);
-
-        return ShowPhotoUtil.getPhotoByName(nameFile);
-    }
-
-    public Boolean deletePhoto(String[] photoName) {
-
-        return DeletePhotoUtil.deletePhotos(photoName);
-    }
 
     @Override
     public Result getMyBuy() {
@@ -371,7 +324,7 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product>
     @Override
     public Result agreeRefund(String productId) {
 
-        Boolean refund = wxPayOwnService.refund(productId);
+        Boolean refund = productPayOwnService.refund(productId);
 
         return Result.success(refund);//返回TURE
     }

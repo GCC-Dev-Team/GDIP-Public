@@ -41,7 +41,7 @@ public class FollowersServiceImpl extends ServiceImpl<FollowersMapper, Followers
             Followers followers = new Followers();
 
             followers.setFollowId("Follower:"+UUID.randomUUID());
-            followers.setFollowedUserId(user.getId());
+            followers.setUserId(user.getId());
             followers.setFollowedUserId(beFollowerId);
 
             save(followers);

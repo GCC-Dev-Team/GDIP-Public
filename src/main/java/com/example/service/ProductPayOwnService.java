@@ -6,7 +6,7 @@ import com.github.binarywang.wxpay.exception.WxPayException;
 import javax.validation.constraints.NotNull;
 
 
-public interface WxPayOwnService {
+public interface ProductPayOwnService {
 
     /**
      * 根据自己的商品id进行创建订单

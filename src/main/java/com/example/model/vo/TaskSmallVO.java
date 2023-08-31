@@ -12,13 +12,13 @@ public class TaskSmallVO {
 
     private String id;
 
-    private String title;
+    private String activityTitle;
 
-    private String url;
+    private String imageUrl;
 
     private Double price;
 
-    private Date beginTime;
+    private Date startTime;
 
     private Date endTime;
 

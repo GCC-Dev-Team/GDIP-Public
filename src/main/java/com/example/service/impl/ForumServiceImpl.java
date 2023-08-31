@@ -15,7 +15,6 @@ import com.example.model.vo.PageVO;
 import com.example.service.CategoryService;
 import com.example.service.ForumService;
 import com.example.mapper.ForumMapper;
-import com.example.service.WxPayOwnService;
 import com.example.utils.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;

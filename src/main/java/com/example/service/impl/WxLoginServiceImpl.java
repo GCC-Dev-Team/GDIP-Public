@@ -12,11 +12,14 @@ import com.example.model.entity.Wxuser;
 import com.example.model.vo.WxLoginVO;
 import com.example.service.WxLoginService;
 import com.example.service.WxuserService;
+import com.example.utils.RandomUtil;
+import com.example.utils.RedisToken;
 import com.example.utils.TokenUtils;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import me.chanjar.weixin.common.error.WxErrorException;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
@@ -35,7 +38,7 @@ public class WxLoginServiceImpl implements WxLoginService {
     private WxMaProperties wxMaProperties;
 
     @Resource
-    StringRedisTemplate stringRedisTemplate;
+    RedisToken redisToken;
 
 
 
@@ -66,9 +69,6 @@ public class WxLoginServiceImpl implements WxLoginService {
             String sessionKey = session.getSessionKey();
             String openid = session.getOpenid();
 
-            log.debug(sessionKey);
-            log.debug(openid);
-
             // 查询openid是否存在数据库并获取用户信息
             Wxuser user = checkLoginByOpenid(openid);
 
@@ -77,26 +77,13 @@ public class WxLoginServiceImpl implements WxLoginService {
                 user = registerNewUser(openid);
             }
 
-            String token= TokenUtils.getToken(openid);
-
+            String token= redisToken.saveRedis(openid);
 
             WxLoginVO wxLoginVo=new WxLoginVO();
 
-            String redisToken=UUID.randomUUID().toString();
+            BeanUtils.copyProperties(user,wxLoginVo);
 
-            wxLoginVo.setAvatar(user.getAvatar());
-            wxLoginVo.setState(user.getState());
-            wxLoginVo.setRole(user.getRole());
-            wxLoginVo.setStudentNumber(user.getStudentNumber());
-            wxLoginVo.setUserName(user.getUserName());
-            wxLoginVo.setPhoneNumber(user.getPhoneNumber());
-            wxLoginVo.setToken(redisToken);
-
-
-            if (token != null) {
-                stringRedisTemplate.opsForValue().set(redisToken,token);
-            }
-
+            wxLoginVo.setToken(token);
 
             return Result.success(wxLoginVo);
 
@@ -118,14 +105,14 @@ public class WxLoginServiceImpl implements WxLoginService {
     private Wxuser registerNewUser(String openid) {
         // 注册新用户，将openid存储进数据库
         Wxuser user = new Wxuser();
-        user.setId(UUID.randomUUID().toString());
+        user.setId("userId:"+RandomUtil.generateRandomString(32));
         user.setPhoneNumber("");
         user.setPassword("");
         user.setOpenid(openid);
         // 默认用户角色
         user.setRole(0);
         // 随机用户名
-        user.setUserName("qing_" + UUID.randomUUID().toString().substring(0,9));
+        user.setUserName("qing_" + RandomUtil.generateRandomString(8));
         // 正常状态
         user.setState(0);
 

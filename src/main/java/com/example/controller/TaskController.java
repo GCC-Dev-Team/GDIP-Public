@@ -7,7 +7,6 @@ import com.example.model.dto.ParticipateTaskRequest;
 import com.example.model.dto.TaskCreateRequest;
 import com.example.service.TaskService;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.validation.constraints.NotNull;
@@ -59,25 +58,12 @@ public class TaskController {
     }
 
     /**
-     * 上传任务图片的接口
-     * @param file 文件
-     * @param id 任务id
-     * @return
-     */
-    @PostMapping("/uploadTaskPhoto")
-    public Result uploadTaskPhoto(@NotNull MultipartFile file, @NotNull String id){
-
-        return taskService.uploadTaskPhoto(file,id);
-
-    }
-    /**
      * 报名参加任务
      */
     @PostMapping("/participateTask")
     public Result participateTask(@NotNull ParticipateTaskRequest participateTaskRequest){
 
         return taskService.participateTask(participateTaskRequest);
-
     }
 
     /**
@@ -89,7 +75,6 @@ public class TaskController {
     public  Result deleteTask(@NotNull String taskId){
 
         return taskService.deleteTask(taskId);
-
     }
 
 

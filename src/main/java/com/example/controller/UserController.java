@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
-import javax.validation.constraints.NotNull;
+
 
 @RestController
 @RequestMapping("/user")
@@ -85,6 +85,8 @@ public class UserController {
     public Result updateAvatar(MultipartFile file){
         return wxuserService.updateAvatar(file);
     }
+
+
 
 
 }

@@ -1,37 +1,21 @@
 package com.example;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.mapper.*;
-import com.example.model.entity.Address;
-import com.example.model.vo.AddressVO;
 import com.example.service.FavoritesService;
 import com.example.service.LinkTaskService;
-import com.example.service.WxPayOwnService;
+import com.example.service.ProductPayOwnService;
 import com.example.service.WxuserService;
 import com.example.utils.AddressUtil;
-import com.example.utils.DateUtils;
-import com.github.binarywang.wxpay.bean.order.WxPayMpOrderResult;
-import com.github.binarywang.wxpay.bean.request.BaseWxPayRequest;
-import com.github.binarywang.wxpay.bean.request.WxPayUnifiedOrderRequest;
-import com.github.binarywang.wxpay.bean.result.WxPayOrderQueryResult;
+import com.example.utils.TokenUtils;
 import com.github.binarywang.wxpay.exception.WxPayException;
 import com.github.binarywang.wxpay.service.WxPayService;
-import com.qiniu.util.Json;
-import com.qiniu.util.StringMap;
 
 
 import org.json.JSONException;
-import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.BeanUtils;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import static com.example.service.impl.WxPayOwnServiceImpl.generateRandomNumber;
 
 @SpringBootTest
 class QingApplicationTests {
@@ -60,7 +44,7 @@ class QingApplicationTests {
     @Resource
     WxPayService wxService;
     @Resource
-    WxPayOwnService wxPayOwnService;
+    ProductPayOwnService productPayOwnService;
     @Resource
     ProductMapper productMapper;
     @Resource
@@ -159,7 +143,7 @@ class QingApplicationTests {
 //        Date date = new Date();
 //
 //        System.out.println(DateUtils.dateAddTime(date,23));
-      //  System.out.println(wxPayOwnService.createOrder("1121111"));
+      //  System.out.println(productPayOwnService.createOrder("1121111"));
 
     }
     @Test
@@ -218,8 +202,24 @@ class QingApplicationTests {
 //        System.out.println(addressUtil.getRegionName("441803"));
 
 //        String productid="product:181a0754-8c77-4c12-8ae3-8a9853562697";
-//        System.out.println(wxPayOwnService.refund(productid));
-        //System.out.println(wxPayOwnService.queryOrder(productid));
-        System.out.println(favoritesService.judgeFavorite("1", "1"));
+//        System.out.println(productPayOwnService.refund(productid));
+        //System.out.println(productPayOwnService.queryOrder(productid));
+//        System.out.println(favoritesService.judgeFavorite("1", "1"));
+
+//        String s = TokenUtils.generateJWT("20030515", "123456");
+//
+//        String openid = TokenUtils.getOpenid(s);
+//
+//        System.out.println(openid);
+
+
+
+      //  boolean tokenExpired = TokenUtils.isTokenExpired("eyJhbGciOiJIUzI1NiJ9.eyJvcGVuSWQiOiIyMDAzMDUxNSIsInJlZGlzVG9rZW4iOiIxMjM0NTYiLCJleHAiOjE2OTM0OTg5Mzl9.GwFUSO1zVFPnt_e5jcwyypePMWf6CCEgoDEvCwc2hmM");
+
+        //System.out.println(tokenExpired);
+
+
+//        System.out.println("我在这");
+//        System.out.println(s);
     }
 }

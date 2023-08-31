@@ -8,7 +8,7 @@ import com.example.model.entity.Payment;
 import com.example.model.entity.Product;
 import com.example.model.entity.Refund;
 import com.example.model.entity.Wxuser;
-import com.example.service.WxPayOwnService;
+import com.example.service.ProductPayOwnService;
 import com.example.utils.AccountHolder;
 import com.example.utils.DateUtils;
 import com.example.utils.TimerUtils;
@@ -27,7 +27,7 @@ import java.util.Date;
 import java.util.Random;
 
 @Service
-public class WxPayOwnServiceImpl implements WxPayOwnService {
+public class ProductPayOwnServiceImpl implements ProductPayOwnService {
 
     private static final String NOTIFY_URL = "https://xiaoligongzuoshi.top/wxpay/notify";//回调地址
 

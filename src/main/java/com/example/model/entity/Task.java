@@ -64,13 +64,13 @@ public class Task implements Serializable {
     private Date endTime;
 
     /**
-     * 
+     * 请求体没有
      */
     @TableField(value = "sign_out_code")
     private String signOutCode;
 
     /**
-     * 
+     * 请求体没有
      */
     @TableField(value = "is_completed")
     private Integer isCompleted;
@@ -79,7 +79,7 @@ public class Task implements Serializable {
     private Double price;
 
     /**
-     * 
+     * 请求体没有
      */
     @TableField(value = "initiator")
     private String initiator;

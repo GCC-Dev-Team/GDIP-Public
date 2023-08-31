@@ -23,13 +23,13 @@ public class Followers implements Serializable {
     private String followId;
 
     /**
-     * 
+     * 我的id
      */
     @TableField(value = "user_id")
     private String userId;
 
     /**
-     * 
+     * 被关注的id
      */
     @TableField(value = "followed_user_id")
     private String followedUserId;

@@ -19,13 +19,15 @@ import com.example.service.LinkTaskService;
 import com.example.service.TaskService;
 import com.example.mapper.TaskMapper;
 import com.example.utils.*;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.multipart.MultipartFile;
+
 
 import javax.annotation.Resource;
 import javax.validation.constraints.NotNull;
 import java.util.*;
+
 
 /**
 * @author L
@@ -57,21 +59,15 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
 
         String singOut=getCode();
 
-
         Task task = new Task();
-
         task.setId(taskId);
-        task.setActivityTitle(taskCreateRequest.getActivityTitle());
-        task.setLocation(taskCreateRequest.getLocation());
         task.setInitiator(user.getId());
         task.setIsCompleted(0);
-        task.setNumberOfParticipants(taskCreateRequest.getNumberOfParticipants());
-        task.setActivityDescription(taskCreateRequest.getActivityDescription());
         task.setStartTime(dateStart);
         task.setEndTime(dateEnd);
         task.setSignOutCode(singOut);
-        task.setPeople(0);
-        task.setPrice(taskCreateRequest.getPrice());
+
+        BeanUtils.copyProperties(taskCreateRequest,task);
 
         this.save(task);
 
@@ -95,27 +91,16 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
 
         Wxuser wxuser = wxuserMapper.selectById(task.getInitiator());
 
-        taskVO.setId(task.getId());
+        BeanUtils.copyProperties(task,taskVO);
+
         taskVO.setUserId(wxuser.getId());
         taskVO.setUserImage(wxuser.getAvatar());
         taskVO.setUserName(wxuser.getUserName());
-        taskVO.setLocation(task.getLocation());
-        taskVO.setEndTime(task.getEndTime());
-        taskVO.setStartTime(task.getStartTime());
-        taskVO.setActivityTitle(task.getActivityTitle());
-        taskVO.setActivityDescription(task.getActivityDescription());
-        taskVO.setImageUrl(task.getImageUrl());
-        taskVO.setNumberOfParticipants(task.getNumberOfParticipants());
-        taskVO.setPrice(task.getPrice());
-        taskVO.setUpdateTime(task.getUpdatedTime());//最后更新时间
-        taskVO.setPeople(task.getPeople());
 
         if(task.getInitiator().equals(user.getId())){
             //这个是自己发布查看的任务详情
             taskVO.setSignOutCode(task.getSignOutCode());
         }
-
-        taskVO.setIsCompleted(task.getIsCompleted());
         return Result.success(taskVO);
     }
 
@@ -146,9 +131,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
         taskQueryWrapper.ge("start_time",new Date())
                 .orderByDesc("updated_time");
 
-        Page<Task> taskPage = taskMapper.selectPage(new Page<Task>(pageRequest.getCurrentPage(), pageRequest.getPageSize()), taskQueryWrapper);
-
-//        PageVO pageVO = new PageVO(taskPage.getRecords(), taskPage.getTotal(), taskPage.getSize(), taskPage.getCurrent());
+        Page<Task> taskPage = taskMapper.selectPage(new Page<>(pageRequest.getCurrentPage(), pageRequest.getPageSize()), taskQueryWrapper);
 
         return getResult(taskPage);
     }
@@ -157,57 +140,23 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
     private Result getResult(Page<Task> taskPage) {
         List<Task> tasks = taskPage.getRecords();
 
-        List<TaskSmallVO> taskSmallVOList =new ArrayList<>();
+        List<TaskSmallVO> taskSmallVOList =null;
 
         if(!tasks.isEmpty()){
 
-            for (Task taskTemple : tasks) {
-                TaskSmallVO taskSmallVo = new TaskSmallVO();
-
-                taskSmallVo.setTitle(taskTemple.getActivityTitle());
-                taskSmallVo.setId(taskTemple.getId());
-                taskSmallVo.setBeginTime(taskTemple.getStartTime());
-                taskSmallVo.setEndTime(taskTemple.getEndTime());
-                taskSmallVo.setUrl(taskTemple.getImageUrl());
-                taskSmallVo.setPrice(taskTemple.getPrice());
-                taskSmallVo.setPeople(taskTemple.getPeople());
-
-                taskSmallVOList.add(taskSmallVo);
-            }
-
+            taskSmallVOList =tasks.stream()
+                    .map(task -> new TaskSmallVO(
+                            task.getId(),
+                            task.getActivityTitle(),
+                            task.getImageUrl(),
+                            task.getPrice(),
+                            task.getStartTime(),
+                            task.getEndTime(),
+                            task.getPeople()
+                    )).toList();
         }
 
         return Result.success(new PageVO<>(taskSmallVOList, taskPage.getTotal(), taskPage.getSize(), taskPage.getCurrent()));
-    }
-
-    @Override
-    public Result uploadTaskPhoto(MultipartFile file, String id) {
-
-
-        String name="Task:"+id+ "photo:"+UUID.randomUUID();
-
-        UploadPhotoUtil.uploadFile(file,name);
-
-        String photoByName = ShowPhotoUtil.getPhotoByName(name);
-
-        Task task = this.getById(id);
-
-        if( task.getImageUrl()==null){
-
-            task.setImageUrl(photoByName);
-
-        }else {
-
-            String oldUrl=task.getImageUrl();
-
-            String newUrl=oldUrl+","+photoByName;
-
-            task.setImageUrl(newUrl);
-        }
-
-        this.updateById(task);
-
-        return Result.success();
     }
 
     @Override
@@ -229,7 +178,6 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
 
             Date taskIdBeginTime=task.getStartTime();
             Date taskIdEndTime=task.getEndTime();
-
 
             //这里是有任务没有签退的，看时间是否冲突
 
@@ -257,8 +205,6 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
                     return Result.failure(ResultCode.TASK_ERROR_REPEAT_TIME);
 
             }
-
-
 
         }
         Boolean temple=linkTaskService.participateTask(user.getId(),taskId);

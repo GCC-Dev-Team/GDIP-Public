@@ -1,7 +1,7 @@
 package com.example.controller;
 
 import com.example.common.Result;
-import com.example.service.WxPayOwnService;
+import com.example.service.ProductPayOwnService;
 import com.github.binarywang.wxpay.bean.notify.WxPayNotifyResponse;
 import com.github.binarywang.wxpay.bean.notify.WxPayOrderNotifyResult;
 import com.github.binarywang.wxpay.bean.notify.WxPayRefundNotifyResult;
@@ -24,7 +24,7 @@ import javax.validation.constraints.NotNull;
 public class PayController {
 
     @Resource
-    WxPayOwnService wxPayOwnService;
+    ProductPayOwnService productPayOwnService;
 
     @Resource
     WxPayService wxPayService;
@@ -52,7 +52,7 @@ public class PayController {
             if (resultCode.equals("SUCCESS")) {
                 //支付成功后的业务层
 
-                Boolean b = wxPayOwnService.successNotify(orderId);
+                Boolean b = productPayOwnService.successNotify(orderId);
 
                 if (b == Boolean.TRUE) {
 
@@ -84,7 +84,7 @@ public class PayController {
     @PostMapping("/addTrade")
     public Result addTrade(@NotNull String productId) throws WxPayException {
 
-        WxPayMpOrderResult order = wxPayOwnService.createOrder(productId);
+        WxPayMpOrderResult order = productPayOwnService.createOrder(productId);
 
         return Result.success(order);
     }
@@ -98,7 +98,7 @@ public class PayController {
     @GetMapping("/trade")
     public Result queryTrade(@NotNull String produnctId) {
 
-        String s = wxPayOwnService.queryOrder(produnctId);
+        String s = productPayOwnService.queryOrder(produnctId);
 
         return Result.success(s);
     }
@@ -118,7 +118,7 @@ public class PayController {
 
         String statusCode=result.getReqInfo().getRefundStatus();
 
-        Boolean b = wxPayOwnService.refundNotify(outRefundNo);
+        Boolean b = productPayOwnService.refundNotify(outRefundNo);
 
         if(statusCode.equals("SUCCESS")&&b==Boolean.TRUE){
 
