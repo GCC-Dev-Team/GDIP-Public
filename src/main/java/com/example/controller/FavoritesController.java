@@ -19,7 +19,7 @@ public class FavoritesController {
      * @return
      */
 
-    @PostMapping("/FavoriteItems")
+    @PostMapping
     public Result favoriteItems(@NotNull String productId){
 
         return favoritesService.favoriteItems(productId);
@@ -30,7 +30,7 @@ public class FavoritesController {
      * @param productId
      * @return
      */
-    @PutMapping("/FavoriteItems")
+    @PutMapping
     public Result updateFavorite(@NotNull String productId){
 
         return favoritesService.updateFavorite(productId);
@@ -42,7 +42,7 @@ public class FavoritesController {
      * @return
      */
     //非常值得学习分页查询多表联查
-    @PostMapping("/myFavorite")
+    @PostMapping("/my")
     public Result getMyFavorite(@NotNull @RequestBody PageRequest pageRequest){
 
         return favoritesService.getMyFavorite(pageRequest);

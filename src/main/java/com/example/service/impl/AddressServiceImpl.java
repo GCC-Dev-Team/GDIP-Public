@@ -86,13 +86,12 @@ public class AddressServiceImpl extends ServiceImpl<AddressMapper, Address>
     public Result updateMyAddress(UpdateAddressRequest updateAddressId) {
        int temple=0;
 
-        String addressId = updateAddressId.getAddressId();
-
-        Address byId = getById(addressId);
+        Address byId = getById(updateAddressId.getAddressId());
 
         if (updateAddressId.getAddressCode()!=null){
 
             byId.setRegionId(String.valueOf(updateAddressId.getAddressCode()));
+            byId.setRegionName(addressUtil.getRegionName(String.valueOf(updateAddressId.getAddressCode())));
 
             temple=temple+1;
         }

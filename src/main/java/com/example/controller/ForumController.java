@@ -30,7 +30,6 @@ public class ForumController {
 
         return forumService.addAnnouncement(addAnnouncementRequest);
     }
-
     /**
      * 发布学校的帖子/文章（非公告）
      * @param addPostRequest

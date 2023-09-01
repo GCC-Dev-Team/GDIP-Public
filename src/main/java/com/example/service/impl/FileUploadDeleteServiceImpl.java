@@ -44,7 +44,7 @@ public class FileUploadDeleteServiceImpl implements FileUploadDelete {
      */
     @Override
     public String uploadPhoto(@NotNull MultipartFile file, String prefix) {
-        String nameFile = "productPhoto:" + UUID.randomUUID();
+        String nameFile = prefix + UUID.randomUUID();
 
         UploadPhotoUtil.uploadFile(file, nameFile);
 

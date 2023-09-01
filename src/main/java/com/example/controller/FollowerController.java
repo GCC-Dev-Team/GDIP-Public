@@ -16,12 +16,12 @@ public class FollowerController {
     //我的关注
 
     /**
-     * 关注
+     * 关注用户
      * @param beFollowerId
      * @return
      */
 
-    @PostMapping("/Follower")
+    @PostMapping
     public Result follower(@NotNull String beFollowerId){
 
         return followersService.follower(beFollowerId);
@@ -32,13 +32,11 @@ public class FollowerController {
      * @param beFollowerId
      * @return
      */
-    @PutMapping("/Follower")
+    @PutMapping
     public Result updateMyFollower(@NotNull String beFollowerId){
 
         return followersService.updateMyFollower(beFollowerId);
     }
-
-    //查看我的关注
 
     /**
      * 查看我的关注用户

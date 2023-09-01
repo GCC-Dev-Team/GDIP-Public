@@ -4,7 +4,6 @@ import com.example.common.Result;
 import com.example.model.dto.*;
 import com.example.service.WxuserService;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 
@@ -19,7 +18,7 @@ public class UserController {
      * 获取个人信息的接口
      * @return
      */
-    @GetMapping("/info")
+    @GetMapping
     public Result getUserInfo(){
         return wxuserService.getUserInfo();
     }
@@ -74,19 +73,5 @@ public class UserController {
 
         return wxuserService.updateSchoolNewPassword(updateSchoolPassword3Request);
     }
-
-
-    /**
-     * 修改/上传头像
-     * @param file 头像文件
-     * @return
-     */
-    @PostMapping("/avatar")
-    public Result updateAvatar(MultipartFile file){
-        return wxuserService.updateAvatar(file);
-    }
-
-
-
 
 }

@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AddAddressRequest {
     /**
-     * 地址的省市区镇代码（从拿代码接口拿）
+     * 地址的省市区镇代码（从拿代码接口拿）(也是学校的那个一样的但是不是int)
      */
     private Integer addressCode;
 

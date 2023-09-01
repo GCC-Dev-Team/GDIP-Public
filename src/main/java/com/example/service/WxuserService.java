@@ -5,7 +5,7 @@ import com.example.model.dto.*;
 import com.example.model.entity.Wxuser;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.multipart.MultipartFile;
+
 
 /**
 * @author L
@@ -22,7 +22,6 @@ public interface WxuserService extends IService<Wxuser> {
 
     Result updatePhoneInfo(@RequestBody UserUpdatePhoneRequest userUpdatePhoneRequest);
 
-    Result updateAvatar(MultipartFile file);
 
     Result updateSchoolPassword(@RequestBody UpdateSchoolPasswordRequest updateSchoolPasswordRequest);
 

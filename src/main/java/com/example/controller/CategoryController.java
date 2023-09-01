@@ -24,7 +24,7 @@ public class CategoryController {
      * @return
      */
     @AdminLogin
-    @PostMapping("/addCategory")
+    @PostMapping
     public Result addCategory(@NotNull String categoryName) {
 
         return categoryService.addCategory(categoryName);
@@ -34,7 +34,7 @@ public class CategoryController {
      * 所有类别
      */
     @NoNeedLogin
-    @PostMapping("/allCategory")
+    @GetMapping
     public Result showAllCategory() {
         return categoryService.showAllCategory();
     }
@@ -44,7 +44,7 @@ public class CategoryController {
      * @param categoryId
      * @return
      */
-    @GetMapping("/categoryName")
+    @GetMapping("/Name")
     public String getCategoryName(String categoryId){
 
         return categoryService.getNameOfCategory(categoryId);

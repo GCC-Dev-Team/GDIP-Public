@@ -41,24 +41,24 @@ public class AddressController {
      * @return
      */
 
-    @PutMapping("/myAddress")
+    @PutMapping
     public Result updateMyAddress(@NotNull @RequestBody UpdateAddressRequest updateAddressId){
         return addressService.updateMyAddress(updateAddressId);
     }
 
     /**
-     * 根据地址id获取所有的地址详细的
+     * 根据地址id地址详细信息
      * @param addressId
      * @return
      */
-    @GetMapping("/addressDescribeById")
+    @GetMapping
     public String addressDescribeById(@NotNull String addressId){
 
         return addressService.getAllAddressDescribeById(addressId);
     }
 
     /**
-     * 获取某个地址的详细信息
+     * 获取我的某个地址的详细信息
      * @param addressId
      * @return
      */
@@ -73,7 +73,7 @@ public class AddressController {
      * @param addressId
      * @return
      */
-    @DeleteMapping("/myAddress")
+    @DeleteMapping
     public Result deleteAddress(@NotNull String addressId){
         return addressService.deleteAddress(addressId);
     }

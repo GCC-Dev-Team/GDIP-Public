@@ -155,26 +155,6 @@ public class WxuserServiceImpl extends ServiceImpl<WxuserMapper, Wxuser>
         return Result.failure(ResultCode.USER_ERROR_UPDATE_SCHOOL_PASSWORD);
     }
 
-    @Override
-    public Result updateAvatar(@NotNull MultipartFile file) {
-
-        Wxuser user = AccountHolder.getUser();
-
-        String name="avatar"+user.getId();
-
-        if(user.getAvatar()!=null){
-
-            DeletePhotoUtil.deletePhotoByName(name);
-        }
-
-        UploadPhotoUtil.uploadFile(file,name);
-
-        user.setAvatar(ShowPhotoUtil.getPhotoByName(name));
-
-        this.updateById(user);
-
-        return Result.success();
-    }
 }
 
 
