@@ -221,5 +221,9 @@ class QingApplicationTests {
 
 //        System.out.println("我在这");
 //        System.out.println(s);
+
+        String regionName = addressUtil.getRegionName("88882013");
+
+        System.out.println(regionName);
     }
 }

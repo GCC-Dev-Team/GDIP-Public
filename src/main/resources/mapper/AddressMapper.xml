@@ -7,6 +7,7 @@
     <resultMap id="BaseResultMap" type="com.example.model.entity.Address">
             <id property="id" column="id" jdbcType="VARCHAR"/>
             <result property="regionId" column="region_id" jdbcType="VARCHAR"/>
+            <result property="regionName" column="region_name" jdbcType="VARCHAR"/>
             <result property="detailedAddress" column="detailed_address" jdbcType="VARCHAR"/>
             <result property="creator" column="creator" jdbcType="VARCHAR"/>
             <result property="createdTime" column="created_time" jdbcType="TIMESTAMP"/>

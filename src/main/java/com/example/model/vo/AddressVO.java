@@ -19,7 +19,7 @@ public class AddressVO {
     /**
      * 前面的地址
      */
-    private String region;
+    private String regionName;
 
     /**
      * 详细地址描述

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.CommentMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.model.entity.Comment">
+            <id property="commentId" column="comment_id" jdbcType="VARCHAR"/>
+            <result property="postId" column="post_id" jdbcType="VARCHAR"/>
+            <result property="commenterId" column="commenter_id" jdbcType="VARCHAR"/>
+            <result property="commentContent" column="comment_content" jdbcType="VARCHAR"/>
+            <result property="likes" column="likes" jdbcType="INTEGER"/>
+            <result property="dislikes" column="dislikes" jdbcType="INTEGER"/>
+            <result property="createdAt" column="created_at" jdbcType="TIMESTAMP"/>
+            <result property="updatedAt" column="updated_at" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        comment_id,post_id,commenter_id,
+        comment_content,likes,dislikes,
+        created_at,updated_at
+    </sql>
+</mapper>

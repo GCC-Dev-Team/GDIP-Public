@@ -54,7 +54,7 @@ public class AddressServiceImpl extends ServiceImpl<AddressMapper, Address>
         address.setDetailedAddress(addAddressRequest.getDescribe());
         address.setCreator(user.getId());
         address.setRegionId(String.valueOf(addAddressRequest.getAddressCode()));
-
+        address.setRegionName(addressUtil.getRegionName(address.getRegionId()));
         save(address);
 
         return Result.success();
@@ -76,11 +76,6 @@ public class AddressServiceImpl extends ServiceImpl<AddressMapper, Address>
         for (Address address : addresses) {
             AddressVO addressVO = new AddressVO();
             BeanUtils.copyProperties(address, addressVO);
-            //加上省市区
-
-            String regionName = addressUtil.getRegionName(addressVO.getRegionId());
-            addressVO.setRegion(regionName);
-
             addressVOS.add(addressVO);
         }
 
@@ -148,16 +143,10 @@ public class AddressServiceImpl extends ServiceImpl<AddressMapper, Address>
             log.error("查询地址失败!");
             throw new RuntimeException("请核实地址id是否正确，是否已经登录!");
         }
-        //这里可以优化
-
         AddressVO addressVO = new AddressVO();
-        addressVO.setId(address.getId());
-        addressVO.setRegionId(address.getRegionId());
-        addressVO.setRegion(addressUtil.getRegionName(address.getRegionId()));
-        addressVO.setDetailedAddress(address.getDetailedAddress());
+        BeanUtils.copyProperties(address, addressVO);
 
         return Result.success(addressVO);
-
     }
 
     @Override
@@ -165,7 +154,7 @@ public class AddressServiceImpl extends ServiceImpl<AddressMapper, Address>
 
         Address address = addressMapper.selectById(addressId);
 
-       return addressUtil.getRegionName(address.getRegionId())+address.getDetailedAddress();
+       return address.getRegionName()+address.getDetailedAddress();
 
     }
 }

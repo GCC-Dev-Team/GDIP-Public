@@ -28,6 +28,8 @@ public class Address implements Serializable {
     @TableField(value = "region_id")
     private String regionId;
 
+    @TableField(value = "region_name")
+    private String regionName;
     /**
      * 
      */
