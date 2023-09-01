@@ -18,11 +18,11 @@ public class PageRequest implements Serializable {
      * 当前页（默认第1页）
      */
 
-    private Integer currentPage ;
+    private Integer currentPage;
 
     /**
      * 每页记录数（默认10条）
      */
 
-    private Integer pageSize ;
+    private Integer pageSize;
 }

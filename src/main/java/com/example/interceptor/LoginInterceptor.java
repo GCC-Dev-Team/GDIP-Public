@@ -23,8 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 public class LoginInterceptor implements HandlerInterceptor {
     @Resource
     RedisToken redisToken;
-    @Resource
-    WxuserService wxuserService;
+
     @Resource
     WxuserMapper wxuserMapper;
 
