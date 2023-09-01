@@ -18,6 +18,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.constraints.NotNull;
 
+/**
+ * 支付
+ */
 @RestController
 @RequestMapping("/wxpay")
 @Slf4j

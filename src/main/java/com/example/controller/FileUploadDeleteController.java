@@ -12,6 +12,9 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.annotation.Resource;
 import javax.validation.constraints.NotNull;
 
+/**
+ * 文件上传删除
+ */
 @RestController
 @RequestMapping("/upload")
 public class FileUploadDeleteController {

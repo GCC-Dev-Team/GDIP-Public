@@ -8,6 +8,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import javax.validation.constraints.NotNull;
+
+/**
+ * 省市区以及编码获取
+ */
 @RestController
 @RequestMapping("/province")
 public class ProvinceController {

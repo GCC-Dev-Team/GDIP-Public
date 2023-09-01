@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.validation.constraints.NotNull;
 
+/**
+ * 我的地址（所有地址通用）
+ */
 @RestController
 @RequestMapping("/address")
 public class AddressController {

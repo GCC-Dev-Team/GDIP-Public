@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.validation.constraints.NotNull;
 
+/**
+ * 关注
+ */
 @RestController
 @RequestMapping("/follower")
 public class FollowerController {

@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
-
+/**
+ * 用户
+ */
 @RestController
 @RequestMapping("/user")
 public class UserController {

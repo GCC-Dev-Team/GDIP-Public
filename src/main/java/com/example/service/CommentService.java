@@ -32,8 +32,8 @@ public interface CommentService extends IService<Comment> {
 
     /**
      * 删除评论
-     * @param forumId
+     * @param commentId
      * @return
      */
-    Result deleteComment(@NotNull String forumId);
+    Result deleteComment(@NotNull String commentId);
 }

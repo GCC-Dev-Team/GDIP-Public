@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import javax.validation.constraints.NotNull;
 
+/**
+ * 登录
+ */
 @RestController
 @RequestMapping("/login")
 public class LoginController {

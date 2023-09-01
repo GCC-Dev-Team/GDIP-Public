@@ -62,7 +62,7 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment>
     @Override
     public Result getComments(String forumId, PageRequest pageRequest) {
         QueryWrapper<Comment> commentQueryWrapper = new QueryWrapper<>();
-        commentQueryWrapper.eq("post_id",forumId);
+        commentQueryWrapper.eq("post_id", forumId).orderByDesc("likes");
         Page<Comment> page = new Page<>(pageRequest.getCurrentPage(), pageRequest.getPageSize());
 
         Page<Comment> commentPage = commentMapper.selectPage(page, commentQueryWrapper);
@@ -86,8 +86,23 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment>
 
 
     @Override
-    public Result deleteComment(String forumId) {
-        return null;
+    public Result deleteComment(String commentId) {
+
+        Wxuser user = AccountHolder.getUser();
+
+        QueryWrapper<Comment> commentQueryWrapper = new QueryWrapper<>();
+        commentQueryWrapper.eq("comment_id",commentId).eq("commenterId",user.getId());
+
+        Comment comment = getOne(commentQueryWrapper);
+
+        if (comment==null){
+
+            throw new RuntimeException("该评论删除失败!");
+        }
+
+        commentMapper.deleteById(commentId);
+//TODo 还有点赞表没有删除
+        return Result.success();
     }
 }
 

@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.validation.constraints.NotNull;
 
+/**
+ * 任务（跑腿）
+ */
 @RestController
 @RequestMapping("/task")
 public class TaskController {

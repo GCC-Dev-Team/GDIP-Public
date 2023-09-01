@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import javax.validation.constraints.NotNull;
 
+/**
+ * 学校地址获取（获取编码也是）
+ */
 @RestController
 @RequestMapping("/schoolAddress")
 public class SchoolAreaController {

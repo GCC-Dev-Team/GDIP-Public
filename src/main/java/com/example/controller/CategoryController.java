@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import javax.validation.constraints.NotNull;
 
+/**
+ * 类别
+ */
 @RestController
 @RequestMapping("/category")
 public class CategoryController {

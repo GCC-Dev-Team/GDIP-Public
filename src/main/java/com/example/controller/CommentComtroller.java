@@ -27,11 +27,11 @@ public class CommentComtroller {
      */
     @PostMapping
     public Result addComment(@RequestBody AddCommentRequest addCommentRequest){
-        return null;
+        return commentService.addComment(addCommentRequest);
     }
 
     /**
-     * 获取评论
+     * 获取某个帖子的所有评论
      * @param forumId
      * @param pageRequest
      * @return
@@ -39,18 +39,18 @@ public class CommentComtroller {
     @PostMapping("/getComment")
     public Result getComments(@NotNull String forumId, @RequestBody PageRequest pageRequest){
 
-        return null;
+        return commentService.getComments(forumId,pageRequest);
     }
 
     /**
      * 删除评论
-     * @param forumId
+     * @param commentId
      * @return
      */
     @DeleteMapping
-    public Result deleteComment(@NotNull String forumId){
+    public Result deleteComment(@NotNull String commentId){
 
-        return null;
+        return commentService.deleteComment(commentId);
     }
 
 

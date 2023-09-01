@@ -7,6 +7,10 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.validation.constraints.NotNull;
+
+/**
+ * 收藏
+ */
 @RestController
 @RequestMapping("/favorites")
 public class FavoritesController {
