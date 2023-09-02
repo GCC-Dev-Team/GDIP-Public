@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.LikeDislikeMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.model.entity.LikeDislike">
+            <id property="id" column="id" jdbcType="VARCHAR"/>
+            <result property="userid" column="userId" jdbcType="VARCHAR"/>
+            <result property="commentId" column="comment_id" jdbcType="VARCHAR"/>
+            <result property="status" column="status" jdbcType="INTEGER"/>
+            <result property="createdAt" column="created_at" jdbcType="TIMESTAMP"/>
+            <result property="updatedAt" column="updated_at" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,userId,conment_id,
+        status,created_at,updated_at
+    </sql>
+</mapper>

@@ -1,7 +1,6 @@
 package com.example.utils;
 
 
-
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
@@ -24,7 +23,7 @@ public class TokenUtils {
     /**
      * token秘钥
      */
-    private static final String TOKEN_SECRET = "xiaoli";
+    private static final String TOKEN_SECRET = "xiaolixiaoli";
 
     /**
      * 生成jwt

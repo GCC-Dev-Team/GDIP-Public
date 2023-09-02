@@ -87,9 +87,9 @@ public class RedisToken {
      */
     public String saveRedis(@NotNull String openId){
 
-        String redisToken = RandomUtil.generateRandomString(18);
+        String redisToken = RandomUtil.generateRandomString(16);
 
-        stringRedisTemplate.opsForValue().set(openId,redisToken,EXPIRE_DATE);
+        stringRedisTemplate.opsForValue().set(openId,redisToken);
 
         return TokenUtils.generateJWT(openId, redisToken);
     }

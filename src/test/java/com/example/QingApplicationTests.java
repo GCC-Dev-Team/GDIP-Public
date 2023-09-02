@@ -6,6 +6,7 @@ import com.example.service.LinkTaskService;
 import com.example.service.ProductPayOwnService;
 import com.example.service.WxuserService;
 import com.example.utils.AddressUtil;
+import com.example.utils.RandomUtil;
 import com.example.utils.TokenUtils;
 import com.github.binarywang.wxpay.exception.WxPayException;
 import com.github.binarywang.wxpay.service.WxPayService;
@@ -14,8 +15,10 @@ import com.github.binarywang.wxpay.service.WxPayService;
 import org.json.JSONException;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.redis.core.StringRedisTemplate;
 
 import javax.annotation.Resource;
+import java.util.UUID;
 
 @SpringBootTest
 class QingApplicationTests {
@@ -52,6 +55,9 @@ class QingApplicationTests {
 
     @Resource
     FavoritesService favoritesService;
+
+    @Resource
+    StringRedisTemplate stringRedisTemplate;
 
 
 
@@ -222,8 +228,26 @@ class QingApplicationTests {
 //        System.out.println("我在这");
 //        System.out.println(s);
 
-        String regionName = addressUtil.getRegionName("88882013");
+//        String regionName = addressUtil.getRegionName("88882013");
+//
+//        System.out.println(regionName);
 
-        System.out.println(regionName);
+//        String name="xiaohu:"+ RandomUtil.generateRandomString(10);
+//
+//        String na="xiaoxuan:"+RandomUtil.generateRandomNumberString(12);
+//        boolean b = name.contains("xiaohu:");
+//        System.out.println(b);
+//
+//        if (name.contains("xiaohu:")){
+//            System.out.println(name);
+//        }
+//
+//        if(na.endsWith("xiaoxuan:")){
+//
+//            System.out.println(na);
+//        }
+//        stringRedisTemplate.opsForValue().set(RandomUtil.generateRandomString(16),"T:"+RandomUtil.generateRandomString(16));
+
+        System.out.println(addressUtil.getRegionName("6814"));
     }
 }

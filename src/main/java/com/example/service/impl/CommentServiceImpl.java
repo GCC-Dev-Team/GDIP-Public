@@ -45,7 +45,7 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment>
 
         BeanUtils.copyProperties(addCommentRequest,comment);
         comment.setCommenterId(user.getId());
-        comment.setCommentId("comment:"+ UUID.randomUUID());
+        comment.setCommentId("comment:"+ RandomUtil.generateRandomString(20));//20位是跟评论
         comment.setLikes(0);
         comment.setDislikes(0);
         save(comment);
