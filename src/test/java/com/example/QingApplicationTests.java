@@ -1,10 +1,7 @@
 package com.example;
 
 import com.example.mapper.*;
-import com.example.service.FavoritesService;
-import com.example.service.LinkTaskService;
-import com.example.service.ProductPayOwnService;
-import com.example.service.WxuserService;
+import com.example.service.*;
 import com.example.utils.AddressUtil;
 import com.example.utils.RandomUtil;
 import com.example.utils.TokenUtils;
@@ -16,6 +13,8 @@ import org.json.JSONException;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.http.*;
+import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
 import java.util.UUID;
@@ -58,7 +57,11 @@ class QingApplicationTests {
 
     @Resource
     StringRedisTemplate stringRedisTemplate;
+    @Resource
+    RestTemplate restTemplate;
 
+    @Resource
+    AccountJudgmentService accountJudgmentService;
 
 
     @Test
@@ -249,5 +252,47 @@ class QingApplicationTests {
 //        stringRedisTemplate.opsForValue().set(RandomUtil.generateRandomString(16),"T:"+RandomUtil.generateRandomString(16));
 
         System.out.println(addressUtil.getRegionName("6814"));
+    }
+
+    @Test
+    void testRest(){
+//        // 定义目标 API 的 URL
+//        String apiUrl = "http://cuuemo.cn:5000/login";
+//
+//        // 构建 HTTP 请求头
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.setContentType(MediaType.APPLICATION_JSON);
+//
+//        // 构建 JSON 请求体
+//        String jsonBody = "{\n" +
+//                "    \"loginid\": \"2022233201315\",\n" +
+//                "    \"password\":\"20040627\"\n" +
+//                "}";
+//
+//        // 创建 HTTP 请求实体，将 JSON 请求体添加到请求中
+//        HttpEntity<String> requestEntity = new HttpEntity<>(jsonBody, headers);
+//
+//        // 发送 POST 请求并接收响应
+//        ResponseEntity<String> responseEntity = restTemplate.postForEntity(apiUrl, requestEntity, String.class);
+//
+//        // 获取响应体
+//        String response = responseEntity.getBody();
+//
+//        System.out.println(response);
+//
+//        HttpStatus statusCode = responseEntity.getStatusCode();
+//
+//        System.out.println("wo");
+//
+//        System.out.println(statusCode);
+//
+//        if (statusCode.value()==200){
+//            System.out.println("我就");
+//        }
+    }
+    @Test
+    void testService(){
+        System.out.println(accountJudgmentService.judgeIsAccount("2022233201315", "20040627"));
+
     }
 }

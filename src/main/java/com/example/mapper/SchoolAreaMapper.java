@@ -26,7 +26,7 @@ public interface SchoolAreaMapper extends BaseMapper<SchoolArea> {
     /**
      * 获取校区
      */
-    @Select("SELECT `name`,campus FROM school_area WHERE school=#{schoool} AND area=0;")
+    @Select("SELECT `name`,campus FROM school_area WHERE school=#{school} AND area=0;")
     List<CampusVO> getAllCampusBySchool(@Param("school")String school);
 
 

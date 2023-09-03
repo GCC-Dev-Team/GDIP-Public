@@ -16,4 +16,11 @@ public interface LikeDislikeService extends IService<LikeDislike> {
 
     Result creatLike(@NotNull String commentId);
 
+    /**
+     * 判断我是否喜欢
+     * @param commentId
+     * @return
+     */
+    Boolean judgeIsLike(@NotNull String commentId);
+
 }

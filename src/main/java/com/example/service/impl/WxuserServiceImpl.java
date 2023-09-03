@@ -7,12 +7,14 @@ import com.example.common.ResultCode;
 import com.example.model.dto.*;
 import com.example.model.entity.Wxuser;
 import com.example.model.vo.UserInfoVO;
+import com.example.service.AccountJudgmentService;
 import com.example.service.WxuserService;
 import com.example.mapper.WxuserMapper;
 import com.example.utils.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Resource;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -23,6 +25,8 @@ import javax.validation.constraints.NotNull;
 @Service
 public class WxuserServiceImpl extends ServiceImpl<WxuserMapper, Wxuser>
         implements WxuserService {
+    @Resource
+    AccountJudgmentService accountJudgmentService;
     @Override
     public Result getUserInfo() {
 
@@ -120,15 +124,18 @@ public class WxuserServiceImpl extends ServiceImpl<WxuserMapper, Wxuser>
 
         Wxuser user = AccountHolder.getUser();
 
-        if(user.getPasswordJw()==null||user.getPasswordJw().equals(updateSchoolPasswordRequest.getOldPasswordJw()) && (user.getStudentNumber().equals(studentId))){
-
-                user.setPasswordJw(passwordJw);
-
-                this.updateById(user);
-
-                return Result.success(ResultCode.USER_SUCCESS_UPDATE_PASSWORD);
+        if(user.getPasswordJw()==null||user.getPasswordJw().
+                equals(updateSchoolPasswordRequest.getOldPasswordJw()) &&
+                (user.getStudentNumber().equals(studentId))&&
+                accountJudgmentService.judgeIsAccount(updateSchoolPasswordRequest.getStudentId(),
+                                updateSchoolPasswordRequest.getPasswordJw())){
 
 
+            user.setPasswordJw(passwordJw);
+            user.setState(1);
+            this.updateById(user);
+
+            return Result.success(ResultCode.USER_SUCCESS_UPDATE_PASSWORD);
         }
         return Result.failure(ResultCode.USER_ERROR_UPDATE_SCHOOL_PASSWORD);
     }
@@ -144,17 +151,24 @@ public class WxuserServiceImpl extends ServiceImpl<WxuserMapper, Wxuser>
 
                 user.setPasswordNew(passwordNew);
 
-
                 this.updateById(user);
 
                 return Result.success(ResultCode.USER_SUCCESS_UPDATE_PASSWORD);
-
-
         }
 
         return Result.failure(ResultCode.USER_ERROR_UPDATE_SCHOOL_PASSWORD);
     }
 
+    @Override
+    public Result updateAvatar(String photoUrl, String userId) {
+        Wxuser wxuser = getById(userId);
+
+        wxuser.setAvatar(photoUrl);
+
+        updateById(wxuser);
+
+        return Result.success();
+    }
 }
 
 

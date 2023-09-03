@@ -50,7 +50,7 @@ public class AddressController {
     }
 
     /**
-     * 根据地址id地址详细信息
+     * 根据地址id地址详细信息（包括编号得地址）
      * @param addressId
      * @return
      */

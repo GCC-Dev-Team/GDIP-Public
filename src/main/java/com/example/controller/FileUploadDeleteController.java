@@ -2,6 +2,7 @@ package com.example.controller;
 
 import com.example.common.Result;
 import com.example.service.FileUploadDelete;
+import com.example.service.WxuserService;
 import com.example.utils.AccountHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,6 +22,8 @@ public class FileUploadDeleteController {
 
     @Resource
     FileUploadDelete fileUploadDelete;
+    @Resource
+    WxuserService wxuserService;
 
     /**
      * 上传帖子的文件接口
@@ -72,11 +75,13 @@ public class FileUploadDeleteController {
      * @return
      */
     @PostMapping("/PhotoAvatar")
-    public String uploadAvatarPhoto(@NotNull MultipartFile file) {
+    public Result uploadAvatarPhoto(@NotNull MultipartFile file) {
 
         String id = AccountHolder.getUser().getId();
 
-        return fileUploadDelete.uploadPhoto(file,"avatar:"+id);
+        String photoUrl = fileUploadDelete.uploadPhoto(file, "avatar:" + id);
+
+        return Result.success(wxuserService.updateAvatar(photoUrl,id));
     }
 
 }

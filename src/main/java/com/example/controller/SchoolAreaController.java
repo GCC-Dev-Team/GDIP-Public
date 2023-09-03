@@ -63,4 +63,36 @@ public class SchoolAreaController {
         return schoolAreaService.getCode(school,campus,area);
     }
 
+    /**
+     * 给我code获取学校
+     * @param code
+     * @return
+     */
+
+    @GetMapping("/nameSchool")
+    public Result getSchoolName(@NotNull String code){
+        return schoolAreaService.getSchoolName(code);
+    }
+
+    /**
+     * 给我code获取校区
+     * @param code
+     * @return
+     */
+    @GetMapping("/nameCampus")
+    public Result getCampusName(@NotNull String code){
+       return schoolAreaService.getCampusName(code);
+    }
+
+    /**
+     * 给我code获取校园位置
+     * @param code
+     * @return
+     */
+    @GetMapping("/nameArea")
+    public Result getAreaName(@NotNull String code){
+
+        return schoolAreaService.getAreaName(code);
+    }
+
 }

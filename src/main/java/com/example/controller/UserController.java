@@ -76,4 +76,6 @@ public class UserController {
         return wxuserService.updateSchoolNewPassword(updateSchoolPassword3Request);
     }
 
+
+
 }

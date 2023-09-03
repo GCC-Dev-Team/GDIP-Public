@@ -6,6 +6,8 @@ import com.example.model.entity.Wxuser;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import javax.validation.constraints.NotNull;
+
 
 /**
 * @author L
@@ -22,7 +24,7 @@ public interface WxuserService extends IService<Wxuser> {
 
     Result updatePhoneInfo(@RequestBody UserUpdatePhoneRequest userUpdatePhoneRequest);
 
-
+    Result updateAvatar(@NotNull String photoUrl,String userId);
     Result updateSchoolPassword(@RequestBody UpdateSchoolPasswordRequest updateSchoolPasswordRequest);
 
     Result updateSchoolNewPassword(@RequestBody UpdateSchoolPassword3Request updateSchoolPassword3Request);

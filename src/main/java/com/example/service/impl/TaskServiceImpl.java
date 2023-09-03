@@ -55,7 +55,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
 
         Date dateEnd=DateUtils.stringToDate(taskCreateRequest.getEndTime());
 
-        String taskId=UUID.randomUUID().toString();
+        String taskId="task:"+UUID.randomUUID();
 
         String singOut=getCode();
 
@@ -231,7 +231,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
     public Result deleteTask(String taskId) {
 
         Task task = taskMapper.selectById(taskId);
-
+//有人接单了不能删除活动了
         Wxuser user = AccountHolder.getUser();
 
         if(user.getId().equals(task.getInitiator())){
