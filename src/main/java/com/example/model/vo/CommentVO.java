@@ -50,4 +50,8 @@ public class CommentVO {
      * 用户名
      */
     private String userName;
+    /**、
+     * 子评论条数
+     */
+    private Integer subCommentCount;
 }

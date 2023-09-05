@@ -4,9 +4,13 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.common.Result;
+import com.example.mapper.CommentMapper;
+import com.example.mapper.LikeDislikeMapper;
 import com.example.mapper.WxuserMapper;
 import com.example.model.dto.AddReplyCommentRequest;
 import com.example.model.dto.PageRequest;
+import com.example.model.entity.Comment;
+import com.example.model.entity.LikeDislike;
 import com.example.model.entity.ReplyComment;
 import com.example.model.entity.Wxuser;
 import com.example.model.vo.PageVO;
@@ -29,10 +33,17 @@ import java.util.List;
 @Service
 public class ReplyCommentServiceImpl extends ServiceImpl<ReplyCommentMapper, ReplyComment>
     implements ReplyCommentService{
+
     @Resource
     ReplyCommentMapper replyCommentMapper;
     @Resource
     WxuserMapper wxuserMapper;
+
+    @Resource
+    CommentMapper commentMapper;
+
+    @Resource
+    LikeDislikeMapper likeDislikeMapper;
     @Override
     public Result addReplyComment(AddReplyCommentRequest addReplyCommentRequest) {
 
@@ -46,6 +57,12 @@ public class ReplyCommentServiceImpl extends ServiceImpl<ReplyCommentMapper, Rep
         replyComment.setDislikes(0);
 
         save(replyComment);
+
+        Comment comment = commentMapper.selectById(addReplyCommentRequest.getCommentId());
+
+        comment.setSubCommentCount(comment.getSubCommentCount()+1);
+
+        commentMapper.updateById(comment);
 
         return Result.success();
     }
@@ -90,7 +107,11 @@ public class ReplyCommentServiceImpl extends ServiceImpl<ReplyCommentMapper, Rep
         }
 
         replyCommentMapper.deleteById(replyId);
-        //TODO还有点赞表没有删除
+
+        QueryWrapper<LikeDislike> commentId = new QueryWrapper<LikeDislike>().eq("comment_id", replyId);
+
+        likeDislikeMapper.delete(commentId);
+
         return Result.success();
     }
 }

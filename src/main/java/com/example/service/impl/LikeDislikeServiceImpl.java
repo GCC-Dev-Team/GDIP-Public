@@ -133,16 +133,6 @@ public class LikeDislikeServiceImpl extends ServiceImpl<LikeDislikeMapper, LikeD
     @Override
     public Boolean judgeIsLike(String commentId) {
         Wxuser user = AccountHolder.getUser();
-//        //判断这个是根评论还是子评论
-//        if (commentId.contains("comment:")){
-//
-//            //根评论的
-//            QueryWrapper<LikeDislike> likeDislikeQueryWrapper = new QueryWrapper<>();
-//
-//        }else {
-//
-//            //回复评论的
-//        }
 
         QueryWrapper<LikeDislike> likeDislikeQueryWrapper = new QueryWrapper<>();
         likeDislikeQueryWrapper.eq("status",0).eq("userId",user.getId()).eq("comment_id",commentId);

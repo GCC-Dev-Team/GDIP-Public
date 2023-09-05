@@ -62,8 +62,16 @@ public class Comment implements Serializable {
     @TableField(value = "updated_at")
     private Date updatedAt;
 
+    /**
+     * 子评论条数
+     */
+    @TableField(value = "sub_comment_count")
+    private Integer subCommentCount;
+
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
+
+
 
     @Override
     public boolean equals(Object that) {

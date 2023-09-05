@@ -4,10 +4,12 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.common.Result;
+import com.example.mapper.LikeDislikeMapper;
 import com.example.mapper.WxuserMapper;
 import com.example.model.dto.AddCommentRequest;
 import com.example.model.dto.PageRequest;
 import com.example.model.entity.Comment;
+import com.example.model.entity.LikeDislike;
 import com.example.model.entity.Wxuser;
 import com.example.model.vo.CommentVO;
 import com.example.model.vo.PageVO;
@@ -15,15 +17,11 @@ import com.example.service.CommentService;
 import com.example.mapper.CommentMapper;
 import com.example.utils.AccountHolder;
 import com.example.utils.RandomUtil;
-import org.checkerframework.checker.units.qual.C;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-
 /**
 * @author L
 * @description 针对表【comment】的数据库操作Service实现
@@ -37,6 +35,9 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment>
     CommentMapper commentMapper;
     @Resource
     WxuserMapper wxuserMapper;
+
+    @Resource
+    LikeDislikeMapper likeDislikeMapper;
     @Override
     public Result addComment(AddCommentRequest addCommentRequest) {
         Wxuser user = AccountHolder.getUser();
@@ -48,6 +49,7 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment>
         comment.setCommentId("comment:"+ RandomUtil.generateRandomString(20));//20位是跟评论
         comment.setLikes(0);
         comment.setDislikes(0);
+        comment.setSubCommentCount(0);
         save(comment);
         return Result.success();
     }
@@ -78,7 +80,8 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment>
                 comment.getDislikes(),
                 comment.getCreatedAt(),
                  wxuserMapper.selectById(comment.getCommenterId()).getAvatar(),
-                 wxuserMapper.selectById(comment.getCommenterId()).getUserName()
+                 wxuserMapper.selectById(comment.getCommenterId()).getUserName(),
+                comment.getSubCommentCount()
         )).toList();
 
         return Result.success(new PageVO<>(commentVOS,page.getTotal(),page.getSize(),page.getCurrent()));
@@ -101,7 +104,11 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment>
         }
 
         commentMapper.deleteById(commentId);
-//TODo 还有点赞表没有删除
+
+        QueryWrapper<LikeDislike> queryWrapper = new QueryWrapper<LikeDislike>().eq("comment_id", commentId);
+
+        likeDislikeMapper.delete(queryWrapper);
+
         return Result.success();
     }
 }
