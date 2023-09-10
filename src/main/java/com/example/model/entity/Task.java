@@ -1,6 +1,5 @@
 package com.example.model.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -70,10 +69,10 @@ public class Task implements Serializable {
     private String signOutCode;
 
     /**
-     * 请求体没有
+     *（0开始接单（已经支付了），1是结束（钱已经付款给接单者），3是未支付，算是暂时保存了（是已经创建了订单了）5:是没有调用微信订单）
      */
-    @TableField(value = "is_completed")
-    private Integer isCompleted;
+    @TableField(value = "status")
+    private Integer status;
 
     @TableField(value = "price")
     private Double price;
@@ -123,7 +122,7 @@ public class Task implements Serializable {
             && (this.getStartTime() == null ? other.getStartTime() == null : this.getStartTime().equals(other.getStartTime()))
             && (this.getEndTime() == null ? other.getEndTime() == null : this.getEndTime().equals(other.getEndTime()))
             && (this.getSignOutCode() == null ? other.getSignOutCode() == null : this.getSignOutCode().equals(other.getSignOutCode()))
-            && (this.getIsCompleted() == null ? other.getIsCompleted() == null : this.getIsCompleted().equals(other.getIsCompleted()))
+            && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
             && (this.getInitiator() == null ? other.getInitiator() == null : this.getInitiator().equals(other.getInitiator()))
             && (this.getCreatedTime() == null ? other.getCreatedTime() == null : this.getCreatedTime().equals(other.getCreatedTime()))
             && (this.getUpdatedTime() == null ? other.getUpdatedTime() == null : this.getUpdatedTime().equals(other.getUpdatedTime()));
@@ -142,7 +141,7 @@ public class Task implements Serializable {
         result = prime * result + ((getStartTime() == null) ? 0 : getStartTime().hashCode());
         result = prime * result + ((getEndTime() == null) ? 0 : getEndTime().hashCode());
         result = prime * result + ((getSignOutCode() == null) ? 0 : getSignOutCode().hashCode());
-        result = prime * result + ((getIsCompleted() == null) ? 0 : getIsCompleted().hashCode());
+        result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
         result = prime * result + ((getInitiator() == null) ? 0 : getInitiator().hashCode());
         result = prime * result + ((getCreatedTime() == null) ? 0 : getCreatedTime().hashCode());
         result = prime * result + ((getUpdatedTime() == null) ? 0 : getUpdatedTime().hashCode());
@@ -164,7 +163,7 @@ public class Task implements Serializable {
         sb.append(", startTime=").append(startTime);
         sb.append(", endTime=").append(endTime);
         sb.append(", signOutCode=").append(signOutCode);
-        sb.append(", isCompleted=").append(isCompleted);
+        sb.append(", isCompleted=").append(status);
         sb.append(", initiator=").append(initiator);
         sb.append(", createdTime=").append(createdTime);
         sb.append(", updatedTime=").append(updatedTime);

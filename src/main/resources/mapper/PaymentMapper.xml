@@ -5,13 +5,13 @@
 <mapper namespace="com.example.mapper.PaymentMapper">
 
     <resultMap id="BaseResultMap" type="com.example.model.entity.Payment">
-            <id property="id" column="id" jdbcType="VARCHAR"/>
+            <id property="outTradeNo" column="out_trade_no" jdbcType="VARCHAR"/>
             <result property="productId" column="product_id" jdbcType="VARCHAR"/>
             <result property="statusCode" column="status_code" jdbcType="VARCHAR"/>
             <result property="statusNumber" column="status_number" jdbcType="INTEGER"/>
-            <result property="seller" column="seller" jdbcType="VARCHAR"/>
-            <result property="buyer" column="buyer" jdbcType="VARCHAR"/>
-            <result property="prepayId" column="prepay_id" jdbcType="VARCHAR"/>
+            <result property="recipient" column="recipient" jdbcType="VARCHAR"/>
+            <result property="payer" column="payer" jdbcType="VARCHAR"/>
+            <result property="packageValue" column="package_value" jdbcType="VARCHAR"/>
             <result property="paySign" column="pay_sign" jdbcType="VARCHAR"/>
             <result property="timeStamp" column="time_stamp" jdbcType="VARCHAR"/>
             <result property="nonceStr" column="nonce_str" jdbcType="VARCHAR"/>

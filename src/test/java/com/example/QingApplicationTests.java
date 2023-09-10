@@ -292,7 +292,7 @@ class QingApplicationTests {
     }
     @Test
     void testService(){
-        System.out.println(accountJudgmentService.judgeIsAccount("2022233201315", "20040627"));
+     //   System.out.println(accountJudgmentService.judgeIsAccount("2022233201315", "20040627"));
 
     }
 }

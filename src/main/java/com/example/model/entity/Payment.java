@@ -24,11 +24,11 @@ public class Payment implements Serializable {
     /**
      * 微信订单编号
      */
-    @TableId(value = "id")
-    private String id;
+    @TableId(value = "out_trade_no")
+    private String outTradeNo;
 
     /**
-     * 商品的id
+     * 商品的id(任务支付下是任务id)
      */
     @TableField(value = "product_id")
     private String productId;
@@ -48,20 +48,20 @@ public class Payment implements Serializable {
     /**
      * 出售者
      */
-    @TableField(value = "seller")
-    private String seller;
+    @TableField(value = "recipient")
+    private String recipient;
 
     /**
-     * 购买者
+     * 购买者（支付者）
      */
-    @TableField(value = "buyer")
-    private String buyer;
+    @TableField(value = "payer")
+    private String payer;
 
     /**
      * 微信支付必备的
      */
-    @TableField(value = "prepay_id")
-    private String prepayId;
+    @TableField(value = "package_value")
+    private String packageValue;
 
     /**
      * 
@@ -115,13 +115,13 @@ public class Payment implements Serializable {
             return false;
         }
         Payment other = (Payment) that;
-        return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
+        return (this.getOutTradeNo() == null ? other.getOutTradeNo() == null : this.getOutTradeNo().equals(other.getOutTradeNo()))
             && (this.getProductId() == null ? other.getProductId() == null : this.getProductId().equals(other.getProductId()))
             && (this.getStatusCode() == null ? other.getStatusCode() == null : this.getStatusCode().equals(other.getStatusCode()))
             && (this.getStatusNumber() == null ? other.getStatusNumber() == null : this.getStatusNumber().equals(other.getStatusNumber()))
-            && (this.getSeller() == null ? other.getSeller() == null : this.getSeller().equals(other.getSeller()))
-            && (this.getBuyer() == null ? other.getBuyer() == null : this.getBuyer().equals(other.getBuyer()))
-            && (this.getPrepayId() == null ? other.getPrepayId() == null : this.getPrepayId().equals(other.getPrepayId()))
+            && (this.getRecipient() == null ? other.getRecipient() == null : this.getRecipient().equals(other.getRecipient()))
+            && (this.getPayer() == null ? other.getPayer() == null : this.getPayer().equals(other.getPayer()))
+            && (this.getPackageValue() == null ? other.getPackageValue() == null : this.getPackageValue().equals(other.getPackageValue()))
             && (this.getPaySign() == null ? other.getPaySign() == null : this.getPaySign().equals(other.getPaySign()))
             && (this.getTimeStamp() == null ? other.getTimeStamp() == null : this.getTimeStamp().equals(other.getTimeStamp()))
             && (this.getNonceStr() == null ? other.getNonceStr() == null : this.getNonceStr().equals(other.getNonceStr()))
@@ -134,13 +134,13 @@ public class Payment implements Serializable {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
+        result = prime * result + ((getOutTradeNo() == null) ? 0 : getOutTradeNo().hashCode());
         result = prime * result + ((getProductId() == null) ? 0 : getProductId().hashCode());
         result = prime * result + ((getStatusCode() == null) ? 0 : getStatusCode().hashCode());
         result = prime * result + ((getStatusNumber() == null) ? 0 : getStatusNumber().hashCode());
-        result = prime * result + ((getSeller() == null) ? 0 : getSeller().hashCode());
-        result = prime * result + ((getBuyer() == null) ? 0 : getBuyer().hashCode());
-        result = prime * result + ((getPrepayId() == null) ? 0 : getPrepayId().hashCode());
+        result = prime * result + ((getRecipient() == null) ? 0 : getRecipient().hashCode());
+        result = prime * result + ((getPayer() == null) ? 0 : getPayer().hashCode());
+        result = prime * result + ((getPackageValue() == null) ? 0 : getPackageValue().hashCode());
         result = prime * result + ((getPaySign() == null) ? 0 : getPaySign().hashCode());
         result = prime * result + ((getTimeStamp() == null) ? 0 : getTimeStamp().hashCode());
         result = prime * result + ((getNonceStr() == null) ? 0 : getNonceStr().hashCode());
@@ -156,13 +156,13 @@ public class Payment implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", id=").append(id);
+        sb.append(", id=").append(outTradeNo);
         sb.append(", productCode=").append(productId);
         sb.append(", statusCode=").append(statusCode);
         sb.append(", statusNumber=").append(statusNumber);
-        sb.append(", seller=").append(seller);
-        sb.append(", buyer=").append(buyer);
-        sb.append(", prepayId=").append(prepayId);
+        sb.append(", seller=").append(recipient);
+        sb.append(", buyer=").append(payer);
+        sb.append(", prepayId=").append(packageValue);
         sb.append(", paySign=").append(paySign);
         sb.append(", timeStamp=").append(timeStamp);
         sb.append(", nonceStr=").append(nonceStr);

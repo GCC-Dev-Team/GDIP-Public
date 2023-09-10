@@ -14,7 +14,7 @@
             <result property="startTime" column="start_time" jdbcType="TIMESTAMP"/>
             <result property="endTime" column="end_time" jdbcType="TIMESTAMP"/>
             <result property="signOutCode" column="sign_out_code" jdbcType="VARCHAR"/>
-            <result property="isCompleted" column="is_completed" jdbcType="TINYINT"/>
+            <result property="status" column="status" jdbcType="TINYINT"/>
             <result property="price" column="price" jdbcType="DOUBLE"/>
             <result property="initiator" column="initiator" jdbcType="VARCHAR"/>
             <result property="createdTime" column="created_time" jdbcType="TIMESTAMP"/>

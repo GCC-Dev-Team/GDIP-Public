@@ -305,7 +305,7 @@ public class ForumServiceImpl extends ServiceImpl<ForumMapper, Forum>
 
         Page<Forum> forumPage = forumMapper.selectPage(new Page<Forum>(pageRequest.getCurrentPage(), pageRequest.getPageSize()), forumQueryWrapper);
 
-        PageVO<ForumSmallVO> pageVO = new PageVO<>(forumsToSmallVOs(forumPage.getRecords()), forumPage.getTotal(), forumPage.getSize(), forumPage.getSize());
+        PageVO<ForumSmallVO> pageVO = new PageVO<>(forumsToSmallVOs(forumPage.getRecords()), forumPage.getTotal(), forumPage.getSize(), forumPage.getCurrent());
 
         return Result.success(pageVO);
     }

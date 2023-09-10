@@ -1,34 +1,46 @@
-#server:
-#  port: 8089
-##  ssl:
-##    key-store: classpath:cuuemo.cn.pfx
-##    key-store-password: 8omav52gx17g72
-##    key-store-type: PKCS12
 server:
-  port: 443
-  ssl:
-    key-store: classpath:www.xiaoligongzuoshi.top.pfx
-    key-store-password: 6jramg04
-    key-store-type: PKCS12
+  port: 8089
+#  ssl:
+#    key-store: classpath:cuuemo.cn.pfx
+#    key-store-password: 8omav52gx17g72
+#    key-store-type: PKCS12
+#server:
+#  port: 443
+#  ssl:
+#    key-store: classpath:www.xiaoligongzuoshi.top.pfx
+#    key-store-password: 6jramg04
+#    key-store-type: PKCS12
 
 
-spring:
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://8.130.43.168:3306/qing
-    username: root
-    password: abC123456!
-
-  redis:
-    host: 8.130.43.168
-    port: 6379
-    password: 123456
-    database: 0
+#spring:
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://8.130.43.168:3306/qing
+#    username: root
+#    password: abC123456!
+#
+#  redis:
+#    host: 8.130.43.168
+#    port: 6379
+#    password: 123456
+#    database: 0
 #  redis:
 #    host: 127.0.0.1
 #    port: 6379
 #    password:
 #    database: 0
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://114.132.67.226:3306/qing
+    username: xiaoli
+    password: abC123456@
+
+  redis:
+    host: 114.132.67.226
+    port: 6379
+    password: abC123456@
+    database: 0
 
 wx:
   miniapp:

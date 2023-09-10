@@ -55,14 +55,15 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
 
         Date dateEnd=DateUtils.stringToDate(taskCreateRequest.getEndTime());
 
-        String taskId="task:"+UUID.randomUUID();
+        String taskId="task:"+RandomUtil.generateRandomString(18);
 
-        String singOut=getCode();
+        String singOut=RandomUtil.generateRandomNumberString(6);
 
         Task task = new Task();
         task.setId(taskId);
         task.setInitiator(user.getId());
-        task.setIsCompleted(0);
+        //（0开始接单（已经支付了），1是结束（钱已经付款给接单者），3是未支付，算是暂时保存了（是已经创建了订单了）5:是没有调用微信订单）
+        task.setStatus(5);
         task.setStartTime(dateStart);
         task.setEndTime(dateEnd);
         task.setSignOutCode(singOut);
@@ -170,7 +171,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
 
         Task task = taskMapper.selectById(taskId);
 
-        if(taskMapper.selectById(taskId).getNumberOfParticipants()<=task.getPeople()||task.getIsCompleted().equals(1)){
+        if(taskMapper.selectById(taskId).getNumberOfParticipants()<=task.getPeople()||task.getStatus().equals(1)){
 
             return Result.failure(ResultCode.TASK_ERROR_NUMBER_PEOPLE);
         }
@@ -247,11 +248,6 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
         }
     }
 
-    public static String getCode() {
-        Random random= new Random();
-        int randomCode =random.nextInt(100000,999999);
-        return randomCode+"";
-    }
 }
 
 
