@@ -19,7 +19,7 @@ public class TaskDescribeVO {
     private Date startTime;
     private Date endTime;
     private String signOutCode;
-    private Integer isCompleted;
+    private Integer status;
     private Double price;
     private String userId;
     private String userImage;

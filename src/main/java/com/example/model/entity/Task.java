@@ -163,7 +163,7 @@ public class Task implements Serializable {
         sb.append(", startTime=").append(startTime);
         sb.append(", endTime=").append(endTime);
         sb.append(", signOutCode=").append(signOutCode);
-        sb.append(", isCompleted=").append(status);
+        sb.append(", status=").append(status);
         sb.append(", initiator=").append(initiator);
         sb.append(", createdTime=").append(createdTime);
         sb.append(", updatedTime=").append(updatedTime);

@@ -156,13 +156,13 @@ public class Payment implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", id=").append(outTradeNo);
+        sb.append(", outTradeNo=").append(outTradeNo);
         sb.append(", productCode=").append(productId);
         sb.append(", statusCode=").append(statusCode);
         sb.append(", statusNumber=").append(statusNumber);
-        sb.append(", seller=").append(recipient);
-        sb.append(", buyer=").append(payer);
-        sb.append(", prepayId=").append(packageValue);
+        sb.append(", recipient=").append(recipient);
+        sb.append(", payer=").append(payer);
+        sb.append(", packageValue=").append(packageValue);
         sb.append(", paySign=").append(paySign);
         sb.append(", timeStamp=").append(timeStamp);
         sb.append(", nonceStr=").append(nonceStr);

@@ -278,7 +278,27 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product>
     public Result Receive(String productId) {
         //TODO 需要企业付款才可以实现转账给对方
 
-        return null;
+        Wxuser user = AccountHolder.getUser();
+
+        QueryWrapper<Product> productQueryWrapper = new QueryWrapper<Product>().eq("product_id", productId).eq("product_status", 3);
+
+        Product product = productMapper.selectOne(productQueryWrapper);
+
+        if(product==null){
+            return Result.failure(ResultCode.SYSTEM_ERROR,"该商品已确认收货或改商品不是你的");
+        }
+
+        QueryWrapper<Payment> paymentQueryWrapper = new QueryWrapper<Payment>().eq("product_id",product.getProductId());
+
+        Payment payment = paymentMapper.selectOne(paymentQueryWrapper);
+        if (!payment.getRecipient().equals(user.getId())){
+
+             return Result.failure(ResultCode.SYSTEM_ERROR,"你不是收货用户");
+        }
+
+        product.setProductStatus(1);
+        updateById(product);
+        return Result.success("收货成功");
     }
 
     /**
@@ -292,7 +312,7 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product>
         Wxuser user = AccountHolder.getUser();
 
         QueryWrapper<Payment> paymentQueryWrapper = new QueryWrapper<>();
-        paymentQueryWrapper.eq("product_id",productId).eq("buyer",user.getId()).eq("status_number",1);
+        paymentQueryWrapper.eq("product_id",productId).eq("payer",user.getId()).eq("status_number",1);
         Payment payment = paymentMapper.selectOne(paymentQueryWrapper);
         if (payment==null){
             log.error("支付查询错误，请联系管理员!");

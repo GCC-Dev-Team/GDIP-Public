@@ -22,7 +22,7 @@
 
     <sql id="Base_Column_List">
         id,product_code,status_code,
-        status_number,seller,buyer,
+        status_number,recipient,payer,
         prepay_id,pay_sign,time_stamp,
         nonce_str,sign_type,created_at,
         updated_at

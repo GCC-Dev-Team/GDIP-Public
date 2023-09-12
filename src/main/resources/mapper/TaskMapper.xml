@@ -25,7 +25,7 @@
         id,activity_title,activity_description,
         image_url,number_of_participants,location,
         start_time,end_time,sign_out_code,
-        is_completed,initiator,created_time,
+        status,price,initiator,created_time,
         updated_time
     </sql>
 </mapper>
