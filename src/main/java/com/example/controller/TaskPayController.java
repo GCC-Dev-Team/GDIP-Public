@@ -21,7 +21,7 @@ public class TaskPayController {
     PayOwn payOwn;
 
     /**
-     * 创建任务后，调起微信支付
+     * 创建任务后，调起微信支付 状态变成3（没支付）或者变成0（成功支付）
      * @param taskId
      * @return
      */

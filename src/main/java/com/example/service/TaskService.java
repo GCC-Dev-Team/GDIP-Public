@@ -60,4 +60,12 @@ public interface TaskService extends IService<Task> {
      * 签退
      */
     Result singOUt(@NotNull@RequestBody TaskSignOutRequest taskSignOutRequest);
+
+
+    /**
+     * 取消订单（接单者）
+     * @param taskId
+     * @return
+     */
+    Result cancelOrder(@NotNull String taskId);
 }

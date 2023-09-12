@@ -33,13 +33,13 @@ import java.util.*;
 
 
 /**
-* @author L
-* @description 针对表【task】的数据库操作Service实现
-* @createDate 2023-07-31 10:56:35
-*/
+ * @author L
+ * @description 针对表【task】的数据库操作Service实现
+ * @createDate 2023-07-31 10:56:35
+ */
 @Service
 public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
-    implements TaskService{
+        implements TaskService {
     @Resource
     TaskMapper taskMapper;
 
@@ -58,6 +58,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
 
     /**
      * 创建任务，状态是5，还没有支付下单
+     *
      * @param taskCreateRequest
      * @return
      */
@@ -68,11 +69,11 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
 
         Date dateStart = DateUtils.stringToDate(taskCreateRequest.getStartTime());
 
-        Date dateEnd=DateUtils.stringToDate(taskCreateRequest.getEndTime());
+        Date dateEnd = DateUtils.stringToDate(taskCreateRequest.getEndTime());
 
-        String taskId="task:"+RandomUtil.generateRandomString(18);
+        String taskId = "task:" + RandomUtil.generateRandomString(18);
 
-        String singOut=RandomUtil.generateRandomNumberString(6);
+        String singOut = RandomUtil.generateRandomNumberString(6);
 
         Task task = new Task();
         task.setId(taskId);
@@ -83,7 +84,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
         task.setEndTime(dateEnd);
         task.setSignOutCode(singOut);
 
-        BeanUtils.copyProperties(taskCreateRequest,task);
+        BeanUtils.copyProperties(taskCreateRequest, task);
 
         this.save(task);
 
@@ -93,9 +94,9 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
     @Override
     public Result getTaskById(GetTaskIdRequest getTaskIdRequest) {
 
-        String id=getTaskIdRequest.getId();
+        String id = getTaskIdRequest.getId();
 
-        if(id.isEmpty()){
+        if (id.isEmpty()) {
             return Result.failure(ResultCode.TASK_NULL_ID);
         }
 
@@ -107,13 +108,13 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
 
         Wxuser wxuser = wxuserMapper.selectById(task.getInitiator());
 
-        BeanUtils.copyProperties(task,taskVO);
+        BeanUtils.copyProperties(task, taskVO);
 
         taskVO.setUserId(wxuser.getId());
         taskVO.setUserImage(wxuser.getAvatar());
         taskVO.setUserName(wxuser.getUserName());
 
-        if(task.getInitiator().equals(user.getId())){
+        if (task.getInitiator().equals(user.getId())) {
             //这个是自己发布查看的任务详情
             taskVO.setSignOutCode(task.getSignOutCode());
         }
@@ -122,6 +123,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
 
     /**
      * 获取我发布的任务
+     *
      * @return
      */
     @Override
@@ -131,7 +133,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
 
         QueryWrapper<Task> taskQueryWrapper = new QueryWrapper<>();
 
-        taskQueryWrapper.eq("initiator",user.getId())
+        taskQueryWrapper.eq("initiator", user.getId())
                 .orderByDesc("updated_time");
 
         Page<Task> taskPage = taskMapper.selectPage(new Page<>(pageRequest.getCurrentPage(), pageRequest.getPageSize()), taskQueryWrapper);
@@ -144,9 +146,9 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
 
         QueryWrapper<Task> taskQueryWrapper = new QueryWrapper<>();
 
-        taskQueryWrapper.ge("start_time",new Date())
+        taskQueryWrapper.ge("start_time", new Date())
                 .orderByDesc("updated_time")
-                .eq("status",0);
+                .eq("status", 0);
 
         Page<Task> taskPage = taskMapper.selectPage(new Page<>(pageRequest.getCurrentPage(), pageRequest.getPageSize()), taskQueryWrapper);
 
@@ -157,11 +159,11 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
     private Result getResult(Page<Task> taskPage) {
         List<Task> tasks = taskPage.getRecords();
 
-        List<TaskSmallVO> taskSmallVOList =null;
+        List<TaskSmallVO> taskSmallVOList = null;
 
-        if(!tasks.isEmpty()){
+        if (!tasks.isEmpty()) {
 
-            taskSmallVOList =tasks.stream()
+            taskSmallVOList = tasks.stream()
                     .map(task -> new TaskSmallVO(
                             task.getId(),
                             task.getActivityTitle(),
@@ -179,6 +181,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
 
     /**
      * 接单任务（对接单员来说）
+     *
      * @param participateTaskRequest
      * @return
      */
@@ -187,21 +190,21 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
 
         Wxuser user = AccountHolder.getUser();
 
-        String taskId=participateTaskRequest.getId();
+        String taskId = participateTaskRequest.getId();
 
-        List<String> myNoSingOutTasks=linkTaskService.getMyNoSingOutTask(user.getId());
+        List<String> myNoSingOutTasks = linkTaskService.getMyNoSingOutTask(user.getId());
 
         Task task = taskMapper.selectById(taskId);
 
         //查看人数（初期限制了一人）
-        if(taskMapper.selectById(taskId).getNumberOfParticipants()<=task.getPeople()||task.getStatus().equals(1)){
+        if (taskMapper.selectById(taskId).getNumberOfParticipants() <= task.getPeople() || task.getStatus().equals(1)) {
 
             return Result.failure(ResultCode.TASK_ERROR_NUMBER_PEOPLE);
         }
-        if(!myNoSingOutTasks.isEmpty()){
+        if (!myNoSingOutTasks.isEmpty()) {
 
-            Date taskIdBeginTime=task.getStartTime();
-            Date taskIdEndTime=task.getEndTime();
+            Date taskIdBeginTime = task.getStartTime();
+            Date taskIdEndTime = task.getEndTime();
 
             //这里是有任务没有签退的，看时间是否冲突
 
@@ -230,21 +233,29 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
 
         }
         //参加活动了
-        Boolean temple=linkTaskService.participateTask(user.getId(),taskId);
+        Boolean temple = linkTaskService.participateTask(user.getId(), taskId);
 
-        if(temple.equals(Boolean.TRUE)){
+        if (temple.equals(Boolean.TRUE)) {
 
             int people = task.getPeople();
 
-            people=people+1;
+            people = people + 1;
 
             task.setPeople(people);
-            //表更新（任务表更新状态，支付表更新状态）
+            //支付表没设置，报名表已设置
 
-            save(task);
+            QueryWrapper<Payment> paymentQuery = new QueryWrapper<Payment>().eq("product_id", task.getId());
+
+            Payment payment = paymentMapper.selectOne(paymentQuery);
+            payment.setRecipient(user.getId());
+
+            task.setStatus(2);
+
+            taskMapper.updateById(task);
+            paymentMapper.updateById(payment);
 
             return Result.success(ResultCode.TASK_SUCCESS_TAKE_PART_IN);
-        }else {
+        } else {
 
             return Result.failure(ResultCode.INTERNAL_ERROR);
         }
@@ -254,17 +265,31 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
     @Override
     public Result deleteTask(String taskId) {
 
-        Task task = taskMapper.selectById(taskId);
-
         Wxuser user = AccountHolder.getUser();
-        //状态只有3或5可以删除
-        if(user.getId().equals(task.getInitiator())&&(task.getStatus().equals(3)||task.getStatus().equals(5))){
+
+        QueryWrapper<Task> eq = new QueryWrapper<Task>().eq("id", taskId).eq("initiator", user.getId());
+
+        Task task = taskMapper.selectOne(eq);
+
+
+        if (task == null) {
+            return Result.failure(ResultCode.SYSTEM_ERROR, "taskId出现错误，或者该任务并非你发布的");
+        }
+        //状态只有3或5,6可以删除
+        if (task.getStatus().equals(6) || task.getStatus().equals(5)) {
 
             taskMapper.deleteById(taskId);
 
             return Result.success(ResultCode.TASK_SUCCESS_DELETE);
-        }else {
+        } else if (task.getStatus().equals(3)) {
+            taskMapper.deleteById(taskId);
 
+            QueryWrapper<Payment> paymentQueryWrapper = new QueryWrapper<Payment>().eq("product_id", task.getId());
+
+            payOwn.closeOrder(paymentMapper.selectOne(paymentQueryWrapper).getOutTradeNo());
+
+            return Result.success("已经成功删除");
+        } else {
             return Result.failure(ResultCode.TASK_ERROR_DELETE);
         }
     }
@@ -279,7 +304,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
         IPage<Task> myAllOrder = linkTaskMapper.getMyAllOrder(user.getId(), new Page<>(pageRequest.getCurrentPage(), pageRequest.getPageSize()));
 
         Page<Task> taskPage = new Page<>();
-        BeanUtils.copyProperties(myAllOrder,taskPage);
+        BeanUtils.copyProperties(myAllOrder, taskPage);
 
         return getResult(taskPage);
     }
@@ -292,19 +317,19 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
         Wxuser user = AccountHolder.getUser();
 
         QueryWrapper<Task> taskQueryWrapper = new QueryWrapper<>();
-        taskQueryWrapper.eq("id",taskId).eq("status",0).eq("initiator",taskId);
+        taskQueryWrapper.eq("id", taskId).eq("status", 0).eq("initiator", taskId);
         Task task = getOne(taskQueryWrapper);
 
-        if (task==null){
+        if (task == null) {
             return Result.success("删除失败，请查看你的任务id是否正确或者你的任务是否已经被接单");
         }
 
         QueryWrapper<Payment> paymentQueryWrapper = new QueryWrapper<>();
-        paymentQueryWrapper.eq("product_id",task.getId()).eq("status_code","SUCCESS").eq("payer",user.getId());
+        paymentQueryWrapper.eq("product_id", task.getId()).eq("status_code", "SUCCESS").eq("payer", user.getId());
 
         Payment payment = paymentMapper.selectOne(paymentQueryWrapper);
 
-        if(payment==null){
+        if (payment == null) {
             return Result.success("请查看你是否已经支付成功!");
         }
         Boolean refund = payOwn.refund(new CreateRefundDTO(payment.getOutTradeNo(), task.getPrice(), task.getPrice()));
@@ -321,7 +346,35 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
     @Override
     public Result singOUt(TaskSignOutRequest taskSignOutRequest) {
 
+        //TODO 缺少打款给用户
         return null;//缺少打款
+    }
+
+    @Override
+    public Result cancelOrder(String taskId) {
+
+        Task task = taskMapper.selectById(taskId);
+        Integer status = task.getStatus();
+
+        if (status != 2) {
+            return Result.failure(ResultCode.SYSTEM_ERROR, "该任务并非已接单未完成");
+        }
+        Wxuser user = AccountHolder.getUser();
+
+        QueryWrapper<LinkTask> linkTaskQueryWrapper = new QueryWrapper<LinkTask>().eq("task_id", task.getId()).eq("participant_id", user.getId()).eq("is_signed_out", 0);
+
+        linkTaskMapper.delete(linkTaskQueryWrapper);
+
+
+        task.setStatus(0);//设置为0，给别人接单
+        taskMapper.updateById(task);
+
+        QueryWrapper<Payment> paymentQuery = new QueryWrapper<Payment>().eq("product_id", task.getId());
+        Payment payment = paymentMapper.selectOne(paymentQuery);
+        payment.setRecipient(null);
+        paymentMapper.updateById(payment);
+
+        return Result.success("成功取消订单");
     }
 }
 
