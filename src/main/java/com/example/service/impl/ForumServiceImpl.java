@@ -18,7 +18,7 @@ import com.example.mapper.ForumMapper;
 import com.example.utils.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
+
 
 import javax.annotation.Resource;
 import javax.validation.constraints.NotNull;
@@ -28,9 +28,9 @@ import java.util.UUID;
 
 /**
 * @author L
-* @description 针对表【forum】的数据库操作Service实现
-* @createDate 2023-08-06 12:43:34
-*/
+* &#064;description  针对表【forum】的数据库操作Service实现
+* &#064;createDate   2023-08-06 12:43:34
+ */
 @Service
 public class ForumServiceImpl extends ServiceImpl<ForumMapper, Forum>
     implements ForumService{
@@ -42,26 +42,6 @@ public class ForumServiceImpl extends ServiceImpl<ForumMapper, Forum>
 
     @Resource
     CategoryService categoryService;
-    @Override
-    public String uploadMdPhoto(@NotNull MultipartFile file) {
-
-        String nameFile="mdPhoto:"+ UUID.randomUUID();
-
-        UploadPhotoUtil.uploadFile(file,nameFile);
-
-        return ShowPhotoUtil.getPhotoByName(nameFile);
-    }
-
-    @Override
-    public String uploadMd(MultipartFile file) throws Exception {
-        Wxuser user = AccountHolder.getUser();
-
-        String name="md:"+user.getId()+UUID.randomUUID();
-
-        QiniuUtil.uploadImage(file.getBytes(), name+".txt");
-
-        return QiniuUtil.getImageUrl(name+".txt");
-    }
 
     @Override
     public Result addPost(AddPostRequest addPostRequest) {
@@ -98,116 +78,82 @@ public class ForumServiceImpl extends ServiceImpl<ForumMapper, Forum>
     @Override
     public Result updatePost(UpdatePostRequest updatePostRequest) throws Exception {
 
-        Wxuser user;
-        user = AccountHolder.getUser();
+        UpdateForumBase updateForumBase = new UpdateForumBase();
+        BeanUtils.copyProperties(updatePostRequest,updateForumBase);
 
-        QueryWrapper<Forum> forumQueryWrapper = new QueryWrapper<>();
-
-        forumQueryWrapper.eq("publisher",user.getId())
-                .eq("id", updatePostRequest.getId());
-
-        Forum one = getOne(forumQueryWrapper);
-        if(one==null){
-            throw new Exception(ResultCode.PARAM_ERROR.getMessage());
-        }
-
-        int temple=0;
-
-        if(updatePostRequest.getTitle()!=null){
-
-            one.setTitle(updatePostRequest.getTitle());
-
-            temple=temple+1;
-        }
-
-        if (updatePostRequest.getMdUrl()!=null){
-
-            one.setMdFileUrl(updatePostRequest.getMdUrl());
-
-            temple=temple+1;
-        }
-
-
-        if(updatePostRequest.getImageUrl()!=null){
-
-            one.setSurfaceImage(updatePostRequest.getImageUrl());
-
-            temple=temple+1;
-        }
+        Forum forum = updateBase(updateForumBase);
 
         if(updatePostRequest.getCategoryId()!=null){
 
-            one.setCategory(updatePostRequest.getCategoryId());
+            forum.setCategory(updatePostRequest.getCategoryId());
 
-            temple=temple+1;
-        }
-        if(updatePostRequest.getSurfaceDescription()!=null){
-
-            one.setSurfaceDescription(updatePostRequest.getSurfaceDescription());
-
-            temple=temple+1;
+            forumMapper.updateById(forum);
         }
 
-        if(temple>0){
-
-            this.updateById(one);
-        }
-
-        return Result.success(getById(updatePostRequest.getId()));
+        return Result.success(forum);
 
     }
 
     @Override
     public Result updateAnnounce(UpdateAnnounceRequest updateAnnounceRequest) throws Exception {
+
+        UpdateForumBase updateForumBase = new UpdateForumBase();
+        BeanUtils.copyProperties(updateAnnounceRequest,updateForumBase);
+
+        return Result.success(updateBase(updateForumBase));
+    }
+
+    public Forum updateBase(UpdateForumBase updateForumBase) throws Exception {
         Wxuser user = AccountHolder.getUser();
 
         QueryWrapper<Forum> forumQueryWrapper = new QueryWrapper<>();
 
         forumQueryWrapper.eq("publisher",user.getId())
-                .eq("id", updateAnnounceRequest.getId());
+                .eq("id", updateForumBase.getId());
 
-        Forum one = getOne(forumQueryWrapper);
-        if(one==null){
+        Forum forum = getOne(forumQueryWrapper);
+
+        if(forum==null){
             throw new Exception(ResultCode.PARAM_ERROR.getMessage());
         }
 
         int temple=0;
 
-        if(updateAnnounceRequest.getTitle()!=null){
+        if(updateForumBase.getTitle()!=null){
 
-            one.setTitle(updateAnnounceRequest.getTitle());
-
-            temple=temple+1;
-        }
-
-        if (updateAnnounceRequest.getMdUrl()!=null){
-
-            one.setMdFileUrl(updateAnnounceRequest.getMdUrl());
+            forum.setTitle(updateForumBase.getTitle());
 
             temple=temple+1;
         }
 
+        if (updateForumBase.getMdUrl()!=null){
 
-        if(updateAnnounceRequest.getImageUrl()!=null){
-
-            one.setSurfaceImage(updateAnnounceRequest.getImageUrl());
+            forum.setMdFileUrl(updateForumBase.getMdUrl());
 
             temple=temple+1;
         }
 
-        if(updateAnnounceRequest.getSurfaceDescription()!=null){
 
-            one.setSurfaceDescription(updateAnnounceRequest.getSurfaceDescription());
+        if(updateForumBase.getImageUrl()!=null){
+
+            forum.setSurfaceImage(updateForumBase.getImageUrl());
+
+            temple=temple+1;
+        }
+
+        if(updateForumBase.getSurfaceDescription()!=null){
+
+            forum.setSurfaceDescription(updateForumBase.getSurfaceDescription());
 
             temple=temple+1;
         }
 
         if(temple>0){
 
-            this.updateById(one);
+            this.updateById(forum);
         }
 
-        return Result.success(getById(updateAnnounceRequest.getId()));
+        return forum;
     }
 
     @Override
@@ -258,7 +204,6 @@ public class ForumServiceImpl extends ServiceImpl<ForumMapper, Forum>
 
     /**
      * 获取所有的公告
-     * @return
      */
     @Override
     public Result getAllAnnounce(PageRequest pageRequest) {
@@ -267,7 +212,7 @@ public class ForumServiceImpl extends ServiceImpl<ForumMapper, Forum>
         forumQueryWrapper.eq("category","admin1")
                 .orderByDesc("updated_at");
 
-        Page<Forum> forumPage = forumMapper.selectPage(new Page<Forum>(pageRequest.getCurrentPage(), pageRequest.getPageSize()), forumQueryWrapper);
+        Page<Forum> forumPage = forumMapper.selectPage(new Page<>(pageRequest.getCurrentPage(), pageRequest.getPageSize()), forumQueryWrapper);
 
         PageVO<ForumSmallVO> pageVO = new PageVO<>(forumsToSmallVOs(forumPage.getRecords()), forumPage.getTotal(), forumPage.getSize(), forumPage.getCurrent());
 
@@ -303,7 +248,7 @@ public class ForumServiceImpl extends ServiceImpl<ForumMapper, Forum>
         forumQueryWrapper.ne("category","admin1")
                 .orderByDesc("updated_at");
 
-        Page<Forum> forumPage = forumMapper.selectPage(new Page<Forum>(pageRequest.getCurrentPage(), pageRequest.getPageSize()), forumQueryWrapper);
+        Page<Forum> forumPage = forumMapper.selectPage(new Page<>(pageRequest.getCurrentPage(), pageRequest.getPageSize()), forumQueryWrapper);
 
         PageVO<ForumSmallVO> pageVO = new PageVO<>(forumsToSmallVOs(forumPage.getRecords()), forumPage.getTotal(), forumPage.getSize(), forumPage.getCurrent());
 
@@ -322,10 +267,7 @@ public class ForumServiceImpl extends ServiceImpl<ForumMapper, Forum>
         return getResult(user, forum, addAnnouncementRequest.getMdUrl(), addAnnouncementRequest.getImageUrl());
     }
 
-    @Override
-    public Result deletePhotos(String[] fileNames) {
-        return Result.success(DeletePhotoUtil.deletePhotos(fileNames));
-    }
+
 
 
     @Override

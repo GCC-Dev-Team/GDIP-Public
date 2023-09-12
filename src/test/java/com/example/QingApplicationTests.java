@@ -1,9 +1,13 @@
 package com.example;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.mapper.*;
+import com.example.model.entity.Task;
 import com.example.service.*;
 import com.example.utils.AddressUtil;
 import com.example.utils.RandomUtil;
+import com.example.utils.RedisToken;
 import com.example.utils.TokenUtils;
 import com.github.binarywang.wxpay.exception.WxPayException;
 import com.github.binarywang.wxpay.service.WxPayService;
@@ -11,12 +15,15 @@ import com.github.binarywang.wxpay.service.WxPayService;
 
 import org.json.JSONException;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.BeanUtils;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.http.*;
+import org.springframework.http.client.support.HttpAccessor;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
+import java.util.List;
 import java.util.UUID;
 
 @SpringBootTest
@@ -253,6 +260,8 @@ class QingApplicationTests {
 
         System.out.println(addressUtil.getRegionName("6814"));
     }
+    @Resource
+    RedisToken redis;
 
     @Test
     void testRest(){
@@ -290,9 +299,46 @@ class QingApplicationTests {
 //            System.out.println("我就");
 //        }
     }
+
     @Test
     void testService(){
-     //   System.out.println(accountJudgmentService.judgeIsAccount("2022233201315", "20040627"));
 
+
+//        String jwt="eyJhbGciOiJIUzI1NiJ9.eyJvcGVuSWQiOiJvYzU4RzR5eUFEWWk0OGF3dmxWTF9WWE1OTEdZIiwicmVkaXNUb2tlbiI6IjI2MWVlM2M2Y2I2NTQ0NWIiLCJleHAiOjE2OTUwNTQzMDB9.YZ6rqD_D69SpPMv_6-CrPwOgInogFay_g6YwfBusBgY";
+
+//        String jwt="eyJhbGciOiJIUzI1NiJ9.eyJvcGVuSWQiOiJvYzU4RzR5dVZlTXdmVWlJWHBfX2E0RDNZSmI0IiwicmVkaXNUb2tlbiI6IjMzYTk0YWNhYTAzNjRlYWYiLCJleHAiOjE2OTQ5NjQ5MDR9.pcF8vuXGHtTLgBD9nP9Mrk0NWp_1dzLTArZslnEUgiA";
+//
+//        String openid = TokenUtils.getOpenid(jwt);
+//
+//        String redisToken = TokenUtils.getRedisToken(jwt);
+//
+//        boolean tokenExpired = TokenUtils.isTokenExpired(jwt);
+//
+//        System.out.println(tokenExpired+openid+redisToken);
+//
+//        String openId = redis.getOpenId(jwt);
+//        System.out.println("openid:"+openId);
+        //   System.out.println(accountJudgmentService.judgeIsAccount("2022233201315", "20040627"));
+
+//        IPage<Task> myAllOrder = linkTaskMapper.getMyAllOrder("6b8e2699-75d2-4022-b82c-4217178011ba", new Page<>(1, 20));
+//
+//        System.out.println(myAllOrder);
+//
+//        System.out.println(myAllOrder.getRecords());
+//
+//        System.out.println(myAllOrder.getTotal());
+//
+//        System.out.println("测试");
+//
+//        Page<Task> taskPage = new Page<>();
+//        BeanUtils.copyProperties(myAllOrder,taskPage);
+//
+//        List<Task> records = taskPage.getRecords();
+//
+//        long size = taskPage.getSize();
+//
+//        System.out.println(records);
+//
+//        System.out.println(size);
     }
 }

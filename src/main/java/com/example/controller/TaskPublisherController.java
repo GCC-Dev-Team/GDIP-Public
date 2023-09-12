@@ -1,9 +1,7 @@
 package com.example.controller;
 
 import com.example.common.Result;
-import com.example.model.dto.GetTaskIdRequest;
 import com.example.model.dto.PageRequest;
-import com.example.model.dto.ParticipateTaskRequest;
 import com.example.model.dto.TaskCreateRequest;
 import com.example.service.TaskService;
 import org.springframework.web.bind.annotation.*;
@@ -11,15 +9,21 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.validation.constraints.NotNull;
 
-/**
- * 任务（跑腿）
- */
 @RestController
-@RequestMapping("/task")
-public class TaskController {
-
+@RequestMapping("/taskPublisher")
+public class TaskPublisherController {
     @Resource
     TaskService taskService;
+    /**
+     * 申请退款（发布者角度）会自动删除订单
+     */
+    //订单状态变成6（不会展示）（当task的状态是0的时候才可以退款，因为接单后，需要接单的取消才可以）
+    @PutMapping
+    public Result refund(@NotNull String taskId){
+
+        return taskService.refund(taskId);
+    }
+
 
     /**
      * 发布任务
@@ -33,16 +37,6 @@ public class TaskController {
     }
 
     /**
-     * 获取任务的详细信息
-     * @param getTaskIdRequest
-     * @return
-     */
-    @PostMapping("/describe")
-    public Result getTaskById(@RequestBody GetTaskIdRequest getTaskIdRequest){
-
-       return taskService.getTaskById(getTaskIdRequest);
-    }
-    /**
      * 查看我发布的任务（小图）
      */
     @PostMapping("/myTask")
@@ -50,23 +44,6 @@ public class TaskController {
 
         return taskService.getTaskSmall(pageRequest);
 
-    }
-    /**
-     * 查看所有的活动
-     */
-    @PostMapping("/allTask")
-    public Result getAllTask(@NotNull @RequestBody PageRequest pageRequest){
-
-        return taskService.getAllTask(pageRequest);
-    }
-
-    /**
-     * 报名参加任务
-     */
-    @PostMapping("/participateTask")
-    public Result participateTask(@NotNull ParticipateTaskRequest participateTaskRequest){
-
-        return taskService.participateTask(participateTaskRequest);
     }
 
     /**
@@ -79,6 +56,5 @@ public class TaskController {
 
         return taskService.deleteTask(taskId);
     }
-
 
 }

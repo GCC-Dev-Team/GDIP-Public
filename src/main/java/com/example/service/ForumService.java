@@ -16,19 +16,7 @@ import javax.validation.constraints.NotNull;
 */
 public interface ForumService extends IService<Forum> {
 
-    /**
-     * 上传图片
-     * @param file
-     * @return
-     */
-    String uploadMdPhoto(@NotNull MultipartFile file);
 
-    /**
-     * 上传文件
-     * @param file
-     * @return
-     */
-    String uploadMd(@NotNull MultipartFile file) throws Exception;
 
     Result addPost(@NotNull @RequestBody AddPostRequest addPostRequest);
 
@@ -56,9 +44,6 @@ public interface ForumService extends IService<Forum> {
     Result addAnnouncement(@NotNull @RequestBody AddAnnouncementRequest addAnnouncementRequest);
 
     Result updateAnnounce(@NotNull @RequestBody UpdateAnnounceRequest updateAnnounceRequest) throws Exception;
-
-    Result deletePhotos(String [] fileNames);
-
 
     Result deletePost(String postId);
 

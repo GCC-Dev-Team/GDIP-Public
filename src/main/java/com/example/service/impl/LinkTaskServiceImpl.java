@@ -34,7 +34,7 @@ public class LinkTaskServiceImpl extends ServiceImpl<LinkTaskMapper, LinkTask>
 
         LinkTask linkTask = new LinkTask();
 
-        linkTask.setId("taskLink:"+UUID.randomUUID().toString());
+        linkTask.setId("taskLink:"+UUID.randomUUID());
         linkTask.setTaskId(taskId);
         linkTask.setParticipantId(userId);
         linkTask.setIsSignedOut(0);
@@ -45,16 +45,13 @@ public class LinkTaskServiceImpl extends ServiceImpl<LinkTaskMapper, LinkTask>
     }
 
     @Override
-    public Boolean deleteParticipate(String taskId) {
+    public void deleteParticipate(String taskId) {
 
         QueryWrapper<LinkTask> queryWrapper = new QueryWrapper<>();
 
         queryWrapper.eq("task_id",taskId);
 
-//        List<LinkTask> list = linkTaskMapper.selectList(queryWrapper);
-
         linkTaskMapper.delete(queryWrapper);
-      return Boolean.TRUE;
     }
 }
 

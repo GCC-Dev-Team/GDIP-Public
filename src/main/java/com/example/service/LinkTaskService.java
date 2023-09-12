@@ -27,8 +27,9 @@ public interface LinkTaskService extends IService<LinkTask> {
      * @return
      */
     Boolean participateTask(String userId,String taskId);
+
     /**
-     * 删除活动联系
+     * 删除活动联系(接单者取消接单)
      */
-    Boolean deleteParticipate(String taskId);
+    void deleteParticipate(String taskId);
 }

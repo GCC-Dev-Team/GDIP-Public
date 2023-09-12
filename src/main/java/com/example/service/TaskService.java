@@ -1,10 +1,7 @@
 package com.example.service;
 
 import com.example.common.Result;
-import com.example.model.dto.GetTaskIdRequest;
-import com.example.model.dto.PageRequest;
-import com.example.model.dto.ParticipateTaskRequest;
-import com.example.model.dto.TaskCreateRequest;
+import com.example.model.dto.*;
 import com.example.model.entity.Task;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -49,4 +46,18 @@ public interface TaskService extends IService<Task> {
      * 删除活动
      */
     Result deleteTask(String taskId);
+    /**
+     * 申请退款
+     */
+    Result refund(@NotNull String taskId);
+
+    /**
+     * 查看我接单的任务
+     */
+    Result myOrder(@NotNull@RequestBody PageRequest pageRequest);
+
+    /**
+     * 签退
+     */
+    Result singOUt(@NotNull@RequestBody TaskSignOutRequest taskSignOutRequest);
 }

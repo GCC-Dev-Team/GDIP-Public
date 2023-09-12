@@ -10,9 +10,10 @@ import com.example.service.PayOwn;
 import com.example.service.TaskPayOwnService;
 import com.example.utils.TimerUtils;
 import org.springframework.beans.BeanUtils;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-
+@Service
 public class TaskPayOwnServiceImpl implements TaskPayOwnService {
     @Resource
     PayOwn payOwn;
