@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import javax.validation.constraints.NotNull;
 
+/**
+ * 任务跑腿支付接口
+ */
 @RestController
 @RequestMapping("/taskPay")
 public class TaskPayController {

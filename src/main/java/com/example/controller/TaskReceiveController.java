@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import javax.validation.constraints.NotNull;
 
+/**
+ * 任务跑腿接单接口
+ */
 @RestController
 @RequestMapping("/taskReceive")
 public class TaskReceiveController {
@@ -48,6 +51,7 @@ public class TaskReceiveController {
     /**
      * 签退，订单状态变成1
      */
+    //缺少打款
     @PostMapping("/signOut")
     public Result singOUt(@NotNull@RequestBody TaskSignOutRequest taskSignOutRequest){
         return taskService.singOUt(taskSignOutRequest);

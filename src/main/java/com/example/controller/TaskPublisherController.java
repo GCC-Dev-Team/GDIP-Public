@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.validation.constraints.NotNull;
 
+/**
+ * 任务跑腿发布者接口
+ */
 @RestController
 @RequestMapping("/taskPublisher")
 public class TaskPublisherController {

@@ -11,7 +11,7 @@ import javax.annotation.Resource;
 import javax.validation.constraints.NotNull;
 
 /**
- * 任务（跑腿）
+ * 任务（跑腿）通用接口
  */
 @RestController
 @RequestMapping("/task")

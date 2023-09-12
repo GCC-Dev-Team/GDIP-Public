@@ -275,7 +275,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
         if (task == null) {
             return Result.failure(ResultCode.SYSTEM_ERROR, "taskId出现错误，或者该任务并非你发布的");
         }
-        //状态只有3或5,6可以删除
+        //状态只有3或5,6可以删除,1也不行删除，因为已删除就会导致两边数据看不了
         if (task.getStatus().equals(6) || task.getStatus().equals(5)) {
 
             taskMapper.deleteById(taskId);
@@ -345,9 +345,28 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
 
     @Override
     public Result singOUt(TaskSignOutRequest taskSignOutRequest) {
+        //获取任务表顺便确认用户身份
+        Wxuser user = AccountHolder.getUser();
 
+        QueryWrapper<Task> eq = new QueryWrapper<Task>().eq("id", taskSignOutRequest.getTaskId()).eq("sign_out_code",taskSignOutRequest.getSignOutCode());
+        Task task = getOne(eq);
+
+        //只能一对一使用（以后想要多人任务只能从这里改）
+        QueryWrapper<LinkTask> queryWrapper = new QueryWrapper<LinkTask>().eq("task_id", taskSignOutRequest.getTaskId()).eq("participant_id", user.getId());
+        LinkTask linkTask = linkTaskMapper.selectOne(queryWrapper);
+
+        if(task==null||linkTask==null){
+            return Result.failure(ResultCode.SYSTEM_ERROR,"签退失败!请查看签退码是否错误!");
+        }
+        //签退成功
+        linkTask.setIsSignedOut(1);
+        //改变任务的状态
+        task.setStatus(1);
+        //保存
+        updateById(task);
+        linkTaskMapper.updateById(linkTask);
         //TODO 缺少打款给用户
-        return null;//缺少打款
+        return Result.success();//缺少打款
     }
 
     @Override

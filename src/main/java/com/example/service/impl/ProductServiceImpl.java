@@ -232,13 +232,13 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product>
         Wxuser user = AccountHolder.getUser();
 
         QueryWrapper<Product> productQueryWrapper = new QueryWrapper<>();
-        productQueryWrapper.eq("product_id", productId).eq("publisher_id", user.getId());
+        productQueryWrapper.eq("product_id", productId).eq("publisher_id", user.getId()).eq("product_status",0);
 
         Product one = getOne(productQueryWrapper);
 
         if (one == null) {
 
-            throw new RuntimeException(ResultCode.PRODUCT_NULL_ERROR.getMessage());
+           return Result.failure(ResultCode.SYSTEM_ERROR,"删除错误，该商品并非正常上架中，已拍或者退款中!");
         }
 
         productMapper.deleteById(one);
