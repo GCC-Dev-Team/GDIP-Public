@@ -64,7 +64,7 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment>
     @Override
     public Result getComments(String forumId, PageRequest pageRequest) {
         QueryWrapper<Comment> commentQueryWrapper = new QueryWrapper<>();
-        commentQueryWrapper.eq("post_id", forumId).orderByDesc("likes");
+        commentQueryWrapper.eq("post_id", forumId).orderByDesc("updated_at").orderByDesc("likes");
         Page<Comment> page = new Page<>(pageRequest.getCurrentPage(), pageRequest.getPageSize());
 
         Page<Comment> commentPage = commentMapper.selectPage(page, commentQueryWrapper);

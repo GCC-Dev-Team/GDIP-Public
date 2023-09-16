@@ -59,4 +59,9 @@ public interface PayOwn {
      */
     String getGeneralId(@NotNull String outTradeNo);
 
+    /**
+     * 重新支付
+     */
+    CreateOrderVO rePay(@NotNull String generalId);
+
 }

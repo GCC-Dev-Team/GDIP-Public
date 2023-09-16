@@ -29,4 +29,9 @@ public interface TaskPayOwnService {
      * 成功退款后回调用的
      */
     Boolean refundTaskNotify(@NotNull String outRefundNo);
+
+    /**
+     * 重新支付
+     */
+    CreateOrderVO rePay(@NotNull String taskId);
 }

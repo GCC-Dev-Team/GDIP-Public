@@ -84,4 +84,15 @@ public class FileUploadDeleteController {
         return Result.success(wxuserService.updateAvatar(photoUrl,id));
     }
 
+    /**
+     * 任务图片上传
+     * @param file
+     * @return
+     */
+    @PostMapping("/photoTask")
+    public String uploadTaskPhoto(@NotNull MultipartFile file){
+
+        return fileUploadDelete.uploadPhoto(file,"TaskPhoto:");
+    }
+
 }

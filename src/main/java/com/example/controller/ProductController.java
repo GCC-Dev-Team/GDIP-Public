@@ -2,6 +2,7 @@ package com.example.controller;
 
 import com.example.common.Result;
 import com.example.model.dto.*;
+import com.example.model.vo.CreateOrderVO;
 import com.example.service.*;
 import org.springframework.web.bind.annotation.*;
 
@@ -75,7 +76,6 @@ public class ProductController {
     public Result deleteProduct(@NotNull String productId){
 
         return productService.deleteProduct(productId);
-        //还没有完工，因为关联的表
 
         //TODO 需要全部完成才能开发
     }

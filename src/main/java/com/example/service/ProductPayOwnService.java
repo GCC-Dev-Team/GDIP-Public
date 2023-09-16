@@ -35,4 +35,6 @@ public interface ProductPayOwnService {
 
     Boolean refundProductNotify(@NotNull String outRefundNo);
 
+    CreateOrderVO repay(@NotNull String productId);
+
 }

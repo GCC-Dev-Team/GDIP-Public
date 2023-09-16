@@ -42,17 +42,32 @@ spring:
     password: abC123456@
     database: 0
 
+#wx:
+#  miniapp:
+#    configs:
+#      - appid: wx4e7262cc3da38892
+#        secret: 8fc162f01a1cf1745eeccfe8a8089858
+#        token: xiaoligongzuoshi
+#        aesKey: xiaoligongzuoshi
+#        msgDataFormat: JSON
+#
+#  pay:
+#    appId: wx4e7262cc3da38892
+#    mchId: 1633635850
+#    mchKey: 80fd6711682fa5a3ffa9abd53981c368
+#    keyPath: classpath:apiclient_cert.p12
+
 wx:
   miniapp:
     configs:
-      - appid: wx4e7262cc3da38892
-        secret: 8fc162f01a1cf1745eeccfe8a8089858
+      - appid: wxb53fb342651c6c2a
+        secret: 6b9e4c65c7e531285e98e894b39afe6a
         token: xiaoligongzuoshi
         aesKey: xiaoligongzuoshi
         msgDataFormat: JSON
 
   pay:
-    appId: wx4e7262cc3da38892
-    mchId: 1633635850
-    mchKey: 80fd6711682fa5a3ffa9abd53981c368
-    keyPath: classpath:apiclient_cert.p12
+    appId: wxb53fb342651c6c2a
+    mchId: 1652632090
+    mchKey: on8rr08djaowyr9hyqfivsu1taxcpjs9
+    keyPath: classpath:new.p12

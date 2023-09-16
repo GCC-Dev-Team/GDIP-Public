@@ -75,4 +75,9 @@ public class TaskPayOwnServiceImpl implements TaskPayOwnService {
 
         return payOwn.refundNotify(outRefundNo);
     }
+
+    @Override
+    public CreateOrderVO rePay(String taskId) {
+        return payOwn.rePay(taskId);
+    }
 }

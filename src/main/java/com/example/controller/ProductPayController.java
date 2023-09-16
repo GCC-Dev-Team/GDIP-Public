@@ -51,4 +51,14 @@ public class ProductPayController {
 
         return Result.success(payOwn.queryOrder(productId));
     }
+
+    /**
+     * 重新支付
+     */
+    @PostMapping("/rePay")
+    CreateOrderVO rePay(@NotNull String productId){
+
+        return payOwn.rePay(productId);
+    }
+
 }

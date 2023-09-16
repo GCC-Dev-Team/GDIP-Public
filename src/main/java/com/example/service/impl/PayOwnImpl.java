@@ -8,6 +8,7 @@ import com.example.model.dto.CreateRefundDTO;
 import com.example.model.entity.Payment;
 import com.example.model.entity.Refund;
 import com.example.model.entity.Wxuser;
+import com.example.model.vo.CreateOrderVO;
 import com.example.service.PayOwn;
 import com.example.utils.AccountHolder;
 import com.example.utils.DateUtils;
@@ -207,5 +208,19 @@ public class PayOwnImpl implements PayOwn {
         Payment payment = paymentMapper.selectById(outTradeNo);
 
         return payment.getProductId();
+    }
+
+    @Override
+    public CreateOrderVO rePay(String generalId) {
+        QueryWrapper<Payment> paymentQueryWrapper = new QueryWrapper<Payment>().eq("productId", generalId);
+
+        Payment payment = paymentMapper.selectOne(paymentQueryWrapper);
+        if (payment==null||payment.getStatusCode().equals("REFUND")||payment.getStatusCode().equals("SUCCESS")){
+            throw new RuntimeException("该订单已经支付或退款!");
+        }
+        CreateOrderVO createOrderVO = new CreateOrderVO();
+
+        BeanUtils.copyProperties(payment,createOrderVO);
+        return createOrderVO;
     }
 }

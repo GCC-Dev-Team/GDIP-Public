@@ -2,6 +2,7 @@ package com.example.controller;
 
 import com.example.common.Result;
 
+import com.example.model.vo.CreateOrderVO;
 import com.example.service.PayOwn;
 import com.example.service.TaskPayOwnService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -45,5 +46,13 @@ public class TaskPayController {
     public Result queryTrade(@NotNull String taskId) {
 
         return Result.success(payOwn.queryOrder(taskId));
+    }
+
+    /**
+     * 重新付款
+     */
+    @PostMapping("/rePay")
+    CreateOrderVO rePay(@NotNull String taskId){
+        return taskPayOwnService.rePay(taskId);
     }
 }

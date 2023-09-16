@@ -70,7 +70,7 @@ public class ReplyCommentServiceImpl extends ServiceImpl<ReplyCommentMapper, Rep
     @Override
     public Result getReplyComment(String commentId, PageRequest pageRequest) {
         QueryWrapper<ReplyComment> replyCommentQueryWrapper = new QueryWrapper<>();
-        replyCommentQueryWrapper.eq("comment_id",commentId);//.orderByDesc("likes")暂时未开发子节点点赞
+        replyCommentQueryWrapper.eq("comment_id",commentId).orderByDesc("updated_at").orderByDesc("likes");
 
         Page<ReplyComment> replyCommentPage = replyCommentMapper.selectPage(new Page<>(pageRequest.getCurrentPage(), pageRequest.getPageSize()), replyCommentQueryWrapper);
 

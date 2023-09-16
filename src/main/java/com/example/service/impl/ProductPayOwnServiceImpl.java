@@ -136,4 +136,9 @@ public class ProductPayOwnServiceImpl implements ProductPayOwnService {
 
         return payOwn.refundNotify(outRefundNo);
     }
+
+    @Override
+    public CreateOrderVO repay(String productId) {
+        return payOwn.rePay(productId);
+    }
 }

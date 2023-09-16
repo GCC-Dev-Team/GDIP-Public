@@ -5,10 +5,11 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.mapper.*;
 import com.example.model.entity.Task;
 import com.example.service.*;
-import com.example.utils.AddressUtil;
-import com.example.utils.RandomUtil;
-import com.example.utils.RedisToken;
-import com.example.utils.TokenUtils;
+import com.example.service.impl.AccountJudgmentServiceImpl;
+import com.example.utils.*;
+import com.github.binarywang.wxpay.bean.order.WxPayMpOrderResult;
+import com.github.binarywang.wxpay.bean.request.BaseWxPayRequest;
+import com.github.binarywang.wxpay.bean.request.WxPayUnifiedOrderRequest;
 import com.github.binarywang.wxpay.exception.WxPayException;
 import com.github.binarywang.wxpay.service.WxPayService;
 
@@ -23,6 +24,7 @@ import org.springframework.http.client.support.HttpAccessor;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -164,35 +166,7 @@ class QingApplicationTests {
     }
     @Test
     void test() throws WxPayException {
-//        WxPayUnifiedOrderRequest orderRequest = new WxPayUnifiedOrderRequest();
-//
-//        orderRequest.setBody("轻小南商城商品");
-//
-//        orderRequest.setTotalFee(BaseWxPayRequest.yuanToFen(String.valueOf(0.01)));//元转成分
-//
-//        orderRequest.setOpenid("iujiuiuiui");
-//
-//        orderRequest.setSpbillCreateIp("0.0.0.0");//用户的客户端ip地址
-//
-//        Date date = new Date();
-//
-//        String startTime = DateUtils.dateToString(date);
-//        String endTime=DateUtils.dateToString(DateUtils.dateAddTime(date,24));
-//        orderRequest.setTimeStart(startTime);
-//        orderRequest.setTimeExpire(endTime);
-//
-//        String outTradeNo= generateRandomNumber();
-//        orderRequest.setOutTradeNo(outTradeNo);
-//
-//        orderRequest.setNotifyUrl("xiaoligongzuopshi.com");
-//
-//        orderRequest.setProductId("88888888");
-//
-//        orderRequest.setTradeType("Wap");//这个是商户的参数
-//
-//        WxPayMpOrderResult wxPayMpOrderResult=wxService.createOrder(orderRequest);
-//
-//        System.out.println(wxPayMpOrderResult);
+
 
 //        wxuserMapper.getOneByOpenidWxuser("")
 //        QueryWrapper<Address> addressQueryWrapper = new QueryWrapper<>();
@@ -340,5 +314,41 @@ class QingApplicationTests {
 //        System.out.println(records);
 //
 //        System.out.println(size);
+    }
+    @Resource
+    WxPayService wxPayService;
+
+    @Test
+    void test3() throws WxPayException {
+        WxPayUnifiedOrderRequest orderRequest = new WxPayUnifiedOrderRequest();
+
+        orderRequest.setBody("轻小南商城商品");
+
+        orderRequest.setTotalFee(BaseWxPayRequest.yuanToFen(String.valueOf(0.01)));//元转成分
+
+        orderRequest.setOpenid("iujiuiuiui");
+
+        orderRequest.setSpbillCreateIp("0.0.0.0");//用户的客户端ip地址
+
+        Date date = new Date();
+
+        String startTime = DateUtils.dateToString(date);
+        String endTime=DateUtils.dateToString(DateUtils.dateAddTime(date,24));
+        orderRequest.setTimeStart(startTime);
+        orderRequest.setTimeExpire(endTime);
+
+        String outTradeNo= RandomUtil.generateRandomNumberString();
+        orderRequest.setOutTradeNo(outTradeNo);
+
+        orderRequest.setNotifyUrl("https://xiaoligongzuoshi.top/wxpay/notify");
+
+        orderRequest.setProductId("88888888");
+
+        orderRequest.setTradeType("JSAPI");//这个是商户的参数
+
+        WxPayMpOrderResult wxPayMpOrderResult=wxService.createOrder(orderRequest);
+
+        System.out.println(wxPayMpOrderResult);
+
     }
 }
