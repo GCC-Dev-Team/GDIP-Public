@@ -1,9 +1,14 @@
 package com.example.utils;
 import org.springframework.stereotype.Component;
+
+import javax.annotation.Resource;
+
 @Component
 public class ShowPhotoUtil {
-    public static String getPhotoByName(String name) {
-      return QiniuUtil.getImageUrl(name);
+    @Resource
+    QiniuUtil qiniuUtil;
+    public String getPhotoByName(String name) {
+      return qiniuUtil.getImageUrl(name);
     }
 
 }

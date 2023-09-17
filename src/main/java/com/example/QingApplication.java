@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 @MapperScan("com.example.mapper")
+//@EnableConfigurationProperties(CallbackAddressConfig.class)
 public class QingApplication {
 
     public static void main(String[] args) {

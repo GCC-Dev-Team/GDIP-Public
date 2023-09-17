@@ -1,32 +1,21 @@
 package com.example;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.example.config.CallbackAddressProperties;
+import com.example.config.QiniuProperties;
 import com.example.mapper.*;
-import com.example.model.entity.Task;
 import com.example.service.*;
-import com.example.service.impl.AccountJudgmentServiceImpl;
 import com.example.utils.*;
-import com.github.binarywang.wxpay.bean.order.WxPayMpOrderResult;
-import com.github.binarywang.wxpay.bean.request.BaseWxPayRequest;
-import com.github.binarywang.wxpay.bean.request.WxPayUnifiedOrderRequest;
 import com.github.binarywang.wxpay.exception.WxPayException;
 import com.github.binarywang.wxpay.service.WxPayService;
 
 
 import org.json.JSONException;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.BeanUtils;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.http.*;
-import org.springframework.http.client.support.HttpAccessor;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
 
 @SpringBootTest
 class QingApplicationTests {
@@ -353,8 +342,27 @@ class QingApplicationTests {
 
     }
 
+    @Resource
+    CallbackAddressProperties callbackAddressProperties;
+
+    @Resource
+    QiniuProperties qiniuProperties;
     @Test
     void test4(){
 
+        //System.out.println(callbackAddressProperties.getSuccessAddress());
+//
+//        CallbackAddressProperties callbackAddressProperties1 = new CallbackAddressProperties();
+//        System.out.println(callbackAddressProperties1.getRefundAddress());
+        //System.out.println(qiniuProperties.getAccessKey());
+
+//        String s="eyJhbGciOiJIUzI1NiJ9.eyJvcGVuSWQiOiJvWVNpVDY1bl9KdTRIa05wWk5MVEp2MTRpdm5NIiwicmVkaXNUb2tlbiI6IjVhOTJhNTEwNDkwNTRiNDIiLCJleHAiOjE2OTU1ODIxMDJ9.vHKMa4UQ3XziMWB5SrOHOSZP4ErbsGiD3xscjhG5ZNE";
+//        boolean tokenExpired = TokenUtils.isTokenExpired(s);
+//
+//        String s2="eyJhbGciOiJIUzI1NiJ9.eyJvcGVuSWQiOiJvWVNpVDYwYUpueFhta3VsZWp5U1pZc0lRSl9JIiwicmVkaXNUb2tlbiI6ImQyNjIwOTQxMzM3NjQ3MTUiLCJleHAiOjE2OTU1ODI3NDZ9.Bc_MpdnTN-EMZsd9rY6yjSGd_-38Bs-QqMUje6D0aE8";
+//        String redisToken = TokenUtils.getRedisToken(s2);
+//        String openid = TokenUtils.getOpenid(s2);
+//
+//        System.out.println("redis:"+redisToken+"openid:"+openid+"booler:"+tokenExpired);
     }
 }

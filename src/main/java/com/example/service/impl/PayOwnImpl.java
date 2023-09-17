@@ -1,6 +1,7 @@
 package com.example.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.example.config.CallbackAddressProperties;
 import com.example.mapper.PaymentMapper;
 import com.example.mapper.RefundMapper;
 import com.example.model.dto.CreateOrderDTO;
@@ -31,10 +32,8 @@ import java.util.Date;
 @Service
 public class PayOwnImpl implements PayOwn {
 
-    private static final String NOTIFY_URL = "https://guangxiaoqing.com/wxpay/notify";//回调地址
-
-    private static final String REFUND_NOTIFY_URL = "https://guangxiaoqing.com/wxpay/refundNotify";//回调地址
-
+    @Resource
+    CallbackAddressProperties callbackAddressProperties;
     @Resource
     WxPayService wxPayService;
 
@@ -69,7 +68,7 @@ public class PayOwnImpl implements PayOwn {
         String outTradeNo = RandomUtil.generateRandomNumberString(16);
         orderRequest.setOutTradeNo(outTradeNo);//自动生成的
 
-        orderRequest.setNotifyUrl(NOTIFY_URL);
+        orderRequest.setNotifyUrl(callbackAddressProperties.getSuccessAddress());
 
         orderRequest.setProductId(createOrderDTO.getProductId());
 
@@ -129,7 +128,7 @@ public class PayOwnImpl implements PayOwn {
 
         String outRefundNo = RandomUtil.generateRandomNumberString(12);//设置退款编号12位，避免混淆
         wxPayRefundRequest.setOutRefundNo(outRefundNo);//这个是退款单号
-        wxPayRefundRequest.setNotifyUrl(REFUND_NOTIFY_URL);//后续再修改，看拿到什么内容 通知地址
+        wxPayRefundRequest.setNotifyUrl(callbackAddressProperties.getRefundAddress());//后续再修改，看拿到什么内容 通知地址
         wxPayRefundRequest.setOutTradeNo(createRefundDTO.getOutTradeNo());//原支付订单号
         wxPayRefundRequest.setTotalFee(BaseWxPayRequest.yuanToFen(String.valueOf(createRefundDTO.getTotalFee())));
         wxPayRefundRequest.setRefundFee(BaseWxPayRequest.yuanToFen(String.valueOf(createRefundDTO.getRefundFee())));

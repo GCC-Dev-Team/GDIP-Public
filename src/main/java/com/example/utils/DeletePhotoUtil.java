@@ -1,18 +1,16 @@
 package com.example.utils;
+
+import org.springframework.stereotype.Component;
+
+import javax.annotation.Resource;
+@Component
 public class DeletePhotoUtil {
 
-    public static Boolean deletePhotoByName(String deletePhotoName){
+    @Resource
+    QiniuUtil qiniuUtil;
+    public  Boolean deletePhotos(String[] fileNameList){
 
-        String[] fileNameList = {deletePhotoName};
-
-        QiniuUtil.QiniuCloudDeleteImage(fileNameList);
-
-        return true;//删除成功返回ture
-    }
-
-    public static Boolean deletePhotos(String[] fileNameList){
-
-        QiniuUtil.QiniuCloudDeleteImage(fileNameList);
+        qiniuUtil.quinineCloudDeleteImage(fileNameList);
 
         return true;
     }
