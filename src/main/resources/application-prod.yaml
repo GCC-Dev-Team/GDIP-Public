@@ -1,0 +1,34 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://159.75.156.115:3306/qing
+    username: root
+    password: abC123456@
+
+  redis:
+    host: 159.75.156.115
+    port: 6379
+    password: abC123456@
+    database: 0
+
+server:
+  port: 443
+  ssl:
+    key-store: classpath:guangxiaoqing.com.pfx
+    key-store-password: r54ru4fjw21k0u8
+    key-store-type: PKCS12
+
+wx:
+  miniapp:
+    configs:
+      - appid: wxb53fb342651c6c2a
+        secret: 6b9e4c65c7e531285e98e894b39afe6a
+        token: xiaoligongzuoshi
+        aesKey: xiaoligongzuoshi
+        msgDataFormat: JSON
+
+  pay:
+    appId: wxb53fb342651c6c2a
+    mchId: 1652632090
+    mchKey: on8rr08djaowyr9hyqfivsu1taxcpjs9
+    keyPath: classpath:new.p12
