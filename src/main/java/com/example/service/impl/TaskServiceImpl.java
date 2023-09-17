@@ -134,7 +134,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
         QueryWrapper<Task> taskQueryWrapper = new QueryWrapper<>();
 
         taskQueryWrapper.eq("initiator", user.getId())
-                .orderByDesc("updated_time");
+                .orderByDesc("updated_time").ne("status",6);
 
         Page<Task> taskPage = taskMapper.selectPage(new Page<>(pageRequest.getCurrentPage(), pageRequest.getPageSize()), taskQueryWrapper);
 
@@ -317,11 +317,11 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
         Wxuser user = AccountHolder.getUser();
 
         QueryWrapper<Task> taskQueryWrapper = new QueryWrapper<>();
-        taskQueryWrapper.eq("id", taskId).eq("status", 0).eq("initiator", taskId);
+        taskQueryWrapper.eq("id", taskId).eq("status", 0).eq("initiator",user.getId());
         Task task = getOne(taskQueryWrapper);
 
         if (task == null) {
-            return Result.success("删除失败，请查看你的任务id是否正确或者你的任务是否已经被接单");
+            return Result.failure(ResultCode.SYSTEM_ERROR,"退款失败，请查看你的任务id是否正确或者你的任务是否已经被接单");
         }
 
         QueryWrapper<Payment> paymentQueryWrapper = new QueryWrapper<>();

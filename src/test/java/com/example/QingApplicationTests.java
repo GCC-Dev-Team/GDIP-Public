@@ -53,7 +53,7 @@ class QingApplicationTests {
     @Resource
     ProvinceMapper provinceMapper;
     @Resource
-    WxPayService wxService;
+    WxPayService wxPayService;
     @Resource
     ProductPayOwnService productPayOwnService;
     @Resource
@@ -232,7 +232,7 @@ class QingApplicationTests {
 //        }
 //        stringRedisTemplate.opsForValue().set(RandomUtil.generateRandomString(16),"T:"+RandomUtil.generateRandomString(16));
 
-        System.out.println(addressUtil.getRegionName("6814"));
+//        System.out.println(addressUtil.getRegionName("6814"));
     }
     @Resource
     RedisToken redis;
@@ -315,40 +315,46 @@ class QingApplicationTests {
 //
 //        System.out.println(size);
     }
-    @Resource
-    WxPayService wxPayService;
+
 
     @Test
     void test3() throws WxPayException {
-        WxPayUnifiedOrderRequest orderRequest = new WxPayUnifiedOrderRequest();
+//        WxPayUnifiedOrderRequest orderRequest = new WxPayUnifiedOrderRequest();
+//
+//        orderRequest.setBody("轻小南商城商品");
+//
+//        orderRequest.setTotalFee(BaseWxPayRequest.yuanToFen(String.valueOf(0.01)));//元转成分
+//
+//        orderRequest.setOpenid("oYSiT65n_Ju4HkNpZNLTJv14ivnM");
+//
+//        orderRequest.setSpbillCreateIp("0.0.0.0");//用户的客户端ip地址
+//
+//        Date date = new Date();
+//
+//        String startTime = DateUtils.dateToString(date);
+//        String endTime=DateUtils.dateToString(DateUtils.dateAddTime(date,24));
+//        orderRequest.setTimeStart(startTime);
+//        orderRequest.setTimeExpire(endTime);
+//
+//        String outTradeNo= RandomUtil.generateRandomNumberString();
+//        orderRequest.setOutTradeNo(outTradeNo);
+//
+//        orderRequest.setNotifyUrl("https://xiaoligongzuoshi.top/wxpay/notify");
+//
+//        orderRequest.setProductId("88888888");
+//
+//        orderRequest.setTradeType("JSAPI");//这个是商户的参数
+//
+//        orderRequest.setProfitSharing("TRUE");
+//
+//        WxPayMpOrderResult wxPayMpOrderResult=wxPayService.createOrder(orderRequest);
+//
+//        System.out.println(wxPayMpOrderResult);
 
-        orderRequest.setBody("轻小南商城商品");
+    }
 
-        orderRequest.setTotalFee(BaseWxPayRequest.yuanToFen(String.valueOf(0.01)));//元转成分
-
-        orderRequest.setOpenid("iujiuiuiui");
-
-        orderRequest.setSpbillCreateIp("0.0.0.0");//用户的客户端ip地址
-
-        Date date = new Date();
-
-        String startTime = DateUtils.dateToString(date);
-        String endTime=DateUtils.dateToString(DateUtils.dateAddTime(date,24));
-        orderRequest.setTimeStart(startTime);
-        orderRequest.setTimeExpire(endTime);
-
-        String outTradeNo= RandomUtil.generateRandomNumberString();
-        orderRequest.setOutTradeNo(outTradeNo);
-
-        orderRequest.setNotifyUrl("https://xiaoligongzuoshi.top/wxpay/notify");
-
-        orderRequest.setProductId("88888888");
-
-        orderRequest.setTradeType("JSAPI");//这个是商户的参数
-
-        WxPayMpOrderResult wxPayMpOrderResult=wxService.createOrder(orderRequest);
-
-        System.out.println(wxPayMpOrderResult);
+    @Test
+    void test4(){
 
     }
 }

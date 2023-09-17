@@ -31,9 +31,9 @@ import java.util.Date;
 @Service
 public class PayOwnImpl implements PayOwn {
 
-    private static final String NOTIFY_URL = "https://xiaoligongzuoshi.top/wxpay/notify";//回调地址
+    private static final String NOTIFY_URL = "https://guangxiaoqing.com/wxpay/notify";//回调地址
 
-    private static final String REFUND_NOTIFY_URL = "https://xiaoligongzuoshi.top/wxpay/refundNotify";//回调地址
+    private static final String REFUND_NOTIFY_URL = "https://guangxiaoqing.com/wxpay/refundNotify";//回调地址
 
     @Resource
     WxPayService wxPayService;
