@@ -13,14 +13,6 @@ import java.util.List;
 public interface LinkTaskService extends IService<LinkTask> {
 
     /**
-     * 获取我没有签退的任务
-     * @param userId
-     * @return
-     */
-
-    List<String> getMyNoSingOutTask(String userId);
-
-    /**
      * 报名参加活动
      * @param userId
      * @param taskId

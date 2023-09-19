@@ -22,12 +22,6 @@ public class LinkTaskServiceImpl extends ServiceImpl<LinkTaskMapper, LinkTask>
     implements LinkTaskService{
     @Resource
     LinkTaskMapper linkTaskMapper;
-    @Override
-    public List<String> getMyNoSingOutTask(@NotNull String userId) {
-
-
-        return linkTaskMapper.getMyNoSingOutList(userId);
-    }
 
     @Override
     public Boolean participateTask(String userId, String taskId) {

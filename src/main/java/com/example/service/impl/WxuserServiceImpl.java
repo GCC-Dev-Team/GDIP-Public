@@ -7,6 +7,7 @@ import com.example.common.ResultCode;
 import com.example.model.dto.*;
 import com.example.model.entity.Wxuser;
 import com.example.model.vo.UserInfoVO;
+import com.example.model.vo.VerifyVO;
 import com.example.service.AccountJudgmentService;
 import com.example.service.WxuserService;
 import com.example.mapper.WxuserMapper;
@@ -168,6 +169,20 @@ public class WxuserServiceImpl extends ServiceImpl<WxuserMapper, Wxuser>
         updateById(wxuser);
 
         return Result.success();
+    }
+
+    @Override
+    public VerifyVO getMyEducationalAdministrationPassword() {
+        Wxuser user = AccountHolder.getUser();
+
+        return new VerifyVO(user.getStudentNumber(), user.getPasswordJw());
+    }
+
+    @Override
+    public VerifyVO getMyWisdomSystemPassword() {
+        Wxuser user = AccountHolder.getUser();
+
+        return new VerifyVO(user.getStudentNumber(), user.getPasswordNew());
     }
 }
 

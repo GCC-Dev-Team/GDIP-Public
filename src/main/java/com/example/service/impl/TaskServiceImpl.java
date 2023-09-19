@@ -146,7 +146,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
 
         QueryWrapper<Task> taskQueryWrapper = new QueryWrapper<>();
 
-        taskQueryWrapper.ge("start_time", new Date())
+        taskQueryWrapper.ge("end_time", new Date())
                 .orderByDesc("updated_time")
                 .eq("status", 0);
 
@@ -192,45 +192,12 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
 
         String taskId = participateTaskRequest.getId();
 
-        List<String> myNoSingOutTasks = linkTaskService.getMyNoSingOutTask(user.getId());
-
         Task task = taskMapper.selectById(taskId);
 
         //查看人数（初期限制了一人）
         if (taskMapper.selectById(taskId).getNumberOfParticipants() <= task.getPeople() || task.getStatus().equals(1)) {
 
             return Result.failure(ResultCode.TASK_ERROR_NUMBER_PEOPLE);
-        }
-        if (!myNoSingOutTasks.isEmpty()) {
-
-            Date taskIdBeginTime = task.getStartTime();
-            Date taskIdEndTime = task.getEndTime();
-
-            //这里是有任务没有签退的，看时间是否冲突
-
-            for (String taskIdTemple : myNoSingOutTasks) {
-
-                if (Objects.equals(taskIdTemple, taskId)) {
-
-                    return Result.failure(ResultCode.TASK_ERROR_REPEAT);
-                }
-
-                Task taskTemple = taskMapper.selectById(taskIdTemple);
-
-                Date taskTempleBeginTime = taskTemple.getStartTime();
-                Date taskTempleEndTime = taskTemple.getEndTime();
-
-                //检测时间是否有重叠的部分
-                Boolean isOver = TimeOverlapExample.isTimeOverlap(DateTranslation.DateTranslationLocalDateTime(taskIdBeginTime),
-                        DateTranslation.DateTranslationLocalDateTime(taskIdEndTime),
-                        DateTranslation.DateTranslationLocalDateTime(taskTempleBeginTime),
-                        DateTranslation.DateTranslationLocalDateTime(taskTempleEndTime));
-
-                if (isOver.equals(Boolean.TRUE))
-                    return Result.failure(ResultCode.TASK_ERROR_REPEAT_TIME);
-
-            }
-
         }
         //参加活动了
         Boolean temple = linkTaskService.participateTask(user.getId(), taskId);

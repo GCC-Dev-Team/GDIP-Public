@@ -211,7 +211,7 @@ public class PayOwnImpl implements PayOwn {
 
     @Override
     public CreateOrderVO rePay(String generalId) {
-        QueryWrapper<Payment> paymentQueryWrapper = new QueryWrapper<Payment>().eq("productId", generalId);
+        QueryWrapper<Payment> paymentQueryWrapper = new QueryWrapper<Payment>().eq("product_id", generalId);
 
         Payment payment = paymentMapper.selectOne(paymentQueryWrapper);
         if (payment==null||payment.getStatusCode().equals("REFUND")||payment.getStatusCode().equals("SUCCESS")){

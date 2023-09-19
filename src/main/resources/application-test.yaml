@@ -25,6 +25,12 @@ spring:
     port: 6379
     password: abC123456@
     database: 1
+  data:
+    mongodb:
+      host: 114.132.67.226
+      port: 27017
+      database: mydatabase
+
 
 server:
   port: 8089
@@ -38,3 +44,10 @@ qiniu:
   domain: yun.xiaoligongzuoshi.top
   bucket-name: xiaoli2023
   secret-key: qjQcw6AbtcsX1LqcAu1E1bUBUMT3L9Yt1S2Ysxo6
+
+course:
+  course-address: "http://cuuemo.cn:5000/handle_kb"
+
+verify-address:
+  verify-address: "http://cuuemo.cn:5000/login"
+  verify-address-new: "http://cuuemo.cn:5000/login"

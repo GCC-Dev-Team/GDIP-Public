@@ -3,6 +3,9 @@ package com.example;
 import com.example.config.CallbackAddressProperties;
 import com.example.config.QiniuProperties;
 import com.example.mapper.*;
+import com.example.model.entity.Course;
+import com.example.model.entity.Task;
+import com.example.repository.CourseRepository;
 import com.example.service.*;
 import com.example.utils.*;
 import com.github.binarywang.wxpay.exception.WxPayException;
@@ -11,7 +14,9 @@ import com.github.binarywang.wxpay.service.WxPayService;
 
 import org.json.JSONException;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.client.RestTemplate;
 
@@ -60,6 +65,13 @@ class QingApplicationTests {
 
     @Resource
     AccountJudgmentService accountJudgmentService;
+    @Resource
+    CallbackAddressProperties callbackAddressProperties;
+
+    @Resource
+    QiniuProperties qiniuProperties;
+
+
 
 
     @Test
@@ -343,12 +355,13 @@ class QingApplicationTests {
     }
 
     @Resource
-    CallbackAddressProperties callbackAddressProperties;
+    CourseRepository courseRepository;
 
-    @Resource
-    QiniuProperties qiniuProperties;
     @Test
     void test4(){
+        Course xiaoli = courseRepository.findCourseByCourseName("xiaoli");
+
+
 
         //System.out.println(callbackAddressProperties.getSuccessAddress());
 //
@@ -364,5 +377,14 @@ class QingApplicationTests {
 //        String openid = TokenUtils.getOpenid(s2);
 //
 //        System.out.println("redis:"+redisToken+"openid:"+openid+"booler:"+tokenExpired);
+
+//        Task task = taskMapper.selectById("task:12257bc332c34524b4");
+//        System.out.println(task.getStartTime());
+//        Course course = new Course();
+//        course.setCourseName("小力学java");
+//        course.setCourseAttribute("3");
+////        mongoTemplate.insert(course);
+//        courseRepository.save(course);
+//        Task task = taskMapper.selectById("111");
     }
 }

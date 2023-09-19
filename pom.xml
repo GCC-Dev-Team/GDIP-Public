@@ -95,6 +95,29 @@
             <version>5.8.8</version>
         </dependency>
 
+<!--&lt;!&ndash;        Mongodb&ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter-data-mongodb-reactive</artifactId>-->
+<!--        </dependency>-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+<!--        &lt;!&ndash; spring Mongo配置 包 &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>com.spring4all</groupId>-->
+<!--            <artifactId>mongodb-plus-spring-boot-starter</artifactId>-->
+<!--            <version>1.0.0.RELEASE</version>-->
+<!--        </dependency>-->
+        <!-- springData Mongo 使用包 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-mongodb</artifactId>
+            <version>2.0.0.RELEASE</version>
+        </dependency>
+
+
 
         <!--        七牛云-->
         <dependency>
