@@ -10,6 +10,11 @@ spring:
     port: 6379
     password: abC123456@
     database: 0
+  data:
+    mongodb:
+      host: 114.132.67.226
+      port: 27017
+      database: course
 
 server:
   port: 443

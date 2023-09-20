@@ -5,10 +5,7 @@ import com.example.model.dto.PageRequest;
 import com.example.model.dto.ParticipateTaskRequest;
 import com.example.model.dto.TaskSignOutRequest;
 import com.example.service.TaskService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.validation.constraints.NotNull;
@@ -27,6 +24,8 @@ public class TaskReceiveController {
     // 5:是没有调用微信订单，
     // 6是申请退款的，也就是退款成功的了（没有被接单的时候，也就是0的时候），
     // 7取消订单（已经被接单了，是接单的取消））取消订单完成后，状态是0
+
+    //8`接单者确定送达，数字1是发布者按下确认送达
     @Resource
     TaskService taskService;
     /**
@@ -46,17 +45,14 @@ public class TaskReceiveController {
         return taskService.cancelOrder(taskId);
     }
 
-
-
     /**
-     * 签退，订单状态变成1
+     * 接单的确认送达//状态从2变8
      */
-    //缺少打款
-    @PostMapping("/signOut")
-    public Result singOUt(@NotNull@RequestBody TaskSignOutRequest taskSignOutRequest){
-        return taskService.singOUt(taskSignOutRequest);
-    }
+    @PutMapping("/delivery")
+    public Result deliveryReceive(@NotNull String taskId){
 
+        return taskService.deliveryReceive(taskId);
+    }
 
     /**
      * 报名参加任务，订单状态变成2

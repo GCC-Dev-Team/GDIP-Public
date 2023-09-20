@@ -26,6 +26,12 @@ spring:
     password: abC123456@
     database: 1
 
+  data:
+    mongodb:
+      host: 114.132.67.226
+      port: 27017
+      database: mydatabase
+
 server:
   port: 443
   ssl:

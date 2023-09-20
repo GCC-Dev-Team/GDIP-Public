@@ -1,26 +1,28 @@
 package com.example;
 
+
 import com.example.config.CallbackAddressProperties;
 import com.example.config.QiniuProperties;
 import com.example.mapper.*;
-import com.example.model.entity.Course;
-import com.example.model.entity.Task;
 import com.example.repository.CourseRepository;
 import com.example.service.*;
-import com.example.utils.*;
+import com.example.utils.AddressUtil;
+import com.example.utils.RedisToken;
 import com.github.binarywang.wxpay.exception.WxPayException;
 import com.github.binarywang.wxpay.service.WxPayService;
-
-
 import org.json.JSONException;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 @SpringBootTest
 class QingApplicationTests {
@@ -355,11 +357,13 @@ class QingApplicationTests {
     }
 
     @Resource
+    MongoTemplate mongoTemplate;
+    @Resource
     CourseRepository courseRepository;
 
     @Test
     void test4(){
-        Course xiaoli = courseRepository.findCourseByCourseName("xiaoli");
+//        Course xiaoli = courseRepository.findCourseByCourseName("xiaoli");
 
 
 
@@ -380,11 +384,67 @@ class QingApplicationTests {
 
 //        Task task = taskMapper.selectById("task:12257bc332c34524b4");
 //        System.out.println(task.getStartTime());
-//        Course course = new Course();
-//        course.setCourseName("小力学java");
-//        course.setCourseAttribute("3");
-////        mongoTemplate.insert(course);
-//        courseRepository.save(course);
 //        Task task = taskMapper.selectById("111");
+    }
+//    @Test
+//    void get(){
+//        try {
+//            // 设置请求的 URL
+//            String url = "http://cuuemo.cn:5000/handle_kb";
+//
+//            // 创建 HttpURLConnection 对象
+//            HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
+//
+//            // 设置请求方法为 POST
+//            connection.setRequestMethod("POST");
+//
+//            // 设置请求头部信息
+//            connection.setRequestProperty("Content-Type", "application/json");
+//
+//            // 启用输入输出流
+//            connection.setDoOutput(true);
+//
+//            // 构建请求体数据
+//            String jsonInputString = "{\"loginid\":\"2022233201315\",\"password\":\"20040627\",\"time\":\"2023-11-27\"}";
+//
+//            // 将请求体数据写入输出流
+//            try (DataOutputStream wr = new DataOutputStream(connection.getOutputStream())) {
+//                byte[] input = jsonInputString.getBytes("UTF-8");
+//                wr.write(input, 0, input.length);
+//            }
+//
+//            // 获取响应代码
+//            int responseCode = connection.getResponseCode();
+//
+//            if (responseCode == HttpURLConnection.HTTP_OK) {
+//                // 读取响应数据
+//                try (BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
+//                    String inputLine;
+//                    StringBuilder response = new StringBuilder();
+//
+//                    while ((inputLine = in.readLine()) != null) {
+//                        response.append(inputLine);
+//                    }
+//
+//                    // 输出响应数据
+//                    System.out.println(response.toString());
+//                }
+//            } else {
+//                // 处理请求失败的情况
+//                System.err.println("HTTP Request Failed with response code: " + responseCode);
+//            }
+//
+//            // 关闭连接
+//            connection.disconnect();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
+
+    @Resource
+    CourseService courseService;
+    @Test
+    void get2(){
+        courseService.getCourseAllByPost("2022233201315","20040627");
     }
 }

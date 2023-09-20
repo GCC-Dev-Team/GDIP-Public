@@ -55,17 +55,19 @@ public interface TaskService extends IService<Task> {
      * 查看我接单的任务
      */
     Result myOrder(@NotNull@RequestBody PageRequest pageRequest);
-
-    /**
-     * 签退
-     */
-    Result singOUt(@NotNull@RequestBody TaskSignOutRequest taskSignOutRequest);
-
-
     /**
      * 取消订单（接单者）
      * @param taskId
      * @return
      */
     Result cancelOrder(@NotNull String taskId);
+
+    /**
+     * 接单者确认送达//状态从2变8
+     * @param taskId
+     * @return
+     */
+    Result deliveryReceive(@NotNull String taskId);
+
+    Result deliveryPublisher(@NotNull String taskId);
 }

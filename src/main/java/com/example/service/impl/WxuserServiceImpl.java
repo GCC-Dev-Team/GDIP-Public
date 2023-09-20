@@ -13,7 +13,7 @@ import com.example.service.WxuserService;
 import com.example.mapper.WxuserMapper;
 import com.example.utils.*;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
+
 
 import javax.annotation.Resource;
 import javax.validation.constraints.NotNull;
@@ -133,6 +133,7 @@ public class WxuserServiceImpl extends ServiceImpl<WxuserMapper, Wxuser>
 
 
             user.setPasswordJw(passwordJw);
+            user.setStudentNumber(updateSchoolPasswordRequest.getStudentId());
             user.setState(1);
             this.updateById(user);
 

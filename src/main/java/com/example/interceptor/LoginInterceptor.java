@@ -53,12 +53,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 
         String openid = redisToken.getOpenId(token);
 
-
         Wxuser user = wxuserMapper.getOneByOpenidWxuser(openid);
-
-
-
-
 
         boolean isAdminLogin = ((HandlerMethod) handler).getMethodAnnotation(AdminLogin.class) != null;
         if (isAdminLogin) {

@@ -311,32 +311,6 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
     }
 
     @Override
-    public Result singOUt(TaskSignOutRequest taskSignOutRequest) {
-        //获取任务表顺便确认用户身份
-        Wxuser user = AccountHolder.getUser();
-
-        QueryWrapper<Task> eq = new QueryWrapper<Task>().eq("id", taskSignOutRequest.getTaskId()).eq("sign_out_code",taskSignOutRequest.getSignOutCode());
-        Task task = getOne(eq);
-
-        //只能一对一使用（以后想要多人任务只能从这里改）
-        QueryWrapper<LinkTask> queryWrapper = new QueryWrapper<LinkTask>().eq("task_id", taskSignOutRequest.getTaskId()).eq("participant_id", user.getId());
-        LinkTask linkTask = linkTaskMapper.selectOne(queryWrapper);
-
-        if(task==null||linkTask==null){
-            return Result.failure(ResultCode.SYSTEM_ERROR,"签退失败!请查看签退码是否错误!");
-        }
-        //签退成功
-        linkTask.setIsSignedOut(1);
-        //改变任务的状态
-        task.setStatus(1);
-        //保存
-        updateById(task);
-        linkTaskMapper.updateById(linkTask);
-        //TODO 缺少打款给用户
-        return Result.success();//缺少打款
-    }
-
-    @Override
     public Result cancelOrder(String taskId) {
 
         Task task = taskMapper.selectById(taskId);
@@ -353,6 +327,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
 
 
         task.setStatus(0);//设置为0，给别人接单
+        task.setPeople(task.getPeople()-1);
         taskMapper.updateById(task);
 
         QueryWrapper<Payment> paymentQuery = new QueryWrapper<Payment>().eq("product_id", task.getId());
@@ -361,6 +336,62 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
         paymentMapper.updateById(payment);
 
         return Result.success("成功取消订单");
+    }
+
+    //改变状态，联系表不需要动，等发布者确定后再进行改变联系表,只是拿去联系表信息
+    @Override
+    public Result deliveryReceive(String taskId) {
+        Wxuser user = AccountHolder.getUser();
+
+        Task task = taskMapper.selectById(taskId);
+
+        if(!task.getStatus().equals(2)){
+
+            return Result.failure(ResultCode.PARAM_IS_INVALID,"该订单并非正常配送中或已经结束或订单不存在!");
+        }
+
+        QueryWrapper<LinkTask> linkTaskQueryWrapper = new QueryWrapper<LinkTask>().eq("task_id", taskId).eq("participant_id", user.getId());
+
+        LinkTask linkTask = linkTaskMapper.selectOne(linkTaskQueryWrapper);
+
+        if(linkTask==null||linkTask.getIsSignedOut().equals(1)){
+
+            return Result.failure(ResultCode.PARAM_IS_INVALID,"该订单双方已经确认送达,或你并非该订单的接单者!");
+        }
+
+        task.setStatus(8);
+        taskMapper.updateById(task);
+
+        return Result.success("已确认送达，请联系客户进行确认!");
+    }
+
+    /**
+     * 发布者确认送达
+     * @param taskId
+     * @return
+     */
+    @Override
+    public Result deliveryPublisher(String taskId) {
+        Wxuser user = AccountHolder.getUser();
+
+        QueryWrapper<Task> taskQueryWrapper = new QueryWrapper<Task>().eq("initiator", user.getId()).eq("status", 8).eq("id",taskId);
+
+        Task task = taskMapper.selectById(taskQueryWrapper);
+
+        if (task==null){
+            return Result.failure(ResultCode.SYSTEM_ERROR,"请查看是否已经确认了或者任务接单者是否已经确认送达!");
+        }
+
+        task.setStatus(1);
+        taskMapper.updateById(task);
+
+        QueryWrapper<LinkTask> linkTaskQueryWrapper = new QueryWrapper<LinkTask>().eq("task_id", task.getId()).eq("is_signed_out", 0);
+        LinkTask linkTask = linkTaskMapper.selectOne(linkTaskQueryWrapper);
+        linkTask.setIsSignedOut(1);
+        linkTaskMapper.updateById(linkTask);
+
+        //TODO 缺少打款进入用户
+        return Result.success();
     }
 }
 

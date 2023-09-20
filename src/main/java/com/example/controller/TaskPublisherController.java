@@ -66,5 +66,12 @@ public class TaskPublisherController {
 
         return taskService.deleteTask(taskId);
     }
+    /**
+     * 卖家的确认送达，状态从8变1
+     */
+    @PutMapping("/delivery")
+    public Result deliveryPublisher(@NotNull String taskId){
+        return taskService.deliveryPublisher(taskId);
+    }
 
 }

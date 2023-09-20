@@ -11,6 +11,8 @@ public class DateUtils {
 
     private static final String DEFAULT_PAY_DATE = "yyyyMMddHHmmss";
 
+    public static final String COURSE_DATE="yyyy-MM-dd";
+
     public static Date stringToDate(String dateStr, String pattern)  {
         DateFormat dateFormat = new SimpleDateFormat(pattern);
         try {
