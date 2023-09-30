@@ -24,6 +24,7 @@ import com.example.mapper.TaskMapper;
 import com.example.utils.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 
 
@@ -38,6 +39,7 @@ import java.util.*;
  * @createDate 2023-07-31 10:56:35
  */
 @Service
+@Transactional
 public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
         implements TaskService {
     @Resource

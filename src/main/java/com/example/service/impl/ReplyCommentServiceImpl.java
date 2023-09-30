@@ -21,6 +21,7 @@ import com.example.utils.AccountHolder;
 import com.example.utils.RandomUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -31,6 +32,7 @@ import java.util.List;
 * @createDate 2023-09-01 11:52:24
 */
 @Service
+@Transactional
 public class ReplyCommentServiceImpl extends ServiceImpl<ReplyCommentMapper, ReplyComment>
     implements ReplyCommentService{
 

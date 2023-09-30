@@ -6,12 +6,14 @@ import com.example.model.entity.Wxuser;
 import com.example.service.FileUploadDelete;
 import com.example.utils.*;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.validation.constraints.NotNull;
 
 @Service
+@Transactional
 public class FileUploadDeleteServiceImpl implements FileUploadDelete {
 
     @Resource

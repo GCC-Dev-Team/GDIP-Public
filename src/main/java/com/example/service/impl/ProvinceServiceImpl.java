@@ -7,6 +7,7 @@ import com.example.model.entity.Province;
 import com.example.service.ProvinceService;
 import com.example.mapper.ProvinceMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 
@@ -16,6 +17,7 @@ import javax.annotation.Resource;
 * @createDate 2023-08-09 00:55:24
 */
 @Service
+@Transactional
 public class ProvinceServiceImpl extends ServiceImpl<ProvinceMapper, Province>
     implements ProvinceService{
     @Resource

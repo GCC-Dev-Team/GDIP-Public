@@ -15,6 +15,7 @@ import com.example.service.FollowersService;
 import com.example.mapper.FollowersMapper;
 import com.example.utils.AccountHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.UUID;
@@ -25,6 +26,7 @@ import java.util.UUID;
 * @createDate 2023-08-09 00:55:34
 */
 @Service
+@Transactional
 public class FollowersServiceImpl extends ServiceImpl<FollowersMapper, Followers>
     implements FollowersService{
     @Resource

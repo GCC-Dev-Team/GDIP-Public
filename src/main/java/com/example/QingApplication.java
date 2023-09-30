@@ -3,10 +3,13 @@ package com.example;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
+
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringBootApplication
 @MapperScan("com.example.mapper")
+//开启事务的
+@EnableTransactionManagement
 //@EnableConfigurationProperties(CallbackAddressConfig.class)
 public class QingApplication {
 

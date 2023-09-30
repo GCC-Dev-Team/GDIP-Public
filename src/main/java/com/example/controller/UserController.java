@@ -53,7 +53,7 @@ public class UserController {
     }
 
     /**
-     * 修改学习平台的密码
+     * 修改教务系统密码
      * @param updateSchoolPasswordRequest
      * @return
      */
@@ -63,19 +63,6 @@ public class UserController {
 
         return wxuserService.updateSchoolPassword(updateSchoolPasswordRequest);
     }
-
-    /**
-     * 学生系统3。0的密码修改接口
-     * @param
-     * @return
-     */
-
-    @PutMapping("/schoolPasswordNewInfo")
-    public Result updateSchoolNewPassword(@RequestBody UpdateSchoolPassword3Request updateSchoolPassword3Request){
-
-        return wxuserService.updateSchoolNewPassword(updateSchoolPassword3Request);
-    }
-
 
 
 }

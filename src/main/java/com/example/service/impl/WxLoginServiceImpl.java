@@ -22,6 +22,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.Objects;
@@ -30,6 +31,7 @@ import java.util.UUID;
 @Slf4j
 @Service
 @AllArgsConstructor
+@Transactional
 public class WxLoginServiceImpl implements WxLoginService {
     @Resource
     WxMaService wxMaService;

@@ -17,6 +17,7 @@ import com.example.service.FavoritesService;
 import com.example.mapper.FavoritesMapper;
 import com.example.utils.AccountHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -29,6 +30,7 @@ import java.util.stream.Collectors;
 * @createDate 2023-08-09 00:55:38
 */
 @Service
+@Transactional
 public class FavoritesServiceImpl extends ServiceImpl<FavoritesMapper, Favorites>
     implements FavoritesService{
 

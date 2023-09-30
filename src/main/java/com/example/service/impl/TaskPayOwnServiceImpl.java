@@ -11,9 +11,11 @@ import com.example.service.TaskPayOwnService;
 import com.example.utils.TimerUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 @Service
+@Transactional
 public class TaskPayOwnServiceImpl implements TaskPayOwnService {
     @Resource
     PayOwn payOwn;

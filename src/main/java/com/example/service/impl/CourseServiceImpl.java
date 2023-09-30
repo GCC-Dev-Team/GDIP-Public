@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import javax.validation.constraints.NotNull;
@@ -22,6 +23,7 @@ import java.net.URL;
 import java.util.Date;
 
 @Service
+@Transactional
 public class CourseServiceImpl implements CourseService {
     @Resource
     MongoTemplate mongoTemplate;

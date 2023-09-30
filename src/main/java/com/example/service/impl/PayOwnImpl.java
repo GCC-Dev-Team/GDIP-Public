@@ -24,12 +24,14 @@ import com.github.binarywang.wxpay.exception.WxPayException;
 import com.github.binarywang.wxpay.service.WxPayService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Service
+@Transactional
 public class PayOwnImpl implements PayOwn {
 
     @Resource

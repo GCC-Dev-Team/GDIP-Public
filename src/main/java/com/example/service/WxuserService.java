@@ -47,6 +47,4 @@ public interface WxuserService extends IService<Wxuser> {
     Result updateAvatar(@NotNull String photoUrl,String userId);
     Result updateSchoolPassword(@RequestBody UpdateSchoolPasswordRequest updateSchoolPasswordRequest);
 
-    Result updateSchoolNewPassword(@RequestBody UpdateSchoolPassword3Request updateSchoolPassword3Request);
-
 }

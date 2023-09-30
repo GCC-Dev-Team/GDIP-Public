@@ -15,6 +15,7 @@ import com.example.utils.AccountHolder;
 import com.example.utils.AddressUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -27,6 +28,7 @@ import java.util.UUID;
  * @createDate 2023-08-09 00:55:43
  */
 @Service
+@Transactional
 public class AddressServiceImpl extends ServiceImpl<AddressMapper, Address>
         implements AddressService {
     @Resource
@@ -105,7 +107,7 @@ public class AddressServiceImpl extends ServiceImpl<AddressMapper, Address>
 
         if(temple>0){
 
-            save(byId);
+            updateById(byId);
         }
 
         return Result.success();

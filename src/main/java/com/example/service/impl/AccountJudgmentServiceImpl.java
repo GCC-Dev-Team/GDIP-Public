@@ -8,6 +8,7 @@ import org.jose4j.json.internal.json_simple.JSONObject;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
@@ -23,6 +24,7 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
 @Service
+@Transactional
 public class AccountJudgmentServiceImpl implements AccountJudgmentService {
 
     @Resource
@@ -56,9 +58,5 @@ public class AccountJudgmentServiceImpl implements AccountJudgmentService {
         return Boolean.FALSE;
     }
 
-    @Override
-    public Boolean judgeIsAccountThree(String schoolId, String password) {
-        return null;
-    }
 
 }

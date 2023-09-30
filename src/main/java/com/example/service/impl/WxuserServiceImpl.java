@@ -12,7 +12,9 @@ import com.example.service.AccountJudgmentService;
 import com.example.service.WxuserService;
 import com.example.mapper.WxuserMapper;
 import com.example.utils.*;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
 import javax.annotation.Resource;
@@ -24,6 +26,7 @@ import javax.validation.constraints.NotNull;
  * @createDate 2023-07-25 14:59:40
  */
 @Service
+@Transactional
 public class WxuserServiceImpl extends ServiceImpl<WxuserMapper, Wxuser>
         implements WxuserService {
     @Resource
@@ -36,15 +39,10 @@ public class WxuserServiceImpl extends ServiceImpl<WxuserMapper, Wxuser>
         Wxuser wxuser = AccountHolder.getUser();
 
         if (wxuser != null) {
-            userInfoVO.setUserName(wxuser.getUserName());
 
-            userInfoVO.setState(wxuser.getState());
+            BeanUtils.copyProperties(wxuser,userInfoVO);
 
-            userInfoVO.setAvatar(wxuser.getAvatar());
-
-            userInfoVO.setStudentNumber(wxuser.getStudentNumber());
-
-            userInfoVO.setPhoneNumber(wxuser.getPhoneNumber());
+            userInfoVO.setIsBindSystemEdu(wxuser.getState().equals(1));//如果是1表示已经认证呢
 
             return Result.success(userInfoVO);
 
@@ -142,24 +140,6 @@ public class WxuserServiceImpl extends ServiceImpl<WxuserMapper, Wxuser>
         return Result.failure(ResultCode.USER_ERROR_UPDATE_SCHOOL_PASSWORD);
     }
 
-    @Override
-    public Result updateSchoolNewPassword(@NotNull UpdateSchoolPassword3Request updateSchoolPassword3Request) {
-
-        String passwordNew = updateSchoolPassword3Request.getPasswordNew();
-
-        Wxuser user = AccountHolder.getUser();
-
-        if(user.getPasswordNew()==null||user.getPasswordNew().equals(updateSchoolPassword3Request.getOldPasswordNew()) && (user.getStudentNumber().equals(updateSchoolPassword3Request.getStudentId()))){
-
-                user.setPasswordNew(passwordNew);
-
-                this.updateById(user);
-
-                return Result.success(ResultCode.USER_SUCCESS_UPDATE_PASSWORD);
-        }
-
-        return Result.failure(ResultCode.USER_ERROR_UPDATE_SCHOOL_PASSWORD);
-    }
 
     @Override
     public Result updateAvatar(String photoUrl, String userId) {

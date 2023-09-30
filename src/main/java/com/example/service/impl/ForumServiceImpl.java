@@ -18,6 +18,7 @@ import com.example.mapper.ForumMapper;
 import com.example.utils.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
 import javax.annotation.Resource;
@@ -32,6 +33,7 @@ import java.util.UUID;
 * &#064;createDate   2023-08-06 12:43:34
  */
 @Service
+@Transactional
 public class ForumServiceImpl extends ServiceImpl<ForumMapper, Forum>
     implements ForumService{
 

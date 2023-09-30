@@ -5,6 +5,7 @@ import com.example.model.entity.Refund;
 import com.example.service.RefundService;
 import com.example.mapper.RefundMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
 * @author L
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 * @createDate 2023-08-29 17:18:26
 */
 @Service
+@Transactional
 public class RefundServiceImpl extends ServiceImpl<RefundMapper, Refund>
     implements RefundService{
 

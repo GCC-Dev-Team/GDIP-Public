@@ -11,6 +11,7 @@ import com.example.mapper.CategoryMapper;
 import com.example.utils.AccountHolder;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ import java.util.UUID;
  * @createDate 2023-08-06 12:43:45
  */
 @Service
+@Transactional
 public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category>
         implements CategoryService {
     @Resource

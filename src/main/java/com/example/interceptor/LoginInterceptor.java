@@ -1,6 +1,7 @@
 package com.example.interceptor;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.anno.AdminLogin;
 import com.example.anno.NoNeedLogin;
 import com.example.mapper.WxuserMapper;
@@ -53,7 +54,9 @@ public class LoginInterceptor implements HandlerInterceptor {
 
         String openid = redisToken.getOpenId(token);
 
-        Wxuser user = wxuserMapper.getOneByOpenidWxuser(openid);
+        QueryWrapper<Wxuser> wxuserQueryWrapper = new QueryWrapper<Wxuser>().eq("openid", openid);
+
+        Wxuser user = wxuserMapper.selectOne(wxuserQueryWrapper);
 
         boolean isAdminLogin = ((HandlerMethod) handler).getMethodAnnotation(AdminLogin.class) != null;
         if (isAdminLogin) {

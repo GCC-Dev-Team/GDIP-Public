@@ -13,6 +13,7 @@ import com.example.service.LikeDislikeService;
 import com.example.mapper.LikeDislikeMapper;
 import com.example.utils.AccountHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.UUID;
@@ -23,6 +24,7 @@ import java.util.UUID;
 * @createDate 2023-09-02 10:16:14
 */
 @Service
+@Transactional
 public class LikeDislikeServiceImpl extends ServiceImpl<LikeDislikeMapper, LikeDislike>
     implements LikeDislikeService{
     @Resource

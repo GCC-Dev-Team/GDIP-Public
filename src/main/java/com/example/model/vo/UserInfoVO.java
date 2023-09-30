@@ -37,4 +37,9 @@ public class UserInfoVO {
      */
 
     private String studentNumber;
+
+    /**
+     * 查看是否绑定了教务系统
+     */
+    private Boolean isBindSystemEdu;
 }

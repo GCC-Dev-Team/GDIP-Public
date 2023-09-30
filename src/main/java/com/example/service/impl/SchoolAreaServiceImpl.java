@@ -10,6 +10,7 @@ import com.example.model.vo.SchoolVO;
 import com.example.service.SchoolAreaService;
 import com.example.mapper.SchoolAreaMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 
@@ -19,6 +20,7 @@ import javax.annotation.Resource;
 * @createDate 2023-09-01 11:48:55
 */
 @Service
+@Transactional
 public class SchoolAreaServiceImpl extends ServiceImpl<SchoolAreaMapper, SchoolArea>
     implements SchoolAreaService{
     @Resource

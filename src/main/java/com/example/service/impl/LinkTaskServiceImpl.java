@@ -6,6 +6,7 @@ import com.example.model.entity.LinkTask;
 import com.example.service.LinkTaskService;
 import com.example.mapper.LinkTaskMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import javax.validation.constraints.NotNull;
@@ -18,6 +19,7 @@ import java.util.UUID;
 * @createDate 2023-08-01 10:21:07
 */
 @Service
+@Transactional
 public class LinkTaskServiceImpl extends ServiceImpl<LinkTaskMapper, LinkTask>
     implements LinkTaskService{
     @Resource
