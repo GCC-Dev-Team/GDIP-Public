@@ -12,8 +12,4 @@ public interface AccountJudgmentService {
      */
     Boolean judgeIsAccount(@NotNull String schoolId,@NotNull String password);
 
-    /**
-     * 判断教务系统3.0的接口
-     */
-    Boolean judgeIsAccountThree(@NotNull String schoolId,@NotNull String password);
 }
