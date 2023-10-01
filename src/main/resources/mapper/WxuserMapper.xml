@@ -18,6 +18,7 @@
             <result property="passwordPay" column="password_pay" jdbcType="VARCHAR"/>
             <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
             <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="balance" column="balance" jdbcType="DOUBLE"/>
     </resultMap>
 
     <sql id="Base_Column_List">
@@ -25,6 +26,6 @@
         user_name,state,avatar,
         phone_number,password,student_number,
         password_jw,password_pay,create_time,
-        update_time
+        update_time,balance
     </sql>
 </mapper>

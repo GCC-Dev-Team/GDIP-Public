@@ -117,6 +117,7 @@ public class WxLoginServiceImpl implements WxLoginService {
         user.setUserName("qing_" + RandomUtil.generateRandomString(8));
         // 正常状态
         user.setState(0);
+        user.setBalance(0.00);
 
         wxuserService.save(user);
 

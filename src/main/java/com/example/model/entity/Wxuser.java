@@ -93,6 +93,11 @@ public class Wxuser implements Serializable {
      */
     @TableField(value = "update_time")
     private Date updateTime;
+    /**
+     * 当前余额
+     */
+    @TableField(value = "balance")
+    private Double balance;
 
     @Serial
     @TableField(exist = false)
