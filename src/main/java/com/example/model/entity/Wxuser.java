@@ -79,8 +79,8 @@ public class Wxuser implements Serializable {
     /**
      * 
      */
-    @TableField(value = "password_new")
-    private String passwordNew;
+    @TableField(value = "password_pay")
+    private String passwordPay;
 
     /**
      * 
@@ -120,7 +120,7 @@ public class Wxuser implements Serializable {
             && (this.getPassword() == null ? other.getPassword() == null : this.getPassword().equals(other.getPassword()))
             && (this.getStudentNumber() == null ? other.getStudentNumber() == null : this.getStudentNumber().equals(other.getStudentNumber()))
             && (this.getPasswordJw() == null ? other.getPasswordJw() == null : this.getPasswordJw().equals(other.getPasswordJw()))
-            && (this.getPasswordNew() == null ? other.getPasswordNew() == null : this.getPasswordNew().equals(other.getPasswordNew()))
+            && (this.getPasswordPay() == null ? other.getPasswordPay() == null : this.getPasswordPay().equals(other.getPasswordPay()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
             && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()));
     }
@@ -139,7 +139,7 @@ public class Wxuser implements Serializable {
         result = prime * result + ((getPassword() == null) ? 0 : getPassword().hashCode());
         result = prime * result + ((getStudentNumber() == null) ? 0 : getStudentNumber().hashCode());
         result = prime * result + ((getPasswordJw() == null) ? 0 : getPasswordJw().hashCode());
-        result = prime * result + ((getPasswordNew() == null) ? 0 : getPasswordNew().hashCode());
+        result = prime * result + ((getPasswordPay() == null) ? 0 : getPasswordPay().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getUpdateTime() == null) ? 0 : getUpdateTime().hashCode());
         return result;
@@ -161,7 +161,7 @@ public class Wxuser implements Serializable {
         sb.append(", password=").append(password);
         sb.append(", studentNumber=").append(studentNumber);
         sb.append(", passwordJw=").append(passwordJw);
-        sb.append(", passwordNew=").append(passwordNew);
+        sb.append(", passwordPay=").append(passwordPay);
         sb.append(", createTime=").append(createTime);
         sb.append(", updateTime=").append(updateTime);
         sb.append(", serialVersionUID=").append(serialVersionUID);

@@ -163,7 +163,7 @@ public class WxuserServiceImpl extends ServiceImpl<WxuserMapper, Wxuser>
     public VerifyVO getMyWisdomSystemPassword() {
         Wxuser user = AccountHolder.getUser();
 
-        return new VerifyVO(user.getStudentNumber(), user.getPasswordNew());
+        return new VerifyVO(user.getStudentNumber(), user.getPasswordPay());
     }
 }
 

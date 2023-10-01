@@ -15,7 +15,7 @@
             <result property="password" column="password" jdbcType="VARCHAR"/>
             <result property="studentNumber" column="student_number" jdbcType="VARCHAR"/>
             <result property="passwordJw" column="password_jw" jdbcType="VARCHAR"/>
-            <result property="passwordNew" column="password_new" jdbcType="VARCHAR"/>
+            <result property="passwordPay" column="password_pay" jdbcType="VARCHAR"/>
             <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
             <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
     </resultMap>
@@ -24,7 +24,7 @@
         id,openid,role,
         user_name,state,avatar,
         phone_number,password,student_number,
-        password_jw,password_new,create_time,
+        password_jw,password_pay,create_time,
         update_time
     </sql>
 </mapper>
