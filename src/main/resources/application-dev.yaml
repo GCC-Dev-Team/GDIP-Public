@@ -16,7 +16,7 @@ wx:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://114.132.67.226:3306/test
+    url: jdbc:mysql://114.132.67.226:3306/devqing
     username: xiaoli
     password: abC123456@
 

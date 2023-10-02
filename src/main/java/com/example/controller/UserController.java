@@ -64,5 +64,14 @@ public class UserController {
         return wxuserService.updateSchoolPassword(updateSchoolPasswordRequest);
     }
 
+    /**
+     * 查看我的余额
+     */
+    @GetMapping("/balance")
+    public Result getMybalance(){
+        return wxuserService.getMybalance();
+    }
+
+
 
 }

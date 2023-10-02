@@ -27,7 +27,7 @@ public class BalanceRecords implements Serializable {
     private String userId;
 
     /**
-     * 当前余额
+     * 当前余额（改变后的）
      */
     @TableField(value = "current_balance")
     private Double currentBalance;
@@ -39,7 +39,7 @@ public class BalanceRecords implements Serializable {
     private Integer balanceType;
 
     /**
-     * 
+     * 改变金额
      */
     @TableField(value = "balance_change")
     private Double balanceChange;

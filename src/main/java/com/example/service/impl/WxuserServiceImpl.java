@@ -165,6 +165,13 @@ public class WxuserServiceImpl extends ServiceImpl<WxuserMapper, Wxuser>
 
         return new VerifyVO(user.getStudentNumber(), user.getPasswordPay());
     }
+
+    @Override
+    public Result getMybalance() {
+        Wxuser user = AccountHolder.getUser();
+
+        return Result.success(user.getBalance());
+    }
 }
 
 

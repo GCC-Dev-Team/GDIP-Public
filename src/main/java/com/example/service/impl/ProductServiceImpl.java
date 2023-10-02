@@ -17,17 +17,15 @@ import com.example.model.vo.BuySmallVO;
 import com.example.model.vo.PageVO;
 import com.example.model.vo.ProductDescribeVO;
 import com.example.model.vo.ProductSmallVo;
-import com.example.service.FavoritesService;
-import com.example.service.FollowersService;
-import com.example.service.ProductService;
+import com.example.service.*;
 import com.example.mapper.ProductMapper;
-import com.example.service.ProductPayOwnService;
 import com.example.utils.AccountHolder;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -55,6 +53,8 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product>
     FavoritesService favoritesService;
     @Resource
     FollowersService followersService;
+    @Resource
+    AddressService addressService;
 
     @Override
     public Result getProductSmallAll(PageRequest pageRequest) {
@@ -135,6 +135,7 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product>
         product.setFavoritesCount(0);
         product.setViewsCount(0);
         product.setPublisherId(user.getId());
+        product.setProductAddress(addressService.getAllAddressDescribeById(createProductRequest.getProductAddress()));
 
         this.save(product);
 
@@ -210,7 +211,9 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product>
         }
 
         if (updateProductRequest.getProductAddress() != null) {
-            one.setProductAddress(updateProductRequest.getProductAddress());
+            //现在拿到的是代码
+
+            one.setProductAddress(addressService.getAllAddressDescribeById(updateProductRequest.getProductAddress()));
             temple = temple + 1;
         }
 
@@ -255,8 +258,14 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product>
         Wxuser user = AccountHolder.getUser();
         String userId = user.getId();
 
-        List<Product> buysByUserId = productMapper.getBuysByUserId(userId);
+        List<Payment> payments = paymentMapper.selectList(new QueryWrapper<Payment>().eq("payer", user.getId()).like("product_id", "product:"));
+        List<Product> buysByUserId=new ArrayList<>();
+        for (Payment payment : payments) {
 
+            Product product = productMapper.selectById(payment.getProductId());
+
+            buysByUserId.add(product);
+        }
         //有参考的价值，好好理解这个过滤器stream
         List<BuySmallVO> productSmallVos = buysByUserId.stream()
                 .map(product -> new BuySmallVO(

@@ -46,7 +46,7 @@ public class Payment implements Serializable {
     private Integer statusNumber;
 
     /**
-     * 出售者
+     * 出售者/接单员
      */
     @TableField(value = "recipient")
     private String recipient;

@@ -47,4 +47,9 @@ public interface WxuserService extends IService<Wxuser> {
     Result updateAvatar(@NotNull String photoUrl,String userId);
     Result updateSchoolPassword(@RequestBody UpdateSchoolPasswordRequest updateSchoolPasswordRequest);
 
+    /**
+     * 获取我的余额
+     * @return
+     */
+    Result getMybalance();
 }

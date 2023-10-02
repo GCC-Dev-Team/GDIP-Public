@@ -15,10 +15,6 @@ import java.util.List;
 */
 public interface ProductMapper extends BaseMapper<Product> {
 
-    @Select("SELECT product.* FROM `payment` LEFT JOIN product ON payment.product_id=product.product_id WHERE payer=#{payerId}")
-    List<Product> getBuysByUserId(@Param("payerId")String payerId);
-
-
 }
 
 
