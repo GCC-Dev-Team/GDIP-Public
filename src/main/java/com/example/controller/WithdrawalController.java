@@ -12,7 +12,7 @@ import javax.annotation.Resource;
 import javax.validation.constraints.NotNull;
 
 /**
- * 提现控制
+ * 提现
  */
 @RestController
 @RequestMapping("/Withdrawal")
