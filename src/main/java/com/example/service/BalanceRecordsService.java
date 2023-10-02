@@ -3,6 +3,7 @@ package com.example.service;
 import com.example.common.Result;
 import com.example.model.dto.BalanceReceiveAndPayDTO;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.example.model.dto.WithdrawalBalanceDTO;
 import com.example.model.entity.BalanceRecords;
 
 import javax.validation.constraints.NotNull;
@@ -23,10 +24,15 @@ public interface BalanceRecordsService extends IService<BalanceRecords> {
     Boolean payOrReceive(@NotNull BalanceReceiveAndPayDTO balanceReceiveAndPayDTO);
 
     /**
-     * 提现对接的接口
+     * 申请提现对接的接口（status是1）
      */
+    Boolean payWithdrawal(@NotNull WithdrawalBalanceDTO withdrawalBalanceDTO);
 
 
+    /**
+     * 取消提现接口(要查看是否有这个余额扣除，有的话再加上去)（status是0）
+     */
+    Boolean cancelWithdrawal(@NotNull WithdrawalBalanceDTO withdrawalBalanceDTO);
     /**
      * 查询我的余额详细
      */

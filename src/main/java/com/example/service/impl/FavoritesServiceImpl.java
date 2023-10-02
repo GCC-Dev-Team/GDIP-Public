@@ -143,6 +143,15 @@ public class FavoritesServiceImpl extends ServiceImpl<FavoritesMapper, Favorites
 
         return 1;
     }
+
+    @Override
+    public Boolean deleteFavoriteByProductId(String productId) {
+        QueryWrapper<Favorites> favoriteProductId = new QueryWrapper<Favorites>().eq("favorite_product_id", productId);
+
+        favoritesMapper.delete(favoriteProductId);
+
+        return Boolean.TRUE;
+    }
 }
 
 

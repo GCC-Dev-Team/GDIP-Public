@@ -29,4 +29,9 @@ public interface FavoritesService extends IService<Favorites> {
      * @return
      */
     Integer judgeFavorite(@NotNull String productId, @NotNull String userId);
+
+    /**
+     * 删除商品时，删除的收藏记录
+     */
+    Boolean deleteFavoriteByProductId(@NotNull String productId);
 }

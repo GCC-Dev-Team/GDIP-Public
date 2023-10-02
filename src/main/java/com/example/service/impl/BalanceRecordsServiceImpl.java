@@ -7,6 +7,7 @@ import com.example.mapper.BalanceRecordsMapper;
 import com.example.mapper.PaymentMapper;
 import com.example.mapper.WxuserMapper;
 import com.example.model.dto.BalanceReceiveAndPayDTO;
+import com.example.model.dto.WithdrawalBalanceDTO;
 import com.example.model.entity.BalanceRecords;
 import com.example.model.entity.Payment;
 import com.example.model.entity.Wxuser;
@@ -105,6 +106,52 @@ public class BalanceRecordsServiceImpl extends ServiceImpl<BalanceRecordsMapper,
                 balanceRecords.getBalanceChange())).toList();
 
         return Result.success(balanceDetailVOS);
+    }
+
+    /**
+     * 提现操作
+     * @param withdrawalBalanceDTO
+     * @return
+     */
+
+    @Override
+    public Boolean payWithdrawal(WithdrawalBalanceDTO withdrawalBalanceDTO) {
+        Wxuser user = AccountHolder.getUser();
+        if (!withdrawalBalanceDTO.getUserId().equals(user.getId())){
+            throw new RuntimeException("账号异常，请登录!");
+        }
+        BalanceRecords balanceRecords = new BalanceRecords();
+        //注意提现是-
+        balanceRecords.setCurrentBalance(user.getBalance()-withdrawalBalanceDTO.getBalanceChange());
+        balanceRecords.setBalanceId("balance:"+RandomUtil.generateRandomString(15));
+        balanceRecords.setBalanceChange(withdrawalBalanceDTO.getBalanceChange());
+        balanceRecords.setBalanceType(1);
+        balanceRecords.setUserId(withdrawalBalanceDTO.getUserId());
+        balanceRecords.setPaymentOrderId(withdrawalBalanceDTO.getWithdrawalId());
+
+        save(balanceRecords);
+        return Boolean.TRUE;
+    }
+
+    @Override
+    public Boolean cancelWithdrawal(WithdrawalBalanceDTO withdrawalBalanceDTO) {
+
+        Wxuser user = AccountHolder.getUser();
+        if (!withdrawalBalanceDTO.getUserId().equals(user.getId())){
+            throw new RuntimeException("账号异常，请登录!");
+        }
+
+        BalanceRecords balanceRecords = new BalanceRecords();
+        //注意提现是-
+        balanceRecords.setCurrentBalance(user.getBalance()+withdrawalBalanceDTO.getBalanceChange());
+        balanceRecords.setBalanceId("balance:"+RandomUtil.generateRandomString(15));
+        balanceRecords.setBalanceChange(withdrawalBalanceDTO.getBalanceChange());
+        balanceRecords.setBalanceType(0);
+        balanceRecords.setUserId(withdrawalBalanceDTO.getUserId());
+        balanceRecords.setPaymentOrderId(withdrawalBalanceDTO.getWithdrawalId());
+
+        save(balanceRecords);
+        return Boolean.TRUE;
     }
 }
 

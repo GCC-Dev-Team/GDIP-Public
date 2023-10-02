@@ -76,8 +76,6 @@ public class ProductController {
     public Result deleteProduct(@NotNull String productId){
 
         return productService.deleteProduct(productId);
-
-        //TODO 需要全部完成才能开发
     }
     /**
      * 查看我购买的订单（状态数字可以知道该订单是什么状态）
@@ -100,7 +98,6 @@ public class ProductController {
     @PostMapping("/Receive")
     public Result Receive(@NotNull String productId){
         return productService.Receive(productId);
-        //TODO 需要企业对公账号
     }
 
     //支付成功后，申请退款（还没确认收货）//需要卖家同意？？？

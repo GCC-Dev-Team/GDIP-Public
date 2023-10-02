@@ -7,6 +7,7 @@ import com.example.common.Result;
 import com.example.common.ResultCode;
 import com.example.mapper.PaymentMapper;
 import com.example.mapper.WxuserMapper;
+import com.example.model.dto.BalanceReceiveAndPayDTO;
 import com.example.model.dto.CreateProductRequest;
 import com.example.model.dto.PageRequest;
 import com.example.model.dto.UpdateProductRequest;
@@ -39,6 +40,9 @@ import java.util.stream.Collectors;
 @Transactional
 public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product>
         implements ProductService {
+
+    @Resource
+    BalanceRecordsService balanceRecordsService;
     @Resource
     ProductMapper productMapper;
     @Resource
@@ -248,6 +252,8 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product>
 
         productMapper.deleteById(one);
 
+        favoritesService.deleteFavoriteByProductId(productId);
+
         return Result.success();
     }
 
@@ -287,7 +293,7 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product>
      */
     @Override
     public Result Receive(String productId) {
-        //TODO 需要企业付款才可以实现转账给对方
+
 
         Wxuser user = AccountHolder.getUser();
 
@@ -309,6 +315,13 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product>
 
         product.setProductStatus(1);
         updateById(product);
+
+        //打款给卖家钱包余额
+        BalanceReceiveAndPayDTO balanceReceiveAndPayDTO = new BalanceReceiveAndPayDTO(0,
+                product.getProductPrice(),
+                payment.getOutTradeNo());
+        balanceRecordsService.payOrReceive(balanceReceiveAndPayDTO);
+
         return Result.success("收货成功");
     }
 
@@ -341,7 +354,7 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product>
 
         //改变商品的状态
         product.setProductStatus(4);
-        save(product);
+        updateById(product);
 
         return Result.success("请联系卖家同意退款!");
     }

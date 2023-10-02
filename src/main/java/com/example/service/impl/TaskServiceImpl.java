@@ -17,6 +17,7 @@ import com.example.model.entity.Wxuser;
 import com.example.model.vo.PageVO;
 import com.example.model.vo.TaskDescribeVO;
 import com.example.model.vo.TaskSmallVO;
+import com.example.service.BalanceRecordsService;
 import com.example.service.LinkTaskService;
 import com.example.service.PayOwn;
 import com.example.service.TaskService;
@@ -42,6 +43,9 @@ import java.util.*;
 @Transactional
 public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
         implements TaskService {
+
+    @Resource
+    BalanceRecordsService balanceRecordsService;
     @Resource
     TaskMapper taskMapper;
 
@@ -391,8 +395,13 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
         LinkTask linkTask = linkTaskMapper.selectOne(linkTaskQueryWrapper);
         linkTask.setIsSignedOut(1);
         linkTaskMapper.updateById(linkTask);
+        QueryWrapper<Payment> queryWrapper = new QueryWrapper<Payment>().eq("product_id", task.getId());
 
-        //TODO 缺少打款进入用户
+        //打款进入用户余额
+        BalanceReceiveAndPayDTO balanceReceiveAndPayDTO = new BalanceReceiveAndPayDTO(0,
+                task.getPrice(),
+                paymentMapper.selectOne(queryWrapper).getOutTradeNo());
+        balanceRecordsService.payOrReceive(balanceReceiveAndPayDTO);
         return Result.success();
     }
 }
