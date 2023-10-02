@@ -28,6 +28,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -262,18 +263,28 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product>
     @Override
     public Result getMyBuy() {
         Wxuser user = AccountHolder.getUser();
-        String userId = user.getId();
 
-        List<Payment> payments = paymentMapper.selectList(new QueryWrapper<Payment>().eq("payer", user.getId()).like("product_id", "product:"));
+        List<Payment> payments = paymentMapper.selectList(new QueryWrapper<Payment>()
+                .eq("payer", user.getId())
+                .like("product_id", "product:")
+                .ne("status_number",2));
         List<Product> buysByUserId=new ArrayList<>();
         for (Payment payment : payments) {
 
             Product product = productMapper.selectById(payment.getProductId());
 
+//            if (product==null){
+//                continue;
+//            }//之前报错说buysByUserId这个集合有空指针异常，
+//            是因为这里没有做判断导致product为null时就加入进去了,
+//            导致原因：是因为商品购买后退款了，然后商家删除了商品，倒是查不到商品信息。
+//            所以购买过但是申请了退款的商品不展示出来
             buysByUserId.add(product);
         }
-        //有参考的价值，好好理解这个过滤器stream
+
+//        //有参考的价值，好好理解这个过滤器stream
         List<BuySmallVO> productSmallVos = buysByUserId.stream()
+                .filter(Objects::nonNull) // 过滤掉空的产品对象
                 .map(product -> new BuySmallVO(
                         product.getProductId(),
                         product.getProductTitle(),
@@ -284,6 +295,8 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product>
                 ))
                 .collect(Collectors.toList());
         return Result.success(productSmallVos);
+
+//        return Result.failure(ResultCode.PARAM_IS_INVALID);
     }
 
     /**

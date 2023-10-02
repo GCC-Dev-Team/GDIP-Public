@@ -16,6 +16,7 @@ import com.example.mapper.WithdrawalMapper;
 import com.example.utils.AccountHolder;
 import com.example.utils.RandomUtil;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 
@@ -29,6 +30,7 @@ import javax.annotation.Resource;
  * 这个是提现的功能
  */
 @Service
+@Transactional
 public class WithdrawalServiceImpl extends ServiceImpl<WithdrawalMapper, Withdrawal>
     implements WithdrawalService{
     @Resource
