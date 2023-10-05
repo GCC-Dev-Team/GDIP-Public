@@ -1,9 +1,11 @@
 package com.example.controller;
 
+import com.example.anno.NoNeedLogin;
 import com.example.common.Result;
 import com.example.service.FileUploadDelete;
 import com.example.service.WxuserService;
 import com.example.utils.AccountHolder;
+import com.example.utils.MinioUtil;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +26,7 @@ public class FileUploadDeleteController {
     FileUploadDelete fileUploadDelete;
     @Resource
     WxuserService wxuserService;
+
 
     /**
      * 上传帖子的文件接口
@@ -94,5 +97,6 @@ public class FileUploadDeleteController {
 
         return fileUploadDelete.uploadPhoto(file,"TaskPhoto:");
     }
+
 
 }

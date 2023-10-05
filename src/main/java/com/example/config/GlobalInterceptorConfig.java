@@ -29,6 +29,7 @@ public class GlobalInterceptorConfig implements WebMvcConfigurer {
                         "/**/*.html",   //html静态资源
                         "/**/*.js",     //js静态资源
                         "/**/*.css",     //css静态资源
+                        "/test/g",
                         "/error"        //取消拦截BasicErrorController自带的异常处理
                 ).excludePathPatterns(
                         "/login/**"

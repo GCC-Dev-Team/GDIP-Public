@@ -3,6 +3,7 @@ package com.example.service.impl;
 import com.example.config.CourseProperties;
 import com.example.model.entity.Course;
 import com.example.model.entity.Wxuser;
+import com.example.service.AccountJudgmentService;
 import com.example.service.CourseService;
 import com.example.utils.AccountHolder;
 import com.example.utils.DateUtils;
@@ -29,22 +30,26 @@ public class CourseServiceImpl implements CourseService {
     MongoTemplate mongoTemplate;
     @Resource
     CourseProperties courseProperties;
+    @Resource
+    AccountJudgmentService accountJudgmentService;
 
     @Override
     public String getMyCourse() {
         Wxuser user = AccountHolder.getUser();
 
-        String  password = user.getPasswordJw();
+        String password = user.getPasswordJw();
 
-        if (password==null){
-            throw new RuntimeException( "出现错误，你未登录或绑定学号");
+        if (password == null) {
+            throw new RuntimeException("出现错误，你未登录或绑定学号");
         }
 
         Course course = mongoTemplate.findById(password, Course.class);
 
-        if(course ==null){
+        if (course == null) {
 
-           return getCourseAllByPost(user.getStudentNumber(),password);
+            return getCourseAllByPost(user.getStudentNumber(), password);
+//             course = mongoTemplate.findById(password, Course.class);
+
         }
 
         return course.getMyCourse();
@@ -65,12 +70,13 @@ public class CourseServiceImpl implements CourseService {
             // 启用输入输出流
             connection.setDoOutput(true);
 
+
             // 构建请求体数据
             ObjectMapper objectMapper = new ObjectMapper();
             JsonNode requestBody = objectMapper.createObjectNode()
                     .put("loginid", schoolId)
                     .put("password", password)
-                    .put("time", DateUtils.dateToString(new Date(),DateUtils.COURSE_DATE));
+                    .put("time", DateUtils.dateToString(new Date(), DateUtils.COURSE_DATE));
 
             // 将请求体数据写入输出流
             try (DataOutputStream wr = new DataOutputStream(connection.getOutputStream())) {
@@ -83,15 +89,29 @@ public class CourseServiceImpl implements CourseService {
             if (responseCode == HttpURLConnection.HTTP_OK) {
                 // 读取响应数据并解析为 JSON
                 try (BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
+
                     ObjectMapper responseMapper = new ObjectMapper();
                     JsonNode jsonResponse = responseMapper.readTree(in);
+//
 
-//                     输出 JSON 响应
-                    String prettyString = jsonResponse.get("data").get("courses").toPrettyString();
-                    Course mycode = new Course("20200202020", prettyString);
-                    mongoTemplate.save(mycode);
+                    JsonNode dataNode = jsonResponse.get("data");
+                    if (dataNode != null) {
+                        JsonNode coursesNode = dataNode.get("courses");
+                        if (coursesNode != null) {
+                            String prettyString = coursesNode.toPrettyString();
 
-                    return prettyString;
+                            Course myCode = new Course(schoolId, prettyString);
+                            mongoTemplate.save(myCode);
+
+                            return prettyString;
+                        } else {
+                            throw new RuntimeException("coursesNode 为 null");
+                            // 处理 coursesNode 为 null 的情况
+                        }
+                    } else {
+                         throw new RuntimeException("dataNode 为 null");
+                    }
+
                 }
             } else {
                 // 处理请求失败的情况
@@ -99,7 +119,7 @@ public class CourseServiceImpl implements CourseService {
 
                 // 关闭连接
                 connection.disconnect();
-                throw new RuntimeException("HTTP Request Failed with response code:"+responseCode );
+                throw new RuntimeException("HTTP Request Failed with response code:" + responseCode);
             }
 
 

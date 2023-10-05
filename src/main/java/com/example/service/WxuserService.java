@@ -16,6 +16,10 @@ import javax.validation.constraints.NotNull;
 * @createDate 2023-07-25 14:59:40
 */
 public interface WxuserService extends IService<Wxuser> {
+    /**
+     * 支付密码
+     */
+    Result updatePayPassword(UpdatePayPasswordRequest updatePayPasswordRequest);
 
 
     /**

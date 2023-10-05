@@ -31,6 +31,11 @@ spring:
       port: 27017
       database: mydatabase
 
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 5MB
+
 
 server:
   port: 8089
@@ -51,3 +56,10 @@ course:
 verify-address:
   verify-address: "http://cuuemo.cn:5000/login"
   verify-address-new: "http://cuuemo.cn:5000/login"
+
+#minio的
+
+oss:
+  endpoint: http://159.75.156.115:9000
+  access-key: admin
+  secret-key: admin123456

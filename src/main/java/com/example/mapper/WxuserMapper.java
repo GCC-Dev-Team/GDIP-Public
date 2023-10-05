@@ -14,8 +14,8 @@ import org.springframework.data.repository.query.Param;
 public interface WxuserMapper extends BaseMapper<Wxuser> {
 
 
-//    @Select("select * from wxuser where openid=#{openid}")
-//    Wxuser getOneByOpenidWxuser(@Param("openid") String openid);
+    @Select("select * from wxuser where openid=#{openid}")
+    Wxuser getOneByOpenidWxuser(@Param("openid") String openid);
 }
 
 

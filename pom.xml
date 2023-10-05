@@ -164,6 +164,15 @@
         </dependency>
 
 
+<!--        minio-->
+        <dependency>
+            <groupId>io.minio</groupId>
+            <artifactId>minio</artifactId>
+            <version>8.0.3</version>
+        </dependency>
+
+
+
 
 
 

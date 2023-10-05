@@ -15,6 +15,14 @@ import javax.annotation.Resource;
 public class UserController {
     @Resource
     WxuserService wxuserService;
+    /**
+     * 设置或者修改支付密码(默认密码123456)
+     */
+    @PutMapping("/payPassword")
+    public Result updatePayPassword(UpdatePayPasswordRequest updatePayPasswordRequest){
+        return wxuserService.updatePayPassword(updatePayPasswordRequest);
+    }
+
 
     /**
      * 获取个人信息的接口

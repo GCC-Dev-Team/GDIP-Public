@@ -445,6 +445,7 @@ class QingApplicationTests {
     CourseService courseService;
     @Test
     void get2(){
-        courseService.getCourseAllByPost("2022233201315","20040627");
+//        System.out.println(courseService.getCourseAllByPost("2022233206306", "112233"));
+        System.out.println(accountJudgmentService.judgeIsAccount("2022233206306", "112233"));
     }
 }

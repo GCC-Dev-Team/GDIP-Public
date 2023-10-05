@@ -51,7 +51,7 @@ public class AccountJudgmentServiceImpl implements AccountJudgmentService {
         ResponseEntity<String> responseEntity = restTemplate.postForEntity(studentVerifyProperties.getVerifyAddress(), requestEntity, String.class);
 
 
-        if (responseEntity.getStatusCode().value()==200){
+        if (responseEntity.getBody().contains("success")){
             return Boolean.TRUE;
         }
 

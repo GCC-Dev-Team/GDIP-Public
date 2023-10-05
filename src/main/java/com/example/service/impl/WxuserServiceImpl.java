@@ -52,6 +52,22 @@ public class WxuserServiceImpl extends ServiceImpl<WxuserMapper, Wxuser>
         }
     }
 
+    @Override
+    public Result updatePayPassword(UpdatePayPasswordRequest updatePayPasswordRequest) {
+        Wxuser user = AccountHolder.getUser();
+
+        if (user.getPasswordPay().equals(updatePayPasswordRequest.getOldPassword())){
+
+            user.setPasswordPay(updatePayPasswordRequest.getNewPassword());
+
+            updateById(user);
+
+            return Result.success("成功修改密码!");
+        }
+
+        return  Result.failure(ResultCode.SYSTEM_ERROR,"旧密码错误");
+
+    }
 
     @Override
     public Result updateUserNameInfo(UserUpdateNameRequest userUpdateNameRequest) {
@@ -123,19 +139,13 @@ public class WxuserServiceImpl extends ServiceImpl<WxuserMapper, Wxuser>
 
         Wxuser user = AccountHolder.getUser();
 
-        if(user.getPasswordJw()==null||user.getPasswordJw().
-                equals(updateSchoolPasswordRequest.getOldPasswordJw()) &&
-                (user.getStudentNumber().equals(studentId))&&
-                accountJudgmentService.judgeIsAccount(updateSchoolPasswordRequest.getStudentId(),
-                                updateSchoolPasswordRequest.getPasswordJw())){
-
-
+        if(Boolean.TRUE.equals(accountJudgmentService.judgeIsAccount(updateSchoolPasswordRequest.getStudentId(),
+                                updateSchoolPasswordRequest.getPasswordJw()))){
             user.setPasswordJw(passwordJw);
             user.setStudentNumber(updateSchoolPasswordRequest.getStudentId());
             user.setState(1);
             this.updateById(user);
-
-            return Result.success(ResultCode.USER_SUCCESS_UPDATE_PASSWORD);
+            return Result.success(updateSchoolPasswordRequest.getStudentId());
         }
         return Result.failure(ResultCode.USER_ERROR_UPDATE_SCHOOL_PASSWORD);
     }

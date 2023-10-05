@@ -129,7 +129,7 @@ public class BalanceRecordsServiceImpl extends ServiceImpl<BalanceRecordsMapper,
         balanceRecords.setBalanceChange(withdrawalBalanceDTO.getBalanceChange());
         balanceRecords.setBalanceType(1);
         balanceRecords.setUserId(withdrawalBalanceDTO.getUserId());
-        balanceRecords.setPaymentOrderId(withdrawalBalanceDTO.getWithdrawalId());
+        balanceRecords.setWithdrawalOrderId(withdrawalBalanceDTO.getWithdrawalId());
 
         save(balanceRecords);
         return Boolean.TRUE;

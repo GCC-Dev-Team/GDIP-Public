@@ -382,7 +382,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
 
         QueryWrapper<Task> taskQueryWrapper = new QueryWrapper<Task>().eq("initiator", user.getId()).eq("status", 8).eq("id",taskId);
 
-        Task task = taskMapper.selectById(taskQueryWrapper);
+        Task task = taskMapper.selectOne(taskQueryWrapper);
 
         if (task==null){
             return Result.failure(ResultCode.SYSTEM_ERROR,"请查看是否已经确认了或者任务接单者是否已经确认送达!");
