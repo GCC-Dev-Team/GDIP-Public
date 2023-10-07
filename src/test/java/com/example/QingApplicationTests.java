@@ -8,6 +8,7 @@ import com.example.repository.CourseRepository;
 import com.example.service.*;
 import com.example.utils.AddressUtil;
 import com.example.utils.RedisToken;
+import com.example.utils.ShowPhotoUtil;
 import com.github.binarywang.wxpay.exception.WxPayException;
 import com.github.binarywang.wxpay.service.WxPayService;
 import org.json.JSONException;
@@ -443,9 +444,15 @@ class QingApplicationTests {
 
     @Resource
     CourseService courseService;
+    @Resource
+    ShowPhotoUtil showPhotoUtil;
     @Test
     void get2(){
-//        System.out.println(courseService.getCourseAllByPost("2022233206306", "112233"));
-        System.out.println(accountJudgmentService.judgeIsAccount("2022233206306", "112233"));
+
+////        System.out.println(courseService.getCourseAllByPost("2022233206306", "112233"));
+//        String s2="https://yun.xiaoligongzuoshi.top/ForumMd:userId:1ba1c16ab23c42b39749d3bf41ef6022f3f8f2816b254165aa8269d9c00c2c21.txt";
+////
+//        System.out.println(showPhotoUtil.getPhotoByName(s2));
+
     }
 }

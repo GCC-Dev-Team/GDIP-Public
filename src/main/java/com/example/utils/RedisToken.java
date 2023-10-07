@@ -4,6 +4,7 @@ import com.example.common.Result;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
@@ -15,6 +16,7 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @NoArgsConstructor
 @Component
+@Slf4j
 public class RedisToken {
 
     /**
@@ -48,7 +50,10 @@ public class RedisToken {
         if(tokenExpired){
 
             try {
-                throw new Exception("JWT:token过期或者不正确！");
+
+                log.error("JWT:token过期或者不正确！");
+                return null;
+
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
@@ -64,7 +69,8 @@ public class RedisToken {
             return openid;
         }
 
-        throw new RuntimeException("redis认证失败!");
+        log.error("redis认证失败!");
+        return null;
     }
 
     public Boolean judgeRedisToken(@NotNull String openId,@NotNull String redisToken){
@@ -77,7 +83,9 @@ public class RedisToken {
             return redisTokenAccurate.equals(redisToken);
         }
 
-        throw new RuntimeException("redis数据判断错误!");
+        log.error("redis数据判断错误!");
+
+        return false;
     }
 
     /**

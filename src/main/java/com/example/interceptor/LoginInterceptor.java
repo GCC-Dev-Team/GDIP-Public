@@ -54,6 +54,11 @@ public class LoginInterceptor implements HandlerInterceptor {
 
         String openid = redisToken.getOpenId(token);
 
+        if (openid==null){
+            response.getWriter().write("token过期或token错误"); // 自定义错误消息
+
+            return false;
+        }
         QueryWrapper<Wxuser> wxuserQueryWrapper = new QueryWrapper<Wxuser>().eq("openid", openid);
 
         Wxuser user = wxuserMapper.selectOne(wxuserQueryWrapper);

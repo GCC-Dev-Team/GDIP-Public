@@ -43,7 +43,7 @@ public class QiniuUtil {
         BucketManager bucketManager = new BucketManager(auth, new Configuration());
         try {
             FileInfo fileInfo = bucketManager.stat(qiniuProperties.getBucketName(), imageName);
-            return "http://" + qiniuProperties.getDomain() + "/" + imageName;
+            return "https://" + qiniuProperties.getDomain() + "/" + imageName;
         } catch (Exception e) {
             e.printStackTrace();
             return null;

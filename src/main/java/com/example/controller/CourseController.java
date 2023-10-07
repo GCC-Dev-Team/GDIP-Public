@@ -20,5 +20,9 @@ public class CourseController {
 
         return courseService.getMyCourse();
     }
+    /**
+     * 更新所有人课表信息（暂未开放）
+     */
+
 
 }

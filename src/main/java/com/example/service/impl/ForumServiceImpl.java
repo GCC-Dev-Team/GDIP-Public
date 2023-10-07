@@ -290,6 +290,12 @@ public class ForumServiceImpl extends ServiceImpl<ForumMapper, Forum>
 
         return Result.success("删除成功!");
     }
+
+    @Override
+    public String getMdContextByName(String name) {
+
+        return null;
+    }
 }
 
 

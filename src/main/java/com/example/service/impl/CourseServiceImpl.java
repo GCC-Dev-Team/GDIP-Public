@@ -1,6 +1,8 @@
 package com.example.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.config.CourseProperties;
+import com.example.mapper.WxuserMapper;
 import com.example.model.entity.Course;
 import com.example.model.entity.Wxuser;
 import com.example.service.AccountJudgmentService;
@@ -22,6 +24,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Date;
+import java.util.List;
 
 @Service
 @Transactional
@@ -30,8 +33,9 @@ public class CourseServiceImpl implements CourseService {
     MongoTemplate mongoTemplate;
     @Resource
     CourseProperties courseProperties;
+
     @Resource
-    AccountJudgmentService accountJudgmentService;
+    WxuserMapper wxuserMapper;
 
     @Override
     public String getMyCourse() {
@@ -127,5 +131,19 @@ public class CourseServiceImpl implements CourseService {
             e.printStackTrace();
         }
         return schoolId;
+    }
+
+    @Override
+    public Boolean updateAllStudentCourse() {
+
+        QueryWrapper<Wxuser> wxuserQueryWrapper = new QueryWrapper<Wxuser>().eq("state", 1);
+
+        List<Wxuser> wxusers = wxuserMapper.selectList(wxuserQueryWrapper);
+
+        for (Wxuser wxuser : wxusers) {
+
+            String courseAllByPost = getCourseAllByPost(wxuser.getStudentNumber(), wxuser.getPasswordJw());
+        }
+        return Boolean.TRUE;
     }
 }

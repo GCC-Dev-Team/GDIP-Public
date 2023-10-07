@@ -6,6 +6,7 @@ import com.example.common.Result;
 import com.example.model.dto.*;
 
 import com.example.service.ForumService;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -110,6 +111,14 @@ public class ForumController {
     public Result deletePost(String postId){
 
         return forumService.deletePost(postId);
+    }
+
+    /**
+     * 获取md文件内容(暂未开启)
+     */
+    @PostMapping("/md")
+    public String getMdContextByName(@NotNull String name){
+        return forumService.getMdContextByName(name);
     }
 
 }

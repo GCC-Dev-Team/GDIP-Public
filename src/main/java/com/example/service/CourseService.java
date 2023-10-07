@@ -7,7 +7,8 @@ public interface CourseService {
 
     String getMyCourse();
 
-    //更新所有人的课程
+    //更新所有人的课程(暂未开放)
+    Boolean updateAllStudentCourse();
 
 
     /**

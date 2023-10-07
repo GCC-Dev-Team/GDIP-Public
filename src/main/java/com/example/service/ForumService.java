@@ -47,4 +47,6 @@ public interface ForumService extends IService<Forum> {
 
     Result deletePost(String postId);
 
+    String getMdContextByName(@NotNull String name);
+
 }
