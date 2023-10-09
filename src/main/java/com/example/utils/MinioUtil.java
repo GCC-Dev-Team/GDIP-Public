@@ -14,8 +14,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.constraints.NotNull;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Component
@@ -28,7 +30,9 @@ public class MinioUtil {
     /**
      * 储存桶的名称
      */
-    private final static String BUCKET_NAME= "xiaoli";
+    private final static String BUCKET_NAME= "qing";
+
+    private final static String prefix="https://guangxiaoqing.com:9000"+"/"+BUCKET_NAME;
 
     /**
      * 查看存储bucket是否存在
@@ -97,63 +101,7 @@ public class MinioUtil {
     }
 
 
-    /**
-     * 文件上传
-     *
-     * @param file 文件
-     *             BucketName 需要传入桶名
-     *
-     *             prefixm目录
-     * @return Boolean
-     */
-    public String upload(MultipartFile file,String prefix) {
-        try {
-            String originalFilename = file.getOriginalFilename();
-            if (originalFilename == null || originalFilename.isEmpty()) {
-                throw new IllegalArgumentException("文件名不能为空");
-            }
 
-            // 生成随机文件名
-            String fileName = prefix+ "/" + RandomUtil.generateRandomString(10) + originalFilename.substring(originalFilename.lastIndexOf("."));
-
-            // 获取文件输入流
-            try (InputStream inputStream = file.getInputStream()) {
-                // 执行文件上传
-                minioClient.putObject(
-                        PutObjectArgs.builder()
-                                .bucket(BUCKET_NAME)
-                                .object(fileName)
-                                .stream(inputStream, file.getSize(), -1)
-                                .contentType(file.getContentType())
-                                .build()
-                );
-            }
-
-            return preview(fileName);
-        } catch (Exception e) {
-            e.printStackTrace();
-            // 在实际应用中，您可以选择记录异常或者抛出自定义异常以进行更好的错误处理
-            return null;
-        }
-
-    }
-
-    /**
-     * 预览
-     *
-     * @param fileName BucketName 需要传入桶名
-     * @return
-     */
-    public String preview(String fileName) {
-        // 查看文件地址
-        GetPresignedObjectUrlArgs build = GetPresignedObjectUrlArgs.builder().bucket(BUCKET_NAME).object(fileName).method(Method.GET).build();
-        try {
-            return minioClient.getPresignedObjectUrl(build);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 
     /**
      * 文件下载
@@ -189,6 +137,7 @@ public class MinioUtil {
         }
     }
 
+
     /**
      * 查看文件对象
      * BucketName 需要传入桶名
@@ -210,6 +159,68 @@ public class MinioUtil {
         return items;
     }
 
+
+//----------------------------------------------------------------------------------
+
+    /**
+     * 文件上传
+     *
+     * @param file 文件
+     *             BucketName 需要传入桶名
+     *
+     *             prefixm目录
+     * @return Boolean
+     */
+    public String upload(MultipartFile file,String prefix) {
+        try {
+            String originalFilename = file.getOriginalFilename();
+            if (originalFilename == null || originalFilename.isEmpty()) {
+                throw new IllegalArgumentException("文件名不能为空");
+            }
+
+            // 生成随机文件名
+            String fileName = prefix+ "/" + RandomUtil.generateRandomString(10) + originalFilename.substring(originalFilename.lastIndexOf("."));
+
+            // 获取文件输入流
+            try (InputStream inputStream = file.getInputStream()) {
+                // 执行文件上传
+                minioClient.putObject(
+                        PutObjectArgs.builder()
+                                .bucket(BUCKET_NAME)
+                                .object(fileName)
+                                .stream(inputStream, file.getSize(), -1)
+                                .contentType(file.getContentType())
+                                .build()
+                );
+            }
+
+            return getUrlByName(fileName);
+        } catch (Exception e) {
+            e.printStackTrace();
+            // 在实际应用中，您可以选择记录异常或者抛出自定义异常以进行更好的错误处理
+            return null;
+        }
+
+    }
+
+    /**
+     * 预览
+     *
+     * @param fileName BucketName 需要传入桶名
+     * @return
+     */
+    public String preview(String fileName) {
+        // 查看文件地址
+        GetPresignedObjectUrlArgs build = GetPresignedObjectUrlArgs.builder().bucket(BUCKET_NAME).object(fileName).method(Method.GET).build();
+        try {
+            return minioClient.getPresignedObjectUrl(build);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
     /**
      * 删除
      *
@@ -224,5 +235,67 @@ public class MinioUtil {
             return false;
         }
         return true;
+    }
+
+
+    public String getUrlByName(@NotNull String name){
+
+        return prefix+"/"+name;
+    }
+
+    public String removes(String[] fileNameList){
+
+
+
+        int temple=0;
+        List<String> errorNameList=new ArrayList<>();
+        for (String s : fileNameList) {
+
+            String s1=s.substring(prefix.length());
+
+            boolean remove = remove(s1);
+
+            if (!remove) {
+                temple = temple + 1;
+
+                errorNameList.add(s);
+
+                continue;
+            }
+
+        }
+        if (temple>0){
+            return errorNameList.toString();
+        }
+
+        return "成功删除!";
+    }
+
+
+    public String uploadMd(MultipartFile file,String prefix){
+        try {
+
+            // 生成随机文件名
+            String fileName = prefix+ "/" + RandomUtil.generateRandomString(10) +".txt";
+
+            // 获取文件输入流
+            try (InputStream inputStream = file.getInputStream()) {
+                // 执行文件上传
+                minioClient.putObject(
+                        PutObjectArgs.builder()
+                                .bucket(BUCKET_NAME)
+                                .object(fileName)
+                                .stream(inputStream, file.getSize(), -1)
+                                .contentType(file.getContentType())
+                                .build()
+                );
+            }
+
+            return getUrlByName(fileName);
+        } catch (Exception e) {
+            e.printStackTrace();
+            // 在实际应用中，您可以选择记录异常或者抛出自定义异常以进行更好的错误处理
+            return null;
+        }
     }
 }

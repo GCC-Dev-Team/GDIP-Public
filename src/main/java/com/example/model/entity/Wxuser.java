@@ -41,7 +41,7 @@ public class Wxuser implements Serializable {
     private String userName;
 
     /**
-     * （默认（未认证）正常（0）、封禁（2）、注销（3）、已认证（1））
+     * （默认（未认证）正常（0）、封禁（2）、注销（3）、已认证（1））5是管理员
      */
     @TableField(value = "state")
     private Integer state;

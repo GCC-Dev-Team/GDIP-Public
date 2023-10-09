@@ -6,6 +6,7 @@ import com.example.common.Result;
 import com.example.model.dto.*;
 
 import com.example.service.ForumService;
+import io.minio.MinioClient;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,13 +24,13 @@ public class ForumController {
     @Resource
     ForumService forumService;
 
-
     /**
      * 发布公告
      */
     @PostMapping("/addAnnouncement")
     @AdminLogin
     public Result addAnnouncement(@NotNull @RequestBody AddAnnouncementRequest addAnnouncementRequest){
+
 
         return forumService.addAnnouncement(addAnnouncementRequest);
     }
@@ -69,7 +70,6 @@ public class ForumController {
      * @return
      */
     @GetMapping("/describe")
-    @NoNeedLogin
     public Result getDescribePost(@NotNull String id){
 
         return forumService.getDescribePost(id);
@@ -79,7 +79,6 @@ public class ForumController {
      * 简单的帖子展示(实现分页操作)(所有的)
      */
     @PostMapping("/allPost")
-    @NoNeedLogin
     public Result getAllPost(@NotNull @RequestBody PageRequest pageRequest){
 
         return forumService.getAllPost(pageRequest);
@@ -89,7 +88,6 @@ public class ForumController {
      * 简单的公告展示(实现分页操作)
      */
     @PostMapping("/allAnnounce")
-    @NoNeedLogin
     public Result getAllAnnounce(@NotNull @RequestBody PageRequest pageRequest){
 
         return  forumService.getAllAnnounce(pageRequest);

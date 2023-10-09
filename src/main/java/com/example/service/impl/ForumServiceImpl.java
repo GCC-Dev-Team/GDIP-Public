@@ -49,6 +49,13 @@ public class ForumServiceImpl extends ServiceImpl<ForumMapper, Forum>
     public Result addPost(AddPostRequest addPostRequest) {
         Wxuser user = AccountHolder.getUser();
 
+        //如果发布管理员的，会报错
+        if (addPostRequest.getCategoryId().equals("admin1")){
+
+            boolean equals = user.getState().equals(6);
+
+            if (!equals) return Result.failure(ResultCode.PARAM_IS_INVALID,"管理员才能发布官方公告");
+        }
         Forum forum = new Forum();
         forum.setId("Post:"+UUID.randomUUID());
         forum.setTitle(addPostRequest.getTitle());

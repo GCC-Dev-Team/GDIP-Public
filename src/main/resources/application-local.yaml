@@ -42,11 +42,7 @@ callback:
   success-address: "https://guangxiaoqing.com/wxpay/notify"
   refund-address: "https://guangxiaoqing.com/wxpay/refundNotify"
 
-qiniu:
-  access-key: llSnrfH4GxDMRFLz_HABagvOQrID_89h1Uae5cm7
-  domain: yun.guangxiaoqing.com
-  bucket-name: guangxiaoqing
-  secret-key: z4Qqxuw-9IdhHh9fA9coQlZjsPVxXoAtd_6HmCnd
+
 
 course:
   course-address: "http://cuuemo.cn:5000/handle_kb"
@@ -56,6 +52,6 @@ verify-address:
   verify-address-new: "http://cuuemo.cn:5000/login"
 
 oss:
-  endpoint: http://159.75.156.115:9000
-  access-key: admin
-  secret-key: admin123456
+  endpoint: https://guangxiaoqing.com:9000
+  access-key: XNQOMIJA60VZCA76WLMW
+  secret-key: 8dfi1yHcvo7OI5MOgtM+OPwQGNwfuzRaFEhiWdGj

@@ -1,8 +1,9 @@
 package com.example.controller;
 
+
 import com.example.anno.NoNeedLogin;
 import com.example.common.Result;
-import com.example.service.FileUploadDelete;
+
 import com.example.service.WxuserService;
 import com.example.utils.AccountHolder;
 import com.example.utils.MinioUtil;
@@ -22,11 +23,11 @@ import javax.validation.constraints.NotNull;
 @RequestMapping("/upload")
 public class FileUploadDeleteController {
 
-    @Resource
-    FileUploadDelete fileUploadDelete;
+
     @Resource
     WxuserService wxuserService;
-
+    @Resource
+    MinioUtil minioUtil;
 
     /**
      * 上传帖子的文件接口
@@ -36,7 +37,8 @@ public class FileUploadDeleteController {
     @PostMapping("/MdForum")
     public String uploadMd(@NotNull MultipartFile file){
 
-        return fileUploadDelete.uploadMd(file,"ForumMd:");
+        return  minioUtil.upload(file,"ForumMd:");
+
     }
 
     /**
@@ -45,9 +47,10 @@ public class FileUploadDeleteController {
      * @return
      */
     @DeleteMapping
+    @NoNeedLogin
     public Result deletePhotos(String [] fileNames){
 
-        return fileUploadDelete.deletePhotos(fileNames);
+        return Result.success(minioUtil.removes(fileNames));
     }
 
     /**
@@ -56,9 +59,10 @@ public class FileUploadDeleteController {
      * @return
      */
     @PostMapping("/PhotoForum")
+    @NoNeedLogin
     public String uploadForumPhoto(@NotNull MultipartFile file) {
 
-        return fileUploadDelete.uploadPhoto(file,"ForumPhoto:");
+        return minioUtil.upload(file,"ForumPhoto");
     }
 
     /**
@@ -69,7 +73,8 @@ public class FileUploadDeleteController {
     @PostMapping("/PhotoProduct")
     public String uploadProductPhoto(@NotNull MultipartFile file) {
 
-        return fileUploadDelete.uploadPhoto(file,"ProductPhoto:");
+
+        return minioUtil.upload(file,"ProductPhoto");
     }
 
     /**
@@ -82,7 +87,7 @@ public class FileUploadDeleteController {
 
         String id = AccountHolder.getUser().getId();
 
-        String photoUrl = fileUploadDelete.uploadPhoto(file, "avatar:" + id);
+        String photoUrl = minioUtil.upload(file, "avatar");
 
         return Result.success(wxuserService.updateAvatar(photoUrl,id));
     }
@@ -95,8 +100,11 @@ public class FileUploadDeleteController {
     @PostMapping("/photoTask")
     public String uploadTaskPhoto(@NotNull MultipartFile file){
 
-        return fileUploadDelete.uploadPhoto(file,"TaskPhoto:");
+        return minioUtil.upload(file,"TaskPhoto");
     }
+
+
+
 
 
 }

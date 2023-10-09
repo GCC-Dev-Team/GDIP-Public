@@ -67,13 +67,14 @@ public class LoginInterceptor implements HandlerInterceptor {
         if (isAdminLogin) {
             log.info("当前方法:需管理员登录", ((HandlerMethod) handler).getMethod().getName());
 
-            if (user.getRole().equals(1)){
+            if (user.getRole().equals(5)){
 
                 AccountHolder.saveUser(user);
 
                 return true;
             }else {
 
+                response.getWriter().write("该方法需要管理员登录!"); // 自定义错误消息
                 return false;
             }
 

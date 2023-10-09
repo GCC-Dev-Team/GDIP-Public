@@ -2,15 +2,18 @@ package com.example;
 
 
 import com.example.config.CallbackAddressProperties;
-import com.example.config.QiniuProperties;
 import com.example.mapper.*;
 import com.example.repository.CourseRepository;
 import com.example.service.*;
 import com.example.utils.AddressUtil;
+import com.example.utils.MinioUtil;
 import com.example.utils.RedisToken;
-import com.example.utils.ShowPhotoUtil;
+
 import com.github.binarywang.wxpay.exception.WxPayException;
 import com.github.binarywang.wxpay.service.WxPayService;
+import io.minio.GetObjectArgs;
+import io.minio.MinioClient;
+import org.apache.catalina.connector.Response;
 import org.json.JSONException;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,11 +22,6 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 
 @SpringBootTest
 class QingApplicationTests {
@@ -71,8 +69,7 @@ class QingApplicationTests {
     @Resource
     CallbackAddressProperties callbackAddressProperties;
 
-    @Resource
-    QiniuProperties qiniuProperties;
+
 
 
 
@@ -444,8 +441,11 @@ class QingApplicationTests {
 
     @Resource
     CourseService courseService;
+
+
     @Resource
-    ShowPhotoUtil showPhotoUtil;
+    MinioUtil minioUtil;
+
     @Test
     void get2(){
 
@@ -453,6 +453,13 @@ class QingApplicationTests {
 //        String s2="https://yun.xiaoligongzuoshi.top/ForumMd:userId:1ba1c16ab23c42b39749d3bf41ef6022f3f8f2816b254165aa8269d9c00c2c21.txt";
 ////
 //        System.out.println(showPhotoUtil.getPhotoByName(s2));
+
+//        String preview = minioUtil.getUrlByName("5.png");
+//
+//        System.out.println(preview);
+//        String preview = minioUtil.bucketExists("qing");
+//
+//        System.out.println(preview);
 
     }
 }
