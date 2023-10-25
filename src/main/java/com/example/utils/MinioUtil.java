@@ -30,9 +30,9 @@ public class MinioUtil {
     /**
      * 储存桶的名称
      */
-    private final static String BUCKET_NAME= "qing";
+    private final static String BUCKET_NAME = "qing";
 
-    private final static String prefix="https://guangxiaoqing.com:9000"+"/"+BUCKET_NAME;
+    private final static String prefix = "https://guangxiaoqing.com:9000" + "/" + BUCKET_NAME;
 
     /**
      * 查看存储bucket是否存在
@@ -101,8 +101,6 @@ public class MinioUtil {
     }
 
 
-
-
     /**
      * 文件下载
      *
@@ -167,11 +165,15 @@ public class MinioUtil {
      *
      * @param file 文件
      *             BucketName 需要传入桶名
-     *
+     *             <p>
      *             prefixm目录
      * @return Boolean
      */
-    public String upload(MultipartFile file,String prefix) {
+    public String upload(MultipartFile file, String prefix) {
+        return upload(file, prefix, RandomUtil.generateRandomString(10));
+    }
+
+    public String upload(MultipartFile file, String prefix, String fileNewName) {
         try {
             String originalFilename = file.getOriginalFilename();
             if (originalFilename == null || originalFilename.isEmpty()) {
@@ -179,7 +181,7 @@ public class MinioUtil {
             }
 
             // 生成随机文件名
-            String fileName = prefix+ "/" + RandomUtil.generateRandomString(10) + originalFilename.substring(originalFilename.lastIndexOf("."));
+            String fileName = prefix + "/" + fileNewName + originalFilename.substring(originalFilename.lastIndexOf("."));
 
             // 获取文件输入流
             try (InputStream inputStream = file.getInputStream()) {
@@ -238,20 +240,19 @@ public class MinioUtil {
     }
 
 
-    public String getUrlByName(@NotNull String name){
+    public String getUrlByName(@NotNull String name) {
 
-        return prefix+"/"+name;
+        return prefix + "/" + name;
     }
 
-    public String removes(String[] fileNameList){
+    public String removes(String[] fileNameList) {
 
 
-
-        int temple=0;
-        List<String> errorNameList=new ArrayList<>();
+        int temple = 0;
+        List<String> errorNameList = new ArrayList<>();
         for (String s : fileNameList) {
 
-            String s1=s.substring(prefix.length());
+            String s1 = s.substring(prefix.length());
 
             boolean remove = remove(s1);
 
@@ -264,38 +265,11 @@ public class MinioUtil {
             }
 
         }
-        if (temple>0){
+        if (temple > 0) {
             return errorNameList.toString();
         }
 
         return "成功删除!";
     }
 
-
-    public String uploadMd(MultipartFile file,String prefix){
-        try {
-
-            // 生成随机文件名
-            String fileName = prefix+ "/" + RandomUtil.generateRandomString(10) +".txt";
-
-            // 获取文件输入流
-            try (InputStream inputStream = file.getInputStream()) {
-                // 执行文件上传
-                minioClient.putObject(
-                        PutObjectArgs.builder()
-                                .bucket(BUCKET_NAME)
-                                .object(fileName)
-                                .stream(inputStream, file.getSize(), -1)
-                                .contentType(file.getContentType())
-                                .build()
-                );
-            }
-
-            return getUrlByName(fileName);
-        } catch (Exception e) {
-            e.printStackTrace();
-            // 在实际应用中，您可以选择记录异常或者抛出自定义异常以进行更好的错误处理
-            return null;
-        }
-    }
 }

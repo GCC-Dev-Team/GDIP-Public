@@ -56,4 +56,10 @@ public interface WxuserService extends IService<Wxuser> {
      * @return
      */
     Result getMybalance();
+
+    Result getStudentCertificationInfo();
+
+    Result addStudentCertificationInfo(@NotNull String studentIdUrl);
+
+    Result processStudentCertification(@NotNull @RequestBody ProcessStudentCertification processStudentCertification);
 }

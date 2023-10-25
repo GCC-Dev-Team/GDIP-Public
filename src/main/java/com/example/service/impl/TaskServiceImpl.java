@@ -196,10 +196,19 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
 
         Wxuser user = AccountHolder.getUser();
 
+        if(!user.getState().equals(6)){
+            return Result.failure(ResultCode.PARAMETER_CONVERSION_ERROR,"请先申请未接单员，在设置页面设置为管理员!");
+        }
+
+
+
         String taskId = participateTaskRequest.getId();
 
         Task task = taskMapper.selectById(taskId);
 
+        if (user.getId().equals(task.getInitiator())){
+            return Result.failure(ResultCode.PARAM_IS_INVALID,"此任务为本人发布，接单失败!");
+        }
         //查看人数（初期限制了一人）
         if (taskMapper.selectById(taskId).getNumberOfParticipants() <= task.getPeople() || task.getStatus().equals(1)) {
 

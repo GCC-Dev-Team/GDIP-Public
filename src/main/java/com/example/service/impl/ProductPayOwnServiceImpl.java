@@ -49,6 +49,12 @@ public class ProductPayOwnServiceImpl implements ProductPayOwnService {
 
             throw new RuntimeException("商品不存在或者商品已经出售!");
         }
+        boolean judgeUser = product.getPublisherId().equals(AccountHolder.getUser().getId());
+
+        if (judgeUser){
+
+            return null;
+        }
 
         Payment payment = payOwn.createOrderByOwnPayInterface(new CreateOrderDTO(product.getProductId(), "轻小南二手商城", product.getProductPrice()));
 

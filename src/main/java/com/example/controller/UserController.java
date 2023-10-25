@@ -6,6 +6,7 @@ import com.example.service.WxuserService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.validation.constraints.NotNull;
 
 /**
  * 用户
@@ -79,6 +80,32 @@ public class UserController {
     public Result getMybalance(){
         return wxuserService.getMybalance();
     }
+
+
+    /**
+     * 查看认证状态(0是申请中，1是已通过申请，2是申请拒绝)
+     */
+    @GetMapping("/studentCertification")
+    public Result getStudentCertificationInfo(){
+        return wxuserService.getStudentCertificationInfo();
+    }
+
+    /**
+     * 认证申请
+     */
+    @PostMapping("/studentCertification")
+    public Result addStudentCertificationInfo(@NotNull String studentIdUrl){
+        return wxuserService.addStudentCertificationInfo(studentIdUrl);
+    }
+
+    /**
+     * 同意/拒绝认证（后台）,code 1表示审核成功通过，2表示拒绝
+     */
+    @PutMapping("/studentCertification")
+    public Result processStudentCertification(@NotNull @RequestBody ProcessStudentCertification processStudentCertification){
+        return wxuserService.processStudentCertification(processStudentCertification);
+    }
+
 
 
 

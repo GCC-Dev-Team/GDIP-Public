@@ -1,11 +1,15 @@
 package com.example.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.common.Result;
 import com.example.common.ResultCode;
+import com.example.mapper.StudentAuditsMapper;
 import com.example.model.dto.*;
+import com.example.model.entity.StudentAudits;
 import com.example.model.entity.Wxuser;
+import com.example.model.vo.StudentAuditsVO;
 import com.example.model.vo.UserInfoVO;
 import com.example.model.vo.VerifyVO;
 import com.example.service.AccountJudgmentService;
@@ -19,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 /**
  * @author L
@@ -31,6 +36,9 @@ public class WxuserServiceImpl extends ServiceImpl<WxuserMapper, Wxuser>
         implements WxuserService {
     @Resource
     AccountJudgmentService accountJudgmentService;
+
+    @Resource
+    StudentAuditsMapper studentAuditsMapper;
     @Override
     public Result getUserInfo() {
 
@@ -181,6 +189,67 @@ public class WxuserServiceImpl extends ServiceImpl<WxuserMapper, Wxuser>
         Wxuser user = AccountHolder.getUser();
 
         return Result.success(user.getBalance());
+    }
+
+    @Override
+    public Result getStudentCertificationInfo() {
+
+        Wxuser user = AccountHolder.getUser();
+        List<StudentAudits> studentAuditsList = studentAuditsMapper.selectList(new QueryWrapper<StudentAudits>().eq("user_id", user.getId()));
+
+        List<StudentAuditsVO> list = studentAuditsList
+                .stream()
+                .map(studentAudits -> new StudentAuditsVO(studentAudits.getState(),
+                        studentAudits.getRemarks(),
+                studentAudits.getAuditImageUrl())).toList();
+
+        return Result.success(list);
+    }
+
+    @Override
+    public Result addStudentCertificationInfo(String studentIdUrl) {
+
+        Wxuser user = AccountHolder.getUser();
+
+        StudentAudits studentAudits = new StudentAudits();
+        studentAudits.setAuditId(RandomUtil.generateRandomString(12));
+        studentAudits.setStudentid(user.getStudentNumber());
+        studentAudits.setUserId(user.getId());
+        studentAudits.setAuditImageUrl(studentIdUrl);
+        studentAudits.setState(0);
+
+        studentAuditsMapper.insert(studentAudits);
+        return Result.success("已经成功申请,审核中!");
+    }
+
+    @Override
+    public Result processStudentCertification(ProcessStudentCertification processStudentCertification) {
+
+        Integer processCode = processStudentCertification.getProcessCode();
+
+        if (processCode.equals(1)){
+            StudentAudits studentAudits = studentAuditsMapper.selectById(processStudentCertification.getAuditId());
+
+            studentAudits.setState(1);
+            String userId = studentAudits.getUserId();
+
+            Wxuser wxuser = getById(userId);
+            wxuser.setState(6);
+            updateById(wxuser);
+
+            studentAuditsMapper.updateById(studentAudits);
+
+          return  Result.success();
+
+        }else {
+            StudentAudits studentAudits = studentAuditsMapper.selectById(processStudentCertification.getAuditId());
+
+            studentAudits.setState(2);
+            studentAudits.setRemarks(processStudentCertification.getFailureReason());
+            studentAuditsMapper.updateById(studentAudits);
+
+            return Result.success();
+        }
     }
 }
 

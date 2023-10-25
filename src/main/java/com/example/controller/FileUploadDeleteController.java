@@ -7,6 +7,7 @@ import com.example.common.Result;
 import com.example.service.WxuserService;
 import com.example.utils.AccountHolder;
 import com.example.utils.MinioUtil;
+import com.example.utils.RandomUtil;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -103,8 +104,21 @@ public class FileUploadDeleteController {
         return minioUtil.upload(file,"TaskPhoto");
     }
 
+    /**
+     * 学生证图片上传
+     * @param file
+     * @return
+     */
+    @PostMapping("/photoStudentID")
+    public String uploadStudentIDPhoto(@NotNull MultipartFile file){
+        String studentNumber = AccountHolder.getUser().getStudentNumber();
 
+        if (studentNumber==null){
+            return "请先绑定教务系统!";
+        }
 
+        return minioUtil.upload(file,"StudentID", RandomUtil.generateRandomString(3) +":"+studentNumber);
+    }
 
 
 }

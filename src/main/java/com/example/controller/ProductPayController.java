@@ -1,6 +1,7 @@
 package com.example.controller;
 
 import com.example.common.Result;
+import com.example.common.ResultCode;
 import com.example.model.vo.CreateOrderVO;
 import com.example.service.PayOwn;
 import com.example.service.ProductPayOwnService;
@@ -33,10 +34,13 @@ public class ProductPayController {
      */
 
     @PostMapping("/addTrade")
-    public Result addTrade(@NotNull String productId) throws WxPayException {
+    public Result addTrade(@NotNull String productId) {
 
         CreateOrderVO order = productPayOwnService.createProductOrder(productId);
 
+        if (order==null){
+            return Result.failure(ResultCode.PARAM_IS_INVALID,"该商品为本人发布，请勿下单!");
+        }
         return Result.success(order);
     }
 
