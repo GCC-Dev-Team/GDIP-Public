@@ -4,6 +4,7 @@ import cn.binarywang.wx.miniapp.api.WxMaService;
 import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
 import cn.binarywang.wx.miniapp.util.WxMaConfigHolder;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.example.anno.NoNeedLogin;
 import com.example.common.Result;
 import com.example.common.ResultCode;
 import com.example.config.WxMaProperties;

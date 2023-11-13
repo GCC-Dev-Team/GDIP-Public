@@ -1,0 +1,6055 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "是小轻呀小程序api接口",
+    "description": "",
+    "version": "1.0.0"
+  },
+  "tags": [
+    {
+      "name": "我的地址（所有地址通用）"
+    },
+    {
+      "name": "类别"
+    },
+    {
+      "name": "根评论"
+    },
+    {
+      "name": "收藏"
+    },
+    {
+      "name": "文件上传删除"
+    },
+    {
+      "name": "关注"
+    },
+    {
+      "name": "帖子"
+    },
+    {
+      "name": "点赞与踩(根评论才能点赞)"
+    },
+    {
+      "name": "登录"
+    },
+    {
+      "name": "商品"
+    },
+    {
+      "name": "商品支付"
+    },
+    {
+      "name": "省市区以及编码获取"
+    },
+    {
+      "name": "回复评论（子评论）"
+    },
+    {
+      "name": "学校地址获取（获取编码也是）"
+    },
+    {
+      "name": "用户"
+    },
+    {
+      "name": "任务跑腿接单接口"
+    },
+    {
+      "name": "任务跑腿发布者接口"
+    },
+    {
+      "name": "任务跑腿支付接口"
+    },
+    {
+      "name": "任务（跑腿）通用接口"
+    },
+    {
+      "name": "课程"
+    },
+    {
+      "name": "WithdrawalController"
+    },
+    {
+      "name": "余额控制器，提现，查看我的余额详情信息"
+    },
+    {
+      "name": "Author: zhangbicheng"
+    },
+    {
+      "name": "MinioController"
+    },
+    {
+      "name": "TestController"
+    }
+  ],
+  "paths": {
+    "/address": {
+      "post": {
+        "summary": "新增地址",
+        "x-apifox-folder": "我的地址（所有地址通用）",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "我的地址（所有地址通用）"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddAddressRequest",
+                "description": ""
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-109473453-run"
+      },
+      "put": {
+        "summary": "修改我的地址",
+        "x-apifox-folder": "我的地址（所有地址通用）",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "我的地址（所有地址通用）"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateAddressRequest",
+                "description": ""
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-109473455-run"
+      },
+      "get": {
+        "summary": "根据地址id地址详细信息（包括编号得地址）",
+        "x-apifox-folder": "我的地址（所有地址通用）",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "我的地址（所有地址通用）"
+        ],
+        "parameters": [
+          {
+            "name": "addressId",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": ""
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-109473456-run"
+      },
+      "delete": {
+        "summary": "删除地址",
+        "x-apifox-folder": "我的地址（所有地址通用）",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "我的地址（所有地址通用）"
+        ],
+        "parameters": [
+          {
+            "name": "addressId",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-109473458-run"
+      }
+    },
+    "/address/myAddress": {
+      "get": {
+        "summary": "获取我所有的地址",
+        "x-apifox-folder": "我的地址（所有地址通用）",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "我的地址（所有地址通用）"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-109473454-run"
+      }
+    },
+    "/address/myAddressDescribe": {
+      "get": {
+        "summary": "获取我的某个地址的详细信息",
+        "x-apifox-folder": "我的地址（所有地址通用）",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "我的地址（所有地址通用）"
+        ],
+        "parameters": [
+          {
+            "name": "addressId",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-109473457-run"
+      }
+    },
+    "/category": {
+      "post": {
+        "summary": "增加类别",
+        "x-apifox-folder": "类别",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "类别"
+        ],
+        "parameters": [
+          {
+            "name": "categoryName",
+            "in": "query",
+            "description": "类别名称",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-109473468-run"
+      },
+      "get": {
+        "summary": "所有类别",
+        "x-apifox-folder": "类别",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "类别"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-109473469-run"
+      }
+    },
+    "/category/Name": {
+      "get": {
+        "summary": "根据id查询到名字",
+        "x-apifox-folder": "类别",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "类别"
+        ],
+        "parameters": [
+          {
+            "name": "categoryId",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": ""
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-109473470-run"
+      }
+    },
+    "/comment": {
+      "post": {
+        "summary": "添加评论主评",
+        "x-apifox-folder": "根评论",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "根评论"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddCommentRequest",
+                "description": ""
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-109473560-run"
+      },
+      "delete": {
+        "summary": "删除评论",
+        "x-apifox-folder": "根评论",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "根评论"
+        ],
+        "parameters": [
+          {
+            "name": "commentId",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-109473562-run"
+      }
+    },
+    "/comment/getComment": {
+      "post": {
+        "summary": "获取某个帖子的所有评论",
+        "x-apifox-folder": "根评论",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "根评论"
+        ],
+        "parameters": [
+          {
+            "name": "forumId",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PageRequest",
+                "description": ""
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-109473561-run"
+      }
+    },
+    "/favorites": {
+      "post": {
+        "summary": "收藏商品",
+        "x-apifox-folder": "收藏",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "收藏"
+        ],
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "query",
+            "description": "商品id",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-109473564-run"
+      },
+      "put": {
+        "summary": "取消收藏",
+        "x-apifox-folder": "收藏",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "收藏"
+        ],
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-109473565-run"
+      }
+    },
+    "/favorites/my": {
+      "post": {
+        "summary": "分页查询我的收藏",
+        "x-apifox-folder": "收藏",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "收藏"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PageRequest",
+                "description": ""
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-109473566-run"
+      }
+    },
+    "/upload/MdForum": {
+      "post": {
+        "summary": "上传帖子的文件接口",
+        "x-apifox-folder": "文件上传删除",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "文件上传删除"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                },
+                "required": [
+                  "file"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": ""
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-109473567-run"
+      }
+    },
+    "/upload": {
+      "delete": {
+        "summary": "删除文件的接口（可以批量删除）",
+        "x-apifox-folder": "文件上传删除",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "文件上传删除"
+        ],
+        "parameters": [
+          {
+            "name": "fileNames",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-109473568-run"
+      },
+      "post": {
+        "summary": "upload",
+        "x-apifox-folder": "Author: zhangbicheng",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Author: zhangbicheng"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": ""
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-114333227-run"
+      }
+    },
+    "/upload/PhotoForum": {
+      "post": {
+        "summary": "上传帖子图片的接口",
+        "x-apifox-folder": "文件上传删除",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "文件上传删除"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                },
+                "required": [
+                  "file"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": ""
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-109473569-run"
+      }
+    },
+    "/upload/PhotoProduct": {
+      "post": {
+        "summary": "上传商品图片的接口",
+        "x-apifox-folder": "文件上传删除",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "文件上传删除"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                },
+                "required": [
+                  "file"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": ""
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-109473570-run"
+      }
+    },
+    "/upload/PhotoAvatar": {
+      "post": {
+        "summary": "上传用户头像的接口",
+        "x-apifox-folder": "文件上传删除",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "文件上传删除"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                },
+                "required": [
+                  "file"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-109473571-run"
+      }
+    },
+    "/follower": {
+      "post": {
+        "summary": "关注用户",
+        "x-apifox-folder": "关注",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "关注"
+        ],
+        "parameters": [
+          {
+            "name": "beFollowerId",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-109473573-run"
+      },
+      "put": {
+        "summary": "取消关注",
+        "x-apifox-folder": "关注",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "关注"
+        ],
+        "parameters": [
+          {
+            "name": "beFollowerId",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-109473574-run"
+      }
+    },
+    "/follower/myAllFollowers": {
+      "post": {
+        "summary": "查看我的关注用户",
+        "x-apifox-folder": "关注",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "关注"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PageRequest",
+                "description": ""
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-109473575-run"
+      }
+    },
+    "/forum/addAnnouncement": {
+      "post": {
+        "summary": "发布公告",
+        "x-apifox-folder": "帖子",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "帖子"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddAnnouncementRequest",
+                "description": ""
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-109473576-run"
+      }
+    },
+    "/forum/addPost": {
+      "post": {
+        "summary": "发布学校的帖子/文章（非公告）",
+        "x-apifox-folder": "帖子",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "帖子"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddPostRequest",
+                "description": ""
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-109473577-run"
+      }
+    },
+    "/forum/updateAnnounce": {
+      "put": {
+        "summary": "修改公告",
+        "x-apifox-folder": "帖子",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "帖子"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateAnnounceRequest",
+                "description": ""
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-109473578-run"
+      }
+    },
+    "/forum/updatePost": {
+      "put": {
+        "summary": "修改帖子",
+        "x-apifox-folder": "帖子",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "帖子"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePostRequest",
+                "description": ""
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-109473579-run"
+      }
+    },
+    "/forum/describe": {
+      "get": {
+        "summary": "查看帖子（详细的）",
+        "x-apifox-folder": "帖子",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "帖子"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "文章/帖子的id",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-109473580-run"
+      }
+    },
+    "/forum/allPost": {
+      "post": {
+        "summary": "简单的帖子展示(实现分页操作)(所有的)",
+        "x-apifox-folder": "帖子",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "帖子"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PageRequest",
+                "description": ""
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-109473581-run"
+      }
+    },
+    "/forum/allAnnounce": {
+      "post": {
+        "summary": "简单的公告展示(实现分页操作)",
+        "x-apifox-folder": "帖子",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "帖子"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PageRequest",
+                "description": ""
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-109473582-run"
+      }
+    },
+    "/forum/myAnnounce": {
+      "get": {
+        "summary": "查看我发布的公告或者文章",
+        "x-apifox-folder": "帖子",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "帖子"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-109473583-run"
+      },
+      "delete": {
+        "summary": "删除帖子",
+        "x-apifox-folder": "帖子",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "帖子"
+        ],
+        "parameters": [
+          {
+            "name": "postId",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-109473584-run"
+      }
+    },
+    "/like": {
+      "post": {
+        "summary": "可以是子评论id，也可以是根评论id,点赞",
+        "x-apifox-folder": "点赞与踩(根评论才能点赞)",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "点赞与踩(根评论才能点赞)"
+        ],
+        "parameters": [
+          {
+            "name": "commentId",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-109473585-run"
+      },
+      "get": {
+        "summary": "判断是否已经喜欢了",
+        "x-apifox-folder": "点赞与踩(根评论才能点赞)",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "点赞与踩(根评论才能点赞)"
+        ],
+        "parameters": [
+          {
+            "name": "commentId",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "boolean",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": false
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-109473586-run"
+      }
+    },
+    "/login/wx": {
+      "post": {
+        "summary": "wxLogin",
+        "x-apifox-folder": "登录",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "登录"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WxLoginRequest",
+                "description": ""
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-109473737-run"
+      }
+    },
+    "/product/getProductSnallAll": {
+      "post": {
+        "summary": "获取所有的商品，小图",
+        "x-apifox-folder": "商品",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "商品"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PageRequest",
+                "description": ""
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-109473739-run"
+      }
+    },
+    "/product/getProductDescribe": {
+      "get": {
+        "summary": "获取商品的信息（详细）",
+        "x-apifox-folder": "商品",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "商品"
+        ],
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-109473740-run"
+      }
+    },
+    "/product/product": {
+      "post": {
+        "summary": "发布商品",
+        "x-apifox-folder": "商品",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "商品"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateProductRequest",
+                "description": ""
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-109473741-run"
+      },
+      "put": {
+        "summary": "修改商品的信息",
+        "x-apifox-folder": "商品",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "商品"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateProductRequest",
+                "description": ""
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-109473743-run"
+      },
+      "delete": {
+        "summary": "删除商品",
+        "x-apifox-folder": "商品",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "商品"
+        ],
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "query",
+            "description": "根据productId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-109473744-run"
+      }
+    },
+    "/product/myProduct": {
+      "post": {
+        "summary": "查看我发布的商品",
+        "x-apifox-folder": "商品",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "商品"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PageRequest",
+                "description": ""
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-109473742-run"
+      }
+    },
+    "/product/myBuys": {
+      "get": {
+        "summary": "查看我购买的订单（状态数字可以知道该订单是什么状态）",
+        "x-apifox-folder": "商品",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "商品"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-109473745-run"
+      }
+    },
+    "/product/Receive": {
+      "post": {
+        "summary": "支付成功后，买家确认收货",
+        "x-apifox-folder": "商品",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "商品"
+        ],
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-109473746-run"
+      }
+    },
+    "/product/refund": {
+      "put": {
+        "summary": "买家申请退款",
+        "x-apifox-folder": "商品",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "商品"
+        ],
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-109473747-run"
+      }
+    },
+    "/product/agreeRefund": {
+      "put": {
+        "summary": "卖家同意退款",
+        "x-apifox-folder": "商品",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "商品"
+        ],
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-109473748-run"
+      }
+    },
+    "/productPay/addTrade": {
+      "post": {
+        "summary": "根据产品id号下单（下单购买）",
+        "x-apifox-folder": "商品支付",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "商品支付"
+        ],
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-109473749-run"
+      }
+    },
+    "/productPay/trade": {
+      "get": {
+        "summary": "根据产品号查询订单情况（查询是否付款）",
+        "x-apifox-folder": "商品支付",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "商品支付"
+        ],
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "query",
+            "description": "商品id号码",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-109473750-run"
+      }
+    },
+    "/province": {
+      "get": {
+        "summary": "获取省份以及省份编号",
+        "x-apifox-folder": "省市区以及编码获取",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "省市区以及编码获取"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-109473751-run"
+      }
+    },
+    "/province/city": {
+      "get": {
+        "summary": "获取城市",
+        "x-apifox-folder": "省市区以及编码获取",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "省市区以及编码获取"
+        ],
+        "parameters": [
+          {
+            "name": "provinceId",
+            "in": "query",
+            "description": "省id",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-109473752-run"
+      }
+    },
+    "/province/area": {
+      "get": {
+        "summary": "获取区",
+        "x-apifox-folder": "省市区以及编码获取",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "省市区以及编码获取"
+        ],
+        "parameters": [
+          {
+            "name": "provinceId",
+            "in": "query",
+            "description": "省id",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "cityId",
+            "in": "query",
+            "description": "市id",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-109473753-run"
+      }
+    },
+    "/province/town": {
+      "get": {
+        "summary": "获取镇/街道",
+        "x-apifox-folder": "省市区以及编码获取",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "省市区以及编码获取"
+        ],
+        "parameters": [
+          {
+            "name": "provinceId",
+            "in": "query",
+            "description": "省id",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "cityId",
+            "in": "query",
+            "description": "市id",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "areaId",
+            "in": "query",
+            "description": "区id",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-109473754-run"
+      }
+    },
+    "/province/Code": {
+      "get": {
+        "summary": "获取code（代表省市区镇）",
+        "x-apifox-folder": "省市区以及编码获取",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "省市区以及编码获取"
+        ],
+        "parameters": [
+          {
+            "name": "provinceId",
+            "in": "query",
+            "description": "省id",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "cityId",
+            "in": "query",
+            "description": "市id",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "areaId",
+            "in": "query",
+            "description": "区id",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "townId",
+            "in": "query",
+            "description": "镇id",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-109473755-run"
+      }
+    },
+    "/replyComment": {
+      "post": {
+        "summary": "评论回复（评论评论）",
+        "x-apifox-folder": "回复评论（子评论）",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "回复评论（子评论）"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddReplyCommentRequest",
+                "description": ""
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-109473757-run"
+      },
+      "delete": {
+        "summary": "删除回复",
+        "x-apifox-folder": "回复评论（子评论）",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "回复评论（子评论）"
+        ],
+        "parameters": [
+          {
+            "name": "replyId",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-109473759-run"
+      }
+    },
+    "/replyComment/getReply": {
+      "post": {
+        "summary": "得到某个评论的所有回复",
+        "x-apifox-folder": "回复评论（子评论）",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "回复评论（子评论）"
+        ],
+        "parameters": [
+          {
+            "name": "commentId",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PageRequest",
+                "description": ""
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-109473758-run"
+      }
+    },
+    "/schoolAddress": {
+      "get": {
+        "summary": "获取所有学校",
+        "x-apifox-folder": "学校地址获取（获取编码也是）",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "学校地址获取（获取编码也是）"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-109473760-run"
+      }
+    },
+    "/schoolAddress/campus": {
+      "get": {
+        "summary": "获取所有校区",
+        "x-apifox-folder": "学校地址获取（获取编码也是）",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "学校地址获取（获取编码也是）"
+        ],
+        "parameters": [
+          {
+            "name": "schoolId",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-109473761-run"
+      }
+    },
+    "/schoolAddress/area": {
+      "get": {
+        "summary": "获取学校区域",
+        "x-apifox-folder": "学校地址获取（获取编码也是）",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "学校地址获取（获取编码也是）"
+        ],
+        "parameters": [
+          {
+            "name": "school",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "campus",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-109473762-run"
+      }
+    },
+    "/schoolAddress/code": {
+      "get": {
+        "summary": "获取code",
+        "x-apifox-folder": "学校地址获取（获取编码也是）",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "学校地址获取（获取编码也是）"
+        ],
+        "parameters": [
+          {
+            "name": "school",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "campus",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "area",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": ""
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-109473763-run"
+      }
+    },
+    "/schoolAddress/nameSchool": {
+      "get": {
+        "summary": "给我code获取学校",
+        "x-apifox-folder": "学校地址获取（获取编码也是）",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "学校地址获取（获取编码也是）"
+        ],
+        "parameters": [
+          {
+            "name": "code",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-109473764-run"
+      }
+    },
+    "/schoolAddress/nameCampus": {
+      "get": {
+        "summary": "给我code获取校区",
+        "x-apifox-folder": "学校地址获取（获取编码也是）",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "学校地址获取（获取编码也是）"
+        ],
+        "parameters": [
+          {
+            "name": "code",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-109473765-run"
+      }
+    },
+    "/schoolAddress/nameArea": {
+      "get": {
+        "summary": "给我code获取校园位置",
+        "x-apifox-folder": "学校地址获取（获取编码也是）",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "学校地址获取（获取编码也是）"
+        ],
+        "parameters": [
+          {
+            "name": "code",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-109473766-run"
+      }
+    },
+    "/user": {
+      "get": {
+        "summary": "获取个人信息的接口",
+        "x-apifox-folder": "用户",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "用户"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-109473775-run"
+      }
+    },
+    "/user/nameInfo": {
+      "put": {
+        "summary": "修改昵称的接口",
+        "x-apifox-folder": "用户",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "用户"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserUpdateNameRequest",
+                "description": ""
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-109473776-run"
+      }
+    },
+    "/user/phoneInfo": {
+      "put": {
+        "summary": "updatePhoneInfo",
+        "x-apifox-folder": "用户",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "用户"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserUpdatePhoneRequest",
+                "description": ""
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-109473777-run"
+      }
+    },
+    "/user/passwordInfo": {
+      "put": {
+        "summary": "修改我们自己平台的密码",
+        "x-apifox-folder": "用户",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "用户"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserUpdatePasswordRequest",
+                "description": ""
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-109473778-run"
+      }
+    },
+    "/user/schoolPasswordInfo": {
+      "put": {
+        "summary": "修改教务系统密码",
+        "x-apifox-folder": "用户",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "用户"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateSchoolPasswordRequest",
+                "description": ""
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-109473779-run"
+      }
+    },
+    "/user/schoolPasswordNewInfo": {
+      "put": {
+        "summary": "学生系统3。0的密码修改接口",
+        "x-apifox-folder": "用户",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "用户"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateSchoolPassword3Request",
+                "description": ""
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-109473780-run"
+      }
+    },
+    "/taskReceive/myOrder": {
+      "post": {
+        "summary": "查看我的接单（接单视角）（小图）",
+        "x-apifox-folder": "任务跑腿接单接口",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "任务跑腿接单接口"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PageRequest",
+                "description": ""
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-110098671-run"
+      }
+    },
+    "/taskReceive/cancelOrder": {
+      "post": {
+        "summary": "取消接单（接单视角），一天限制3次（如果超过了，会扣除信用分）（信用程度）取消后订单状态时0",
+        "x-apifox-folder": "任务跑腿接单接口",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "任务跑腿接单接口"
+        ],
+        "parameters": [
+          {
+            "name": "taskId",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-110098672-run"
+      }
+    },
+    "/taskReceive/participateTask": {
+      "post": {
+        "summary": "报名参加任务，订单状态变成2",
+        "x-apifox-folder": "任务跑腿接单接口",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "任务跑腿接单接口"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-110098674-run"
+      }
+    },
+    "/taskPublisher": {
+      "put": {
+        "summary": "申请退款（发布者角度）会自动删除订单 状态时6",
+        "x-apifox-folder": "任务跑腿发布者接口",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "任务跑腿发布者接口"
+        ],
+        "parameters": [
+          {
+            "name": "taskId",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-110098698-run"
+      },
+      "post": {
+        "summary": "发布任务 任务状态是 5",
+        "x-apifox-folder": "任务跑腿发布者接口",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "任务跑腿发布者接口"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaskCreateRequest",
+                "description": ""
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-110098699-run"
+      },
+      "delete": {
+        "summary": "删除活动，根据taskid 只能删除3 5 6",
+        "x-apifox-folder": "任务跑腿发布者接口",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "任务跑腿发布者接口"
+        ],
+        "parameters": [
+          {
+            "name": "taskId",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-110098701-run"
+      }
+    },
+    "/taskPublisher/myTask": {
+      "post": {
+        "summary": "查看我发布的任务（小图）查看我发布的任务状态 全数字都可以",
+        "x-apifox-folder": "任务跑腿发布者接口",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "任务跑腿发布者接口"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PageRequest",
+                "description": ""
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-110098700-run"
+      }
+    },
+    "/taskPay": {
+      "post": {
+        "summary": "创建任务后，调起微信支付 状态变成3（没支付）或者变成0（成功支付）",
+        "x-apifox-folder": "任务跑腿支付接口",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "任务跑腿支付接口"
+        ],
+        "parameters": [
+          {
+            "name": "taskId",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-110098718-run"
+      }
+    },
+    "/taskPay/trade": {
+      "get": {
+        "summary": "根据产品号查询订单情况（查询是否付款）",
+        "x-apifox-folder": "任务跑腿支付接口",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "任务跑腿支付接口"
+        ],
+        "parameters": [
+          {
+            "name": "taskId",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-110098719-run"
+      }
+    },
+    "/task": {
+      "post": {
+        "summary": "获取任务的详细信息",
+        "x-apifox-folder": "任务（跑腿）通用接口",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "任务（跑腿）通用接口"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetTaskIdRequest",
+                "description": ""
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-110098822-run"
+      }
+    },
+    "/task/allTask": {
+      "post": {
+        "summary": "查看所有的活动（活动大厅）",
+        "x-apifox-folder": "任务（跑腿）通用接口",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "任务（跑腿）通用接口"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PageRequest",
+                "description": ""
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-110098823-run"
+      }
+    },
+    "/upload/photoTask": {
+      "post": {
+        "summary": "任务图片上传",
+        "x-apifox-folder": "文件上传删除",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "文件上传删除"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                },
+                "required": [
+                  "file"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": ""
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-110532105-run"
+      }
+    },
+    "/productPay/rePay": {
+      "post": {
+        "summary": "重新支付",
+        "x-apifox-folder": "商品支付",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "商品支付"
+        ],
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateOrderVO",
+                  "description": "com.example.model.vo.CreateOrderVO"
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "timeStamp": "",
+                      "nonceStr": "",
+                      "packageValue": "",
+                      "signType": "",
+                      "paySign": "",
+                      "outTradeNo": ""
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-111180275-run"
+      }
+    },
+    "/taskPay/rePay": {
+      "post": {
+        "summary": "重新付款",
+        "x-apifox-folder": "任务跑腿支付接口",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "任务跑腿支付接口"
+        ],
+        "parameters": [
+          {
+            "name": "taskId",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateOrderVO",
+                  "description": "com.example.model.vo.CreateOrderVO"
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "timeStamp": "",
+                      "nonceStr": "",
+                      "packageValue": "",
+                      "signType": "",
+                      "paySign": "",
+                      "outTradeNo": ""
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-111180604-run"
+      }
+    },
+    "/course": {
+      "get": {
+        "summary": "获取我的课程信息",
+        "x-apifox-folder": "课程",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "课程"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": ""
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-111917025-run"
+      }
+    },
+    "/taskPublisher/delivery": {
+      "put": {
+        "summary": "卖家的确认送达，状态从8变1",
+        "x-apifox-folder": "任务跑腿发布者接口",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "任务跑腿发布者接口"
+        ],
+        "parameters": [
+          {
+            "name": "taskId",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-112166313-run"
+      }
+    },
+    "/taskReceive/delivery": {
+      "put": {
+        "summary": "接单的确认送达//状态从2变8",
+        "x-apifox-folder": "任务跑腿接单接口",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "任务跑腿接单接口"
+        ],
+        "parameters": [
+          {
+            "name": "taskId",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-112166335-run"
+      }
+    },
+    "/Withdrawal": {
+      "post": {
+        "summary": "申请提现",
+        "x-apifox-folder": "WithdrawalController",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "WithdrawalController"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WithdrawalDTO",
+                "description": ""
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-114283817-run"
+      },
+      "delete": {
+        "summary": "取消提现",
+        "x-apifox-folder": "WithdrawalController",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "WithdrawalController"
+        ],
+        "parameters": [
+          {
+            "name": "withdrawalId",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-114283818-run"
+      }
+    },
+    "/Withdrawal/confirmBalance": {
+      "post": {
+        "summary": "后台接口，手动打款后调用",
+        "x-apifox-folder": "WithdrawalController",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "WithdrawalController"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConfirmBalanceRequest",
+                "description": ""
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": false
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-114283819-run"
+      }
+    },
+    "/balance": {
+      "get": {
+        "summary": "查看我的余额记录",
+        "x-apifox-folder": "余额控制器，提现，查看我的余额详情信息",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "余额控制器，提现，查看我的余额详情信息"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-114283823-run"
+      }
+    },
+    "/balance/myBalance": {
+      "get": {
+        "summary": "查看我当前的余额(在我的个人信息接口也是可以拿去到的，可以通过那个去拿)",
+        "x-apifox-folder": "余额控制器，提现，查看我的余额详情信息",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "余额控制器，提现，查看我的余额详情信息"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "number"
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": 0
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-114283824-run"
+      }
+    },
+    "/download": {
+      "get": {
+        "summary": "download",
+        "x-apifox-folder": "Author: zhangbicheng",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Author: zhangbicheng"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": ""
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-114333228-run"
+      }
+    },
+    "/test/upload": {
+      "post": {
+        "summary": "upload",
+        "x-apifox-folder": "MinioController",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "MinioController"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Object",
+                  "description": "java.lang.Object"
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {}
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-114334414-run"
+      }
+    },
+    "/test/download": {
+      "get": {
+        "summary": "download",
+        "x-apifox-folder": "MinioController",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "MinioController"
+        ],
+        "parameters": [
+          {
+            "name": "fileName",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {},
+                  "x-apifox-orders": [],
+                  "x-apifox-ignore-properties": []
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-114334415-run"
+      }
+    },
+    "/test/list": {
+      "post": {
+        "summary": "list",
+        "x-apifox-folder": "MinioController",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "MinioController"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": [
+                      ""
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-114334416-run"
+      }
+    },
+    "/test/createBucket": {
+      "post": {
+        "summary": "createBucket",
+        "x-apifox-folder": "MinioController",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "MinioController"
+        ],
+        "parameters": [
+          {
+            "name": "bucketName",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": false
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-114334417-run"
+      }
+    },
+    "/test/deleteBucket": {
+      "post": {
+        "summary": "deleteBucket",
+        "x-apifox-folder": "MinioController",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "MinioController"
+        ],
+        "parameters": [
+          {
+            "name": "bucketName",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": false
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-114334418-run"
+      }
+    },
+    "/test/listObjectNames": {
+      "post": {
+        "summary": "listObjectNames",
+        "x-apifox-folder": "MinioController",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "MinioController"
+        ],
+        "parameters": [
+          {
+            "name": "bucketName",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": [
+                      ""
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-114334419-run"
+      }
+    },
+    "/test/removeObject": {
+      "post": {
+        "summary": "removeObject",
+        "x-apifox-folder": "MinioController",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "MinioController"
+        ],
+        "parameters": [
+          {
+            "name": "bucketName",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "objectName",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": false
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-114334420-run"
+      }
+    },
+    "/test/getObjectUrl": {
+      "post": {
+        "summary": "getObjectUrl",
+        "x-apifox-folder": "MinioController",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "MinioController"
+        ],
+        "parameters": [
+          {
+            "name": "bucketName",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "objectName",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": ""
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-114334421-run"
+      }
+    },
+    "/upload/testMinio": {
+      "post": {
+        "summary": "updateMinio",
+        "x-apifox-folder": "文件上传删除",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "文件上传删除"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": ""
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-114335226-run"
+      }
+    },
+    "/upload/hhshsh": {
+      "get": {
+        "summary": "preview",
+        "x-apifox-folder": "文件上传删除",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "文件上传删除"
+        ],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": ""
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-114335227-run"
+      }
+    },
+    "/user/payPassword": {
+      "put": {
+        "summary": "设置或者修改支付密码(默认密码123456)",
+        "x-apifox-folder": "用户",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "用户"
+        ],
+        "parameters": [
+          {
+            "name": "oldPassword",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "newPassword",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-114370734-run"
+      }
+    },
+    "/user/balance": {
+      "get": {
+        "summary": "查看我的余额",
+        "x-apifox-folder": "用户",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "用户"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-114370735-run"
+      }
+    },
+    "/test/get": {
+      "get": {
+        "summary": "get",
+        "x-apifox-folder": "TestController",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "TestController"
+        ],
+        "parameters": [
+          {
+            "name": "str1",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": ""
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-114387743-run"
+      }
+    },
+    "/test/g": {
+      "get": {
+        "summary": "get2",
+        "x-apifox-folder": "TestController",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "TestController"
+        ],
+        "parameters": [
+          {
+            "name": "str1",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": ""
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-114387744-run"
+      }
+    },
+    "/test/g2": {
+      "get": {
+        "summary": "get3",
+        "x-apifox-folder": "TestController",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "TestController"
+        ],
+        "parameters": [
+          {
+            "name": "str1",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": ""
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-114387851-run"
+      }
+    },
+    "/upload/test": {
+      "post": {
+        "summary": "updates",
+        "x-apifox-folder": "文件上传删除",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "文件上传删除"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": ""
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-114981212-run"
+      }
+    },
+    "/user/studentCertification": {
+      "get": {
+        "summary": "查看认证状态(0是申请中，1是已通过申请，2是申请拒绝)",
+        "x-apifox-folder": "用户",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "用户"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-116802676-run"
+      },
+      "post": {
+        "summary": "认证申请",
+        "x-apifox-folder": "用户",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "用户"
+        ],
+        "parameters": [
+          {
+            "name": "studentIdUrl",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-116802677-run"
+      },
+      "put": {
+        "summary": "同意/拒绝认证（后台）,code 1表示审核成功通过，2表示拒绝",
+        "x-apifox-folder": "用户",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "用户"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProcessStudentCertification",
+                "description": ""
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "message": "",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-116802678-run"
+      }
+    },
+    "/upload/photoStudentID": {
+      "post": {
+        "summary": "学生证图片上传",
+        "x-apifox-folder": "文件上传删除",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "文件上传删除"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                },
+                "required": [
+                  "file"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": ""
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3271844/apis/api-116802679-run"
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ProcessStudentCertification": {
+        "type": "object",
+        "properties": {
+          "auditId": {
+            "type": "string",
+            "description": "",
+            "nullable": true
+          },
+          "processCode": {
+            "type": "integer",
+            "description": "处理结果code，1表示成功通过，2表示失败",
+            "nullable": true
+          },
+          "failureReason": {
+            "type": "string",
+            "description": "失败原因",
+            "nullable": true
+          }
+        },
+        "x-apifox-orders": [
+          "auditId",
+          "processCode",
+          "failureReason"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": ""
+      },
+      "Object": {
+        "type": "object",
+        "properties": {},
+        "x-apifox-orders": [],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": ""
+      },
+      "ConfirmBalanceRequest": {
+        "type": "object",
+        "properties": {
+          "userName": {
+            "type": "string",
+            "description": "操作人员名称",
+            "nullable": true
+          },
+          "confirmPassword": {
+            "type": "string",
+            "description": "后台操作密码",
+            "nullable": true
+          },
+          "withdrawalPassword": {
+            "type": "string",
+            "description": "打款的卡密",
+            "nullable": true
+          },
+          "withdrawalId": {
+            "type": "string",
+            "description": "已打款的提现单号",
+            "nullable": true
+          }
+        },
+        "x-apifox-orders": [
+          "userName",
+          "confirmPassword",
+          "withdrawalPassword",
+          "withdrawalId"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": ""
+      },
+      "WithdrawalDTO": {
+        "type": "object",
+        "properties": {
+          "payPassword": {
+            "type": "string",
+            "description": "密码",
+            "nullable": true
+          },
+          "balance": {
+            "type": "number",
+            "description": "提现金额",
+            "nullable": true
+          }
+        },
+        "x-apifox-orders": [
+          "payPassword",
+          "balance"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": ""
+      },
+      "CreateOrderVO": {
+        "type": "object",
+        "properties": {
+          "timeStamp": {
+            "type": "string",
+            "description": "",
+            "nullable": true
+          },
+          "nonceStr": {
+            "type": "string",
+            "description": "",
+            "nullable": true
+          },
+          "packageValue": {
+            "type": "string",
+            "description": "",
+            "nullable": true
+          },
+          "signType": {
+            "type": "string",
+            "description": "",
+            "nullable": true
+          },
+          "paySign": {
+            "type": "string",
+            "description": "",
+            "nullable": true
+          },
+          "outTradeNo": {
+            "type": "string",
+            "description": "下单的微信订单号",
+            "nullable": true
+          }
+        },
+        "x-apifox-orders": [
+          "timeStamp",
+          "nonceStr",
+          "packageValue",
+          "signType",
+          "paySign",
+          "outTradeNo"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": ""
+      },
+      "TaskSignOutRequest": {
+        "type": "object",
+        "properties": {
+          "taskId": {
+            "type": "string",
+            "description": "任务id",
+            "nullable": true
+          },
+          "signOutCode": {
+            "type": "string",
+            "description": "签退码",
+            "nullable": true
+          }
+        },
+        "x-apifox-orders": [
+          "taskId",
+          "signOutCode"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": ""
+      },
+      "UpdateSchoolPassword3Request": {
+        "type": "object",
+        "properties": {
+          "studentId": {
+            "type": "string",
+            "description": "学生id号",
+            "nullable": true
+          },
+          "passwordNew": {
+            "type": "string",
+            "description": "校园通3.0平台1",
+            "nullable": true
+          },
+          "oldPasswordNew": {
+            "type": "string",
+            "description": "旧的校园通密码",
+            "nullable": true
+          }
+        },
+        "x-apifox-orders": [
+          "studentId",
+          "passwordNew",
+          "oldPasswordNew"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": ""
+      },
+      "UpdateSchoolPasswordRequest": {
+        "type": "object",
+        "properties": {
+          "studentId": {
+            "type": "string",
+            "description": "学生id号",
+            "nullable": true
+          },
+          "passwordJw": {
+            "type": "string",
+            "description": "校园通平台1",
+            "nullable": true
+          },
+          "oldPasswordJw": {
+            "type": "string",
+            "description": "就的校园通平台1",
+            "nullable": true
+          }
+        },
+        "x-apifox-orders": [
+          "studentId",
+          "passwordJw",
+          "oldPasswordJw"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": ""
+      },
+      "UserUpdatePasswordRequest": {
+        "type": "object",
+        "properties": {
+          "password": {
+            "type": "string",
+            "description": "个人平台的密码",
+            "nullable": true
+          },
+          "oldPassword": {
+            "type": "string",
+            "description": "旧的个人平台的密码",
+            "nullable": true
+          }
+        },
+        "x-apifox-orders": [
+          "password",
+          "oldPassword"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": ""
+      },
+      "UserUpdatePhoneRequest": {
+        "type": "object",
+        "properties": {
+          "phoneNumber": {
+            "type": "string",
+            "description": "手机号",
+            "nullable": true
+          }
+        },
+        "x-apifox-orders": [
+          "phoneNumber"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": ""
+      },
+      "UserUpdateNameRequest": {
+        "type": "object",
+        "properties": {
+          "userName": {
+            "type": "string",
+            "description": "用户名",
+            "nullable": true
+          }
+        },
+        "x-apifox-orders": [
+          "userName"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": ""
+      },
+      "GetTaskIdRequest": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "id号",
+            "nullable": true
+          }
+        },
+        "x-apifox-orders": [
+          "id"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": ""
+      },
+      "TaskCreateRequest": {
+        "type": "object",
+        "properties": {
+          "activityTitle": {
+            "type": "string",
+            "description": "活动标题",
+            "nullable": true
+          },
+          "activityDescription": {
+            "type": "string",
+            "description": "活动内容的描述",
+            "nullable": true
+          },
+          "numberOfParticipants": {
+            "type": "integer",
+            "description": "活动人数",
+            "nullable": true
+          },
+          "location": {
+            "type": "string",
+            "description": "活动地点",
+            "nullable": true
+          },
+          "price": {
+            "type": "number",
+            "description": "报酬",
+            "nullable": true
+          },
+          "startTime": {
+            "type": "string",
+            "description": "开始时间",
+            "nullable": true
+          },
+          "endTime": {
+            "type": "string",
+            "description": "结束时间",
+            "nullable": true
+          },
+          "imageUrl": {
+            "type": "string",
+            "description": "图片url",
+            "nullable": true
+          }
+        },
+        "x-apifox-orders": [
+          "activityTitle",
+          "activityDescription",
+          "numberOfParticipants",
+          "location",
+          "price",
+          "startTime",
+          "endTime",
+          "imageUrl"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": ""
+      },
+      "AddReplyCommentRequest": {
+        "type": "object",
+        "properties": {
+          "commentId": {
+            "type": "string",
+            "description": "根评论的id号",
+            "nullable": true
+          },
+          "content": {
+            "type": "string",
+            "description": "回复评论的内容",
+            "nullable": true
+          }
+        },
+        "x-apifox-orders": [
+          "commentId",
+          "content"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": ""
+      },
+      "UpdateProductRequest": {
+        "type": "object",
+        "properties": {
+          "productId": {
+            "type": "string",
+            "description": "商品id",
+            "nullable": true
+          },
+          "productTitle": {
+            "type": "string",
+            "description": "商品的标题",
+            "nullable": true
+          },
+          "productPrice": {
+            "type": "number",
+            "description": "商品的价格",
+            "nullable": true
+          },
+          "productUnit": {
+            "type": "string",
+            "description": "商品的单位",
+            "nullable": true
+          },
+          "productDescription": {
+            "type": "string",
+            "description": "商品的描述",
+            "nullable": true
+          },
+          "productImage": {
+            "type": "string",
+            "description": "商品的图片",
+            "nullable": true
+          },
+          "frontImage": {
+            "type": "string",
+            "description": "商品的表面图片",
+            "nullable": true
+          },
+          "productAddress": {
+            "type": "string",
+            "description": "商品的地址",
+            "nullable": true
+          }
+        },
+        "x-apifox-orders": [
+          "productId",
+          "productTitle",
+          "productPrice",
+          "productUnit",
+          "productDescription",
+          "productImage",
+          "frontImage",
+          "productAddress"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": ""
+      },
+      "CreateProductRequest": {
+        "type": "object",
+        "properties": {
+          "productTitle": {
+            "type": "string",
+            "description": "商品的标题",
+            "nullable": true
+          },
+          "productPrice": {
+            "type": "number",
+            "description": "商品的价格",
+            "nullable": true
+          },
+          "productUnit": {
+            "type": "string",
+            "description": "商品的单位",
+            "nullable": true
+          },
+          "productDescription": {
+            "type": "string",
+            "description": "商品的描述",
+            "nullable": true
+          },
+          "frontImage": {
+            "type": "string",
+            "description": "商品的表面图片",
+            "nullable": true
+          },
+          "productImage": {
+            "type": "string",
+            "description": "商品的图片",
+            "nullable": true
+          },
+          "productAddress": {
+            "type": "string",
+            "description": "商品的地址",
+            "nullable": true
+          }
+        },
+        "x-apifox-orders": [
+          "productTitle",
+          "productPrice",
+          "productUnit",
+          "productDescription",
+          "frontImage",
+          "productImage",
+          "productAddress"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": ""
+      },
+      "WxLoginRequest": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "微信登录的授权码",
+            "nullable": true
+          }
+        },
+        "x-apifox-orders": [
+          "code"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": ""
+      },
+      "UpdatePostRequest": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "论坛文章的id",
+            "nullable": true
+          },
+          "title": {
+            "type": "string",
+            "description": "标题",
+            "nullable": true
+          },
+          "imageUrl": {
+            "type": "string",
+            "description": "表层图片连接",
+            "nullable": true
+          },
+          "mdUrl": {
+            "type": "string",
+            "description": "文件链接",
+            "nullable": true
+          },
+          "categoryId": {
+            "type": "string",
+            "description": "类型id",
+            "nullable": true
+          },
+          "surfaceDescription": {
+            "type": "string",
+            "description": "表层描述",
+            "nullable": true
+          }
+        },
+        "x-apifox-orders": [
+          "id",
+          "title",
+          "imageUrl",
+          "mdUrl",
+          "categoryId",
+          "surfaceDescription"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": ""
+      },
+      "UpdateAnnounceRequest": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "论坛文章的id",
+            "nullable": true
+          },
+          "title": {
+            "type": "string",
+            "description": "标题",
+            "nullable": true
+          },
+          "imageUrl": {
+            "type": "string",
+            "description": "表层图片连接",
+            "nullable": true
+          },
+          "mdUrl": {
+            "type": "string",
+            "description": "文件链接",
+            "nullable": true
+          },
+          "surfaceDescription": {
+            "type": "string",
+            "description": "表层描述",
+            "nullable": true
+          }
+        },
+        "x-apifox-orders": [
+          "id",
+          "title",
+          "imageUrl",
+          "mdUrl",
+          "surfaceDescription"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": ""
+      },
+      "AddPostRequest": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "标题",
+            "nullable": true
+          },
+          "imageUrl": {
+            "type": "string",
+            "description": "表层图片连接",
+            "nullable": true
+          },
+          "mdUrl": {
+            "type": "string",
+            "description": "文件链接",
+            "nullable": true
+          },
+          "categoryId": {
+            "type": "string",
+            "description": "类型id",
+            "nullable": true
+          },
+          "surfaceDescription": {
+            "type": "string",
+            "description": "表层描述",
+            "nullable": true
+          }
+        },
+        "x-apifox-orders": [
+          "title",
+          "imageUrl",
+          "mdUrl",
+          "categoryId",
+          "surfaceDescription"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": ""
+      },
+      "AddAnnouncementRequest": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "标题",
+            "nullable": true
+          },
+          "imageUrl": {
+            "type": "string",
+            "description": "表层图片连接",
+            "nullable": true
+          },
+          "mdUrl": {
+            "type": "string",
+            "description": "文件链接",
+            "nullable": true
+          },
+          "surfaceDescription": {
+            "type": "string",
+            "description": "表层描述",
+            "nullable": true
+          }
+        },
+        "x-apifox-orders": [
+          "title",
+          "imageUrl",
+          "mdUrl",
+          "surfaceDescription"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": ""
+      },
+      "PageRequest": {
+        "type": "object",
+        "properties": {
+          "currentPage": {
+            "type": "integer",
+            "description": "当前页（默认第1页）",
+            "nullable": true
+          },
+          "pageSize": {
+            "type": "integer",
+            "description": "每页记录数（默认10条）",
+            "nullable": true
+          }
+        },
+        "x-apifox-orders": [
+          "currentPage",
+          "pageSize"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": ""
+      },
+      "AddCommentRequest": {
+        "type": "object",
+        "properties": {
+          "postId": {
+            "type": "string",
+            "description": "帖子的id",
+            "nullable": true
+          },
+          "commentContent": {
+            "type": "string",
+            "description": "评论内容",
+            "nullable": true
+          }
+        },
+        "x-apifox-orders": [
+          "postId",
+          "commentContent"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": ""
+      },
+      "UpdateAddressRequest": {
+        "type": "object",
+        "properties": {
+          "addressId": {
+            "type": "string",
+            "description": "地址id",
+            "nullable": true
+          },
+          "addressCode": {
+            "type": "integer",
+            "description": "地址的省市区镇代码（从拿代码接口拿）",
+            "nullable": true
+          },
+          "describe": {
+            "type": "string",
+            "description": "详细地址描述",
+            "nullable": true
+          }
+        },
+        "x-apifox-orders": [
+          "addressId",
+          "addressCode",
+          "describe"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": ""
+      },
+      "AddAddressRequest": {
+        "type": "object",
+        "properties": {
+          "addressCode": {
+            "type": "integer",
+            "description": "地址的省市区镇代码（从拿代码接口拿）(也是学校的那个一样的但是不是int)",
+            "nullable": true
+          },
+          "describe": {
+            "type": "string",
+            "description": "详细地址描述",
+            "nullable": true
+          }
+        },
+        "x-apifox-orders": [
+          "addressCode",
+          "describe"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": ""
+      },
+      "Result": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "",
+            "nullable": true
+          },
+          "message": {
+            "type": "string",
+            "description": "",
+            "nullable": true
+          },
+          "data": {
+            "description": "",
+            "type": "object",
+            "properties": {}
+          }
+        },
+        "x-apifox-orders": [
+          "code",
+          "message",
+          "data"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": ""
+      },
+      "": {
+        "type": "object",
+        "properties": {},
+        "x-apifox-orders": [],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": ""
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "127.0.0.1:8089",
+      "description": "测试环境"
+    }
+  ]
+}
