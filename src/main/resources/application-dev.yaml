@@ -1,4 +1,4 @@
-
+##开发环境
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -17,7 +17,11 @@ spring:
       host: 114.132.67.226
       port: 27017
       database: mydatabase
+      password: 6jramg04
+      username: xiaoli
 
+
+##开发服务器
 server:
   port: 443
   ssl:
@@ -25,3 +29,8 @@ server:
     key-store-password: 6jramg04
     key-store-type: PKCS12
 
+##对象存储配置(开发服务器minio地址)
+oss:
+  endpoint: https://guangxiaoqing.com:9000
+  access-key: XNQOMIJA60VZCA76WLMW
+  secret-key: 8dfi1yHcvo7OI5MOgtM+OPwQGNwfuzRaFEhiWdGj

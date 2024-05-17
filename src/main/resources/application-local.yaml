@@ -1,3 +1,4 @@
+##本地环境配置(全部配置都是local)
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -15,11 +16,15 @@ spring:
       host: 114.132.67.226
       port: 27017
       database: course
+      password: 6jramg04
+      username: xiaoli
 
+##端口8089
 server:
-  port: 443
-  ssl:
-    key-store: classpath:prod.pfx
-    key-store-password: wkhp58w00b1
-    key-store-type: PKCS12
+  port: 8089
 
+##对象存储配置
+oss:
+  endpoint: https://guangxiaoqing.com:9000
+  access-key: XNQOMIJA60VZCA76WLMW
+  secret-key: 8dfi1yHcvo7OI5MOgtM+OPwQGNwfuzRaFEhiWdGj

@@ -1,7 +1,12 @@
 spring:
   profiles:
-    active: local
+    active: local-dev
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 5MB
 
+##微信小程序配置
 wx:
   miniapp:
     configs:
@@ -10,26 +15,21 @@ wx:
         token: xiaoligongzuoshi
         aesKey: xiaoligongzuoshi
         msgDataFormat: JSON
-
+##支付配置
   pay:
     appId: wxb53fb342651c6c2a
     mchId: 1652632090
     mchKey: on8rr08djaowyr9hyqfivsu1taxcpjs9
     keyPath: classpath:new.p12
+##支付成功后回调配置(注意域名可能会更新)
 callback:
-  success-address: "https://xiaoligongzuoshi.top/wxpay/notify"
-  refund-address: "https://xiaoligongzuoshi.top/wxpay/refundNotify"
+  success-address: "https://guangxiaoqing.com/wxpay/notify"
+  refund-address: "https://guangxiaoqing.com/wxpay/refundNotify"
 
-
-
+##课程表获取配置
 course:
   course-address: "http://cuuemo.cn:5000/handle_kb"
-
+##学生认证配置
 verify-address:
   verify-address: "http://cuuemo.cn:5000/login"
   verify-address-new: "http://cuuemo.cn:5000/login"
-
-oss:
-  endpoint: https://guangxiaoqing.com:9000
-  access-key: XNQOMIJA60VZCA76WLMW
-  secret-key: 8dfi1yHcvo7OI5MOgtM+OPwQGNwfuzRaFEhiWdGj

@@ -1,0 +1,35 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/GDIP
+    username: root
+    password: abC123456@
+
+  redis:
+    host: localhost
+    port: 6389
+    password: abC123456@
+    database: 0
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: course
+      password: abC123456@
+      username: xiaolirw
+
+
+##设置证书,https配置
+server:
+  port: 443
+  ssl:
+    key-store: classpath:prod.pfx
+    key-store-password: wkhp58w00b1
+    key-store-type: PKCS12
+
+##对象存储配置
+oss:
+  ##设置地址 本地的地址,注意变更
+  endpoint: https://guangxiaoqing.com:9000
+  access-key: XNQOMIJA60VZCA76WLMW
+  secret-key: 8dfi1yHcvo7OI5MOgtM+OPwQGNwfuzRaFEhiWdGj

@@ -1,20 +1,24 @@
+##上线环境.生产服务器
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://159.75.156.115:3306/qing
-    username: root
+    username: xiaoli
     password: abC123456@
 
   redis:
-    host: 159.75.156.115
+    host: 114.132.67.226
     port: 6379
     password: abC123456@
-    database: 0
+    database: 8
   data:
     mongodb:
-      host: 159.75.156.115
+      host: 114.132.67.226
       port: 27017
-      database: course
+      database: eduMindAI
+      password: abC123456@
+      username: xiaolirw
+
 
 server:
   port: 443
@@ -22,3 +26,8 @@ server:
     key-store: classpath:prod.pfx
     key-store-password: wkhp58w00b1
     key-store-type: PKCS12
+##对象存储配置
+oss:
+  endpoint: https://guangxiaoqing.com:9000
+  access-key: XNQOMIJA60VZCA76WLMW
+  secret-key: 8dfi1yHcvo7OI5MOgtM+OPwQGNwfuzRaFEhiWdGj
