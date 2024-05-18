@@ -1,5 +1,45 @@
 # 广小轻 Miniapp server
 
+## Getting Started
+
+### 传统环境下部署
+#### 环境要求:
+确保本机已经安装了JDK 20, MySQL 8.0.34, Redis 7.0.8, MongoDB 7.0, Minio 2022-04-16T04-26-02Z
+1. **初始化数据库**: 进入doc/sql文件夹,根据init.sql脚本文件导入数据库
+
+
+2. 配置**application-local.yml**文件:
+   1. **数据库配置**: 修改application-local.yml文件中的数据库配置,将数据库的url,username,password修改为你自己的数据库配置
+   2. **Redis配置**: 修改application-local.yml文件中的redis配置,将redis的host,port,password修改为你自己的redis配置
+   3. **Minio配置**: 修改application-local.yml文件中的minio配置,将minio的endpoint,accessKey,secretKey修改为你自己的minio配置
+   4. **MogoDB配置**: 修改application-local.yml文件中的mongodb配置,将mongodb的host,port,username,password,database修改为你自己的mongodb配置
+
+
+3. 配置**application.yml**文件:
+   1. 修改微信支付成功回调地址(callback.success-address),此地址需要部署在公网服务器上的域名地址,example:https://example.com/wxpay/notify 此地址路径是程序控制器的路径,不要修改
+   2. 修改微信支付退款回调地址(callback.refund-address),此地址需要部署在公网服务器上的域名地址,example:https://example.com/wxpay/refundNotify 此地址路径是程序控制器的路径,不要修改
+   3. 选择环境 active local
+
+
+4. **启动程序**: 启动程序,在项目根目录下执行`mvn spring-boot:run`命令,程序会自动启动
+### 使用docker部署
+
+1. **构建环境镜像**:
+   1. 进入doc/docker/evn 文件夹
+   2. 执行`docker build -t evn:latest .`命令构建环境镜像,此镜像包含JDK 20, MySQL 8.0.34, Redis 7.0.8, MongoDB 7.0, Minio 2022-04-16T04-26-02Z
+
+2. **构建程序镜像**:
+   1. 如果域名回调地址不变情况下: 进入doc/docker/run 文件夹 执行`docker build -t run:latest .`命令构建程序镜像
+
+   2. 如果域名回调地址改变情况下:
+      1. 修改 **application.yml** 文件中的回调地址,将域名换成你的域名,并确保选择环境 active docker
+      2. 执行`mvn -U clean package -Dmaven.test.skip=true`命令打包
+      3. 将jar放入doc/docker/run 文件夹下(确保jar名称为 docker_local_https.jar)
+
+
+3. **运行镜像**:
+   1. 运行环境镜像 : `docker run -d -p 3306:3306 -p 6379:6379 -p 27017:27017 -p 9000:9000 --name evn evn:latest`
+   2. 运行程序镜像: `docker run -d -p 443:443 --name run run:latest`
 ### 简述
 
 目前市场上的主流校园小程序包括有料同学、百度贴吧(校园吧)、零点校园、叮点校园等。然而，这些应用存在诸多问题，如页面设计不够美观、广告泛滥、隐藏广告关闭按钮、功能少等。
@@ -120,43 +160,3 @@
 - 本程序提供openapi文档文件,支持导入Postman,Apifox,Apipost等主流的调试工具,在doc/api文件夹下openapi文档文件
 - 提供API规范说明以及接口说明文档,在doc/api文件夹下的API设计(规范以及接口说明)PDF文件
 
-## Getting Started
-
-### 传统环境下部署
-#### 环境要求:
-确保本机已经安装了JDK 20, MySQL 8.0.34, Redis 7.0.8, MongoDB 7.0, Minio 2022-04-16T04-26-02Z 
-1. **初始化数据库**: 进入doc/sql文件夹,根据init.sql脚本文件导入数据库
-
-
-2. 配置**application-local.yml**文件:
-   1. **数据库配置**: 修改application-local.yml文件中的数据库配置,将数据库的url,username,password修改为你自己的数据库配置
-   2. **Redis配置**: 修改application-local.yml文件中的redis配置,将redis的host,port,password修改为你自己的redis配置
-   3. **Minio配置**: 修改application-local.yml文件中的minio配置,将minio的endpoint,accessKey,secretKey修改为你自己的minio配置
-   4. **MogoDB配置**: 修改application-local.yml文件中的mongodb配置,将mongodb的host,port,username,password,database修改为你自己的mongodb配置
-
-
-3. 配置**application.yml**文件:
-   1. 修改微信支付成功回调地址(callback.success-address),此地址需要部署在公网服务器上的域名地址,example:https://example.com/wxpay/notify 此地址路径是程序控制器的路径,不要修改
-   2. 修改微信支付退款回调地址(callback.refund-address),此地址需要部署在公网服务器上的域名地址,example:https://example.com/wxpay/refundNotify 此地址路径是程序控制器的路径,不要修改
-   3. 选择环境 active local
-
-
-4. **启动程序**: 启动程序,在项目根目录下执行`mvn spring-boot:run`命令,程序会自动启动
-### 使用docker部署
-
-1. **构建环境镜像**: 
-   1. 进入doc/docker/evn 文件夹
-   2. 执行`docker build -t evn:latest .`命令构建环境镜像,此镜像包含JDK 20, MySQL 8.0.34, Redis 7.0.8, MongoDB 7.0, Minio 2022-04-16T04-26-02Z
-   
-2. **构建程序镜像**:
-   1. 如果域名回调地址不变情况下: 进入doc/docker/run 文件夹 执行`docker build -t run:latest .`命令构建程序镜像
-
-   2. 如果域名回调地址改变情况下:
-      1. 修改 **application.yml** 文件中的回调地址,将域名换成你的域名,并确保选择环境 active docker
-      2. 执行`mvn -U clean package -Dmaven.test.skip=true`命令打包
-      3. 将jar放入doc/docker/run 文件夹下(确保jar名称为 docker_local_https.jar)
-   
-   
-3. **运行镜像**:
-   1. 运行环境镜像 : `docker run -d -p 3306:3306 -p 6379:6379 -p 27017:27017 -p 9000:9000 --name evn evn:latest`
-   2. 运行程序镜像: `docker run -d -p 443:443 --name run run:latest`
