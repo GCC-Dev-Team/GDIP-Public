@@ -23,13 +23,13 @@ spring:
 server:
   port: 443
   ssl:
-    key-store: classpath:prod.pfx
-    key-store-password: wkhp58w00b1
+    key-store: ##classpath: 域名证书
+    key-store-password: ##域名证书密码
     key-store-type: PKCS12
 
 ##对象存储配置
 oss:
   ##设置地址 本地的地址,注意变更
   endpoint: https://guangxiaoqing.com:9000
-  access-key: XNQOMIJA60VZCA76WLMW
-  secret-key: 8dfi1yHcvo7OI5MOgtM+OPwQGNwfuzRaFEhiWdGj
+  access-key: ##对象存储Minio AK
+  secret-key: ## 对象存储MINIO SK

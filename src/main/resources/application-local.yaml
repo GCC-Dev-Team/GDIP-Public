@@ -3,21 +3,22 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/qing
-    username: root
-    password: abC123456@
-
+    username: ## mysql 用户名
+    password:   ## mysql 密码
+  ##配置自己的redi密码和账号,地址以及数据库
   redis:
     host: localhost
     port: 6389
-    password: abC123456@
+    password:
     database: 0
   data:
+    ##配置自己的MongoDB密码和账号,地址以及数据库
     mongodb:
-      host: 114.132.67.226
+      host: localhost
       port: 27017
-      database: course
-      password: 6jramg04
-      username: xiaoli
+      database:
+      password:
+      username:
 
 ##端口8089
 server:
@@ -25,6 +26,6 @@ server:
 
 ##对象存储配置
 oss:
-  endpoint: https://guangxiaoqing.com:9000
-  access-key: XNQOMIJA60VZCA76WLMW
-  secret-key: 8dfi1yHcvo7OI5MOgtM+OPwQGNwfuzRaFEhiWdGj
+  endpoint: ##Minio 地址
+  access-key: ##Minio AK密钥
+  secret-key: ## Minio SK密钥

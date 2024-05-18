@@ -1,33 +1,37 @@
-##上线环境.生产服务器
+##上线环境
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://159.75.156.115:3306/qing
-    username: xiaoli
-    password: abC123456@
-
+    ##配置自己的数据库密码和账号以及地址
+    url:
+    username:
+    password:
+  ##配置自己的redis密码和账号,地址以及数据库
   redis:
-    host: 114.132.67.226
-    port: 6379
-    password: abC123456@
-    database: 8
+    host:
+    port:
+    password:
+    database:
+  ##配置自己的MongoDB密码和账号,地址以及数据库
   data:
     mongodb:
-      host: 114.132.67.226
-      port: 27017
-      database: eduMindAI
-      password: abC123456@
-      username: xiaolirw
+      host:
+      port:
+      database:
+      password:
+      username:
 
 
+##开发服务器
 server:
   port: 443
   ssl:
-    key-store: classpath:prod.pfx
-    key-store-password: wkhp58w00b1
+    key-store: ##classpath: 域名证书
+    key-store-password: ##证书密码
     key-store-type: PKCS12
-##对象存储配置
+
+##对象存储配置(开发服务器minio地址)
 oss:
-  endpoint: https://guangxiaoqing.com:9000
-  access-key: XNQOMIJA60VZCA76WLMW
-  secret-key: 8dfi1yHcvo7OI5MOgtM+OPwQGNwfuzRaFEhiWdGj
+  endpoint: ##Minio地址
+  access-key: ##Minio Ak
+  secret-key: ##Minio Sk

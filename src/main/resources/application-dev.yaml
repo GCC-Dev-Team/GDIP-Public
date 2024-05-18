@@ -2,35 +2,36 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://114.132.67.226:3306/devqing
-    username: xiaoli
-    password: abC123456@
-
+    ##配置自己的数据库密码和账号以及地址
+    url:
+    username:
+    password:
+  ##配置自己的redis密码和账号,地址以及数据库
   redis:
-    host: 114.132.67.226
-    port: 6379
-    password: abC123456@
-    database: 1
-
+    host:
+    port:
+    password:
+    database:
+  ##配置自己的MongoDB密码和账号,地址以及数据库
   data:
     mongodb:
-      host: 114.132.67.226
-      port: 27017
-      database: mydatabase
-      password: 6jramg04
-      username: xiaoli
+      host:
+      port:
+      database:
+      password:
+      username:
 
 
 ##开发服务器
 server:
   port: 443
   ssl:
-    key-store: classpath:www.xiaoligongzuoshi.top.pfx
-    key-store-password: 6jramg04
+    key-store: ##classpath: 域名证书
+    key-store-password: ##证书密码
     key-store-type: PKCS12
 
 ##对象存储配置(开发服务器minio地址)
 oss:
-  endpoint: https://guangxiaoqing.com:9000
-  access-key: XNQOMIJA60VZCA76WLMW
-  secret-key: 8dfi1yHcvo7OI5MOgtM+OPwQGNwfuzRaFEhiWdGj
+  endpoint: ##Minio地址
+  access-key: ##Minio Ak
+  secret-key: ##Minio Sk
