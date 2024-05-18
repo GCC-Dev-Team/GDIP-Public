@@ -1,0 +1,342 @@
+@startuml
+class com.example.model.entity.LikeDislike {
+- String id
+- String userid
+- String commentId
+- Integer status
+- Date createdAt
+- Date updatedAt
+- {static} long serialVersionUID
++ boolean equals(Object)
++ int hashCode()
++ String toString()
+}
+
+
+class com.example.model.entity.SchoolArea {
+- Integer id
+- String code
+- String name
+- String school
+- String campus
+- String area
+- {static} long serialVersionUID
++ boolean equals(Object)
++ int hashCode()
++ String toString()
+}
+
+
+class com.example.model.entity.Category {
+- String id
+- String categoryName
+- String adder
+- Date createdAt
+- Date updatedAt
+- {static} long serialVersionUID
++ boolean equals(Object)
++ int hashCode()
++ String toString()
+}
+
+
+class com.example.model.entity.Refund {
+- String outRefundNo
+- String outTradeNo
+- Integer totalFee
+- Integer refundFee
+- String statusCode
+- Integer statusNumber
+- Date createTime
+- Date updateTime
+- {static} long serialVersionUID
++ boolean equals(Object)
++ int hashCode()
++ String toString()
+}
+
+
+class com.example.model.entity.Task {
+- String id
+- String activityTitle
+- String activityDescription
+- String imageUrl
+- Integer numberOfParticipants
+- String location
+- Date startTime
+- Date endTime
+- String signOutCode
+- Integer status
+- Double price
+- String initiator
+- Date createdTime
+- Date updatedTime
+- int people
+- {static} long serialVersionUID
++ boolean equals(Object)
++ int hashCode()
++ String toString()
+}
+
+
+class com.example.model.entity.Forum {
+- String id
+- String title
+- String surfaceImage
+- String publisher
+- String surfaceDescription
+- String mdFileUrl
+- Integer views
+- String category
+- Date createdAt
+- Date updatedAt
+- {static} long serialVersionUID
++ boolean equals(Object)
++ int hashCode()
++ String toString()
+}
+
+
+class com.example.model.entity.Province {
+- Integer id
+- Long code
+- String name
+- String province
+- String city
+- String area
+- String town
+- {static} long serialVersionUID
++ boolean equals(Object)
++ int hashCode()
++ String toString()
+}
+
+
+class com.example.model.entity.ReplyComment {
+- String replyId
+- String userId
+- String commentId
+- String content
+- Integer likes
+- Integer dislikes
+- Date createdAt
+- Date updatedAt
+- {static} long serialVersionUID
++ boolean equals(Object)
++ int hashCode()
++ String toString()
+}
+
+
+class com.example.model.entity.Wxuser {
+- String id
+- String openid
+- Integer role
+- String userName
+- Integer state
+- String avatar
+- String phoneNumber
+- String password
+- String studentNumber
+- String passwordJw
+- String passwordPay
+- Date createTime
+- Date updateTime
+- Double balance
+- {static} long serialVersionUID
++ boolean equals(Object)
++ int hashCode()
++ String toString()
+}
+
+
+class com.example.model.entity.Comment {
+- String commentId
+- String postId
+- String commenterId
+- String commentContent
+- Integer likes
+- Integer dislikes
+- Date createdAt
+- Date updatedAt
+- Integer subCommentCount
+- {static} long serialVersionUID
++ boolean equals(Object)
++ int hashCode()
++ String toString()
+}
+
+
+class com.example.model.entity.Followers {
+- String followId
+- String userId
+- String followedUserId
+- Date createdTime
+- Date updatedTime
+- {static} long serialVersionUID
++ boolean equals(Object)
++ int hashCode()
++ String toString()
+}
+
+
+class com.example.model.entity.LinkTask {
+- String id
+- String taskId
+- String participantId
+- Integer isSignedOut
+- Date createdTime
+- Date updatedTime
+- {static} long serialVersionUID
++ boolean equals(Object)
++ int hashCode()
++ String toString()
+}
+
+
+class com.example.model.entity.Payment {
+- String outTradeNo
+- String productId
+- String statusCode
+- Integer statusNumber
+- String recipient
+- String payer
+- String packageValue
+- String paySign
+- String timeStamp
+- String nonceStr
+- String signType
+- Date createdAt
+- Date updatedAt
+- {static} long serialVersionUID
++ boolean equals(Object)
++ int hashCode()
++ String toString()
+}
+
+
+class com.example.model.entity.Product {
+- String productId
+- String productTitle
+- Double productPrice
+- String productUnit
+- String productDescription
+- String productImage
+- String frontImage
+- Integer productStatus
+- String productAddress
+- String publisherId
+- Integer favoritesCount
+- Integer viewsCount
+- Date createdTime
+- Date updatedTime
+- {static} long serialVersionUID
++ boolean equals(Object)
++ int hashCode()
++ String toString()
+}
+
+
+class com.example.model.entity.Course {
+- String schoolId
+- String myCourse
+}
+
+class com.example.model.entity.Address {
+- String id
+- String regionId
+- String regionName
+- String detailedAddress
+- String creator
+- Date createdTime
+- Date updatedTime
+- {static} long serialVersionUID
++ boolean equals(Object)
++ int hashCode()
++ String toString()
+}
+
+
+class com.example.model.entity.StudentAudits {
+- String auditId
+- String userId
+- Integer state
+- String remarks
+- String auditImageUrl
+- Date createdAt
+- Date updatedAt
+- String studentid
+- {static} long serialVersionUID
++ boolean equals(Object)
++ int hashCode()
++ String toString()
+}
+
+
+class com.example.model.entity.BalanceRecords {
+- String balanceId
+- String userId
+- Double currentBalance
+- Integer balanceType
+- Double balanceChange
+- String withdrawalOrderId
+- String paymentOrderId
+- Date createdAt
+- Date updatedAt
+- {static} long serialVersionUID
++ boolean equals(Object)
++ int hashCode()
++ String toString()
+}
+
+
+class com.example.model.entity.Withdrawal {
+- String withdrawalId
+- String userId
+- Integer status
+- Double withdrawalAmount
+- String withdrawalPassword
+- Date createdAt
+- Date updatedAt
+- {static} long serialVersionUID
++ boolean equals(Object)
++ int hashCode()
++ String toString()
+}
+
+
+class com.example.model.entity.Favorites {
+- String favoriteId
+- String favoriteProductId
+- String favoriteUserId
+- Date createdTime
+- Date updatedTime
+- {static} long serialVersionUID
++ boolean equals(Object)
++ int hashCode()
++ String toString()
+}
+
+
+
+
+java.io.Serializable <|.. com.example.model.entity.LikeDislike
+java.io.Serializable <|.. com.example.model.entity.SchoolArea
+java.io.Serializable <|.. com.example.model.entity.Category
+java.io.Serializable <|.. com.example.model.entity.Refund
+java.io.Serializable <|.. com.example.model.entity.Task
+java.io.Serializable <|.. com.example.model.entity.Forum
+java.io.Serializable <|.. com.example.model.entity.Province
+java.io.Serializable <|.. com.example.model.entity.ReplyComment
+java.io.Serializable <|.. com.example.model.entity.Wxuser
+java.io.Serializable <|.. com.example.model.entity.Comment
+java.io.Serializable <|.. com.example.model.entity.Followers
+java.io.Serializable <|.. com.example.model.entity.LinkTask
+java.io.Serializable <|.. com.example.model.entity.Payment
+java.io.Serializable <|.. com.example.model.entity.Product
+java.io.Serializable <|.. com.example.model.entity.Address
+java.io.Serializable <|.. com.example.model.entity.StudentAudits
+java.io.Serializable <|.. com.example.model.entity.BalanceRecords
+java.io.Serializable <|.. com.example.model.entity.Withdrawal
+java.io.Serializable <|.. com.example.model.entity.Favorites
+@enduml
