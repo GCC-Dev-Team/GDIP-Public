@@ -38,8 +38,10 @@
 
 
 3. **运行镜像**:
-   1. 运行环境镜像 : `docker run -d -p 3306:3306 -p 6379:6379 -p 27017:27017 -p 9000:9000 --name evn evn:latest`
-   2. 运行程序镜像: `docker run -d -p 443:443 --name run run:latest`
+   1. 创建共享网络: `docker network create evn_net`
+   2. 运行环境镜像 : `docker run -d --network=evn_net -p 3306:3306 -p 6379:6379 -p 27017:27017 -p 9000:9000 --name evn evn:latest`
+   3. 运行程序镜像: `docker run -d -p 443:443 --network=evn_net --name run run:latest`
+
 ### 简述
 
 目前市场上的主流校园小程序包括有料同学、百度贴吧(校园吧)、零点校园、叮点校园等。然而，这些应用存在诸多问题，如页面设计不够美观、广告泛滥、隐藏广告关闭按钮、功能少等。
